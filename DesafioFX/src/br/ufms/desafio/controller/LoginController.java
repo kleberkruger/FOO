@@ -16,9 +16,28 @@
  */
 package br.ufms.desafio.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -26,9 +45,65 @@ import javafx.fxml.Initializable;
  */
 public class LoginController implements Initializable {
 
+    @FXML
+    private Button fxEntrar;
+
+    @FXML
+    private TextField fxUsuario;
+
+    @FXML
+    private PasswordField fxSenha;
+
+    @FXML
+    private Label fxMensagem;
+
+    @FXML
+    private Hyperlink fxEsqueciSenha;
+
+    @FXML
+    private ProgressIndicator fxProgresso;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    @FXML
+    private void fxEntrarOnAction(ActionEvent event) {
+//        mostrarMensagem("Aparecer");
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException ex) {
+//            mostrarMensagem("Apagar");
+//        }
+        if (fxUsuario.getText().isEmpty() || fxSenha.getText().isEmpty()) {
+            mostrarMensagem("Digite usuário e senha.");
+        } else if (fxUsuario.getText().equals("admin") && fxSenha.getText().equals("admin")) {
+
+            try {
+
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
+                        "br/ufms/desafio/view/fxml/Principal.fxml"));
+                Scene scene = new Scene(root);
+
+                Stage janelaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                janelaAtual.setScene(scene);
+                janelaAtual.centerOnScreen();
+                
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        } else {
+            mostrarMensagem("Usuário e senha incorretos.");
+        }
+    }
+
+    private void mostrarMensagem(String msg) {
+        fxProgresso.setVisible(false);
+        fxEsqueciSenha.setVisible(false);
+        fxMensagem.setVisible(true);
+        fxMensagem.setText(msg);
+    }
 }
