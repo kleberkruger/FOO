@@ -19,10 +19,8 @@ package br.ufms.desafio.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,13 +28,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -76,6 +72,23 @@ public class LoginController implements Initializable {
 //        } catch (InterruptedException ex) {
 //            mostrarMensagem("Apagar");
 //        }
+//        Task<Integer> task = new Task<Integer>() {
+//            
+//            @Override
+//            protected Integer call() throws Exception {
+//                int iterations;
+//                for (iterations = 0; iterations < 100000; iterations++) {
+//                    if (isCancelled()) {
+//                        break;
+//                    }
+//                    System.out.println("Iteration " + iterations);
+//                }
+//                return iterations;
+//            }
+//        };
+//        
+//        task.run();
+        
         if (fxUsuario.getText().isEmpty() || fxSenha.getText().isEmpty()) {
             mostrarMensagem("Digite usuário e senha.");
         } else if (fxUsuario.getText().equals("admin") && fxSenha.getText().equals("admin")) {
@@ -90,7 +103,7 @@ public class LoginController implements Initializable {
                 Stage janelaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 janelaAtual.setScene(scene);
                 janelaAtual.centerOnScreen();
-                
+
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }

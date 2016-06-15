@@ -16,15 +16,38 @@
  */
 package br.ufms.desafio.model;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  *
  * @author kleberkruger
  */
-public class Usuario {
+public class Usuario implements Serializable {
     
-    protected String nome;
-    protected String usuario;
-    protected String senha;
+    private Long codigo;
+    private String nome;
+    private String usuario;
+    private String senha;
+    private LocalDate criacao;
+    private String email;
+    private List<Telefone> telefone;
+    private Endereco endereco;
+
+    /**
+     * @return the codigo
+     */
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
     /**
      * @return the nome
@@ -67,5 +90,60 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
+    /**
+     * @return the criacao
+     */
+    public LocalDate getCriacao() {
+        return criacao;
+    }
+
+    /**
+     * @param criacao the criacao to set
+     */
+    public void setCriacao(LocalDate criacao) {
+        this.criacao = criacao;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the telefone
+     */
+    public List<Telefone> getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    } 
 }
