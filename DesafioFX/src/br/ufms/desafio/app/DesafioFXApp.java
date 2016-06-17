@@ -16,10 +16,6 @@
  */
 package br.ufms.desafio.app;
 
-import br.ufms.desafio.model.bean.Escola;
-import br.ufms.desafio.model.bean.Professor;
-import br.ufms.desafio.model.dao.EscolaDAO;
-import br.ufms.desafio.model.dao.ProfessorDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
