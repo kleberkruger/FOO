@@ -14,45 +14,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class Escola extends Usuario implements Serializable {
+public class Responsavel extends Jogador {
     
-    private List<Professor> professores;
-    private List<Turma> turmas;
+    private String cpf;
+    private List<Aluno> dependentes;
 
     /**
-     * @return the professores
+     * @return the cpf
      */
-    public List<Professor> getProfessores() {
-        return professores;
+    public String getCpf() {
+        return cpf;
     }
 
     /**
-     * @param professores the professores to set
+     * @param cpf the cpf to set
      */
-    public void setProfessores(List<Professor> professores) {
-        this.professores = professores;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     /**
-     * @return the turmas
+     * @return the dependentes
      */
-    public List<Turma> getTurmas() {
-        return turmas;
+    public List<Aluno> getDependentes() {
+        return dependentes;
     }
 
     /**
-     * @param turmas the turmas to set
+     * @param dependentes the dependentes to set
      */
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+    public void setDependentes(List<Aluno> dependentes) {
+        this.dependentes = dependentes;
     }
 }

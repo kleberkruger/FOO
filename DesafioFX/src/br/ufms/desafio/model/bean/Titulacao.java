@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.bean;
 
 /**
  *
  * @author angelino.caon
  */
-public enum TipoTelefone {
-    
-    CELULAR, RESIDENCIAL, COMERCIAL, FAX
+public enum Titulacao {
+
+    GRADUANDO, GRADUADO, ESPECIALISTA, MESTRE, DOUTOR, POS_DOUTOR
 }

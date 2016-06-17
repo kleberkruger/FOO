@@ -14,13 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.bean;
+
+import java.io.Serializable;
 
 /**
- *
- * @author angelino.caon
+ * Classe que armazenará as estatísticas futuras de cada jogador.
+ * 
+ * @author Kleber Kruger
  */
-public enum Titulacao {
-
-    GRADUANDO, GRADUADO, ESPECIALISTA, MESTRE, DOUTOR, POS_DOUTOR
+public class Desempenho implements Serializable {
+    
 }

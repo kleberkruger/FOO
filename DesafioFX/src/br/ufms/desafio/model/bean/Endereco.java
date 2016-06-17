@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.bean;
 
 import java.io.Serializable;
 
@@ -22,12 +22,14 @@ import java.io.Serializable;
  *
  * @author angelino.caon
  */
-public class Telefone implements Serializable {
+public class Endereco implements Serializable {
     
     private Long codigo;
-    private Integer ddd;
-    private Integer numero;
-    private TipoTelefone tipo;
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cep;
+    private Municipio municipio;
 
     /**
      * @return the codigo
@@ -44,44 +46,72 @@ public class Telefone implements Serializable {
     }
 
     /**
-     * @return the ddd
+     * @return the logradouro
      */
-    public Integer getDdd() {
-        return ddd;
+    public String getLogradouro() {
+        return logradouro;
     }
 
     /**
-     * @param ddd the ddd to set
+     * @param logradouro the logradouro to set
      */
-    public void setDdd(Integer ddd) {
-        this.ddd = ddd;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     /**
      * @return the numero
      */
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
     /**
      * @param numero the numero to set
      */
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
     /**
-     * @return the tipo
+     * @return the bairro
      */
-    public TipoTelefone getTipo() {
-        return tipo;
+    public String getBairro() {
+        return bairro;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param bairro the bairro to set
      */
-    public void setTipo(TipoTelefone tipo) {
-        this.tipo = tipo;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    /**
+     * @return the cep
+     */
+    public String getCep() {
+        return cep;
+    }
+
+    /**
+     * @param cep the cep to set
+     */
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    /**
+     * @return the municipio
+     */
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    /**
+     * @param municipio the municipio to set
+     */
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 }

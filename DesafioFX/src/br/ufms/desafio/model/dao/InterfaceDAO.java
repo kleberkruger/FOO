@@ -14,15 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.dao;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
- * Classe que armazenará as estatísticas futuras de cada jogador.
- * 
- * @author Kleber Kruger
+ *
+ * @author angelino.caon
+ * @param <T>
  */
-public class Desempenho implements Serializable {
+public interface InterfaceDAO<T> {
     
+    public void save(T bean);
+    public void update(T bean);
+    public void saveOrUpdate(T bean);
+    public void delete(T bean);
+    public void delete(long codigo);
+    public void get(long codigo);
+    public List<T> getAll();
 }

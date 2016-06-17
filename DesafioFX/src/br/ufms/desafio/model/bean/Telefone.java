@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
+package br.ufms.desafio.model.bean;
 
 import java.io.Serializable;
 
@@ -22,12 +22,12 @@ import java.io.Serializable;
  *
  * @author angelino.caon
  */
-public class Municipio implements Serializable {
+public class Telefone implements Serializable {
     
     private Long codigo;
-    private Long codigoIBGE;
-    private String nome;
-    private String uf;
+    private Integer ddd;
+    private Integer numero;
+    private TipoTelefone tipo;
 
     /**
      * @return the codigo
@@ -44,44 +44,44 @@ public class Municipio implements Serializable {
     }
 
     /**
-     * @return the codigoIBGE
+     * @return the ddd
      */
-    public Long getCodigoIBGE() {
-        return codigoIBGE;
+    public Integer getDdd() {
+        return ddd;
     }
 
     /**
-     * @param codigoIBGE the codigoIBGE to set
+     * @param ddd the ddd to set
      */
-    public void setCodigoIBGE(Long codigoIBGE) {
-        this.codigoIBGE = codigoIBGE;
+    public void setDdd(Integer ddd) {
+        this.ddd = ddd;
     }
 
     /**
-     * @return the nome
+     * @return the numero
      */
-    public String getNome() {
-        return nome;
+    public Integer getNumero() {
+        return numero;
     }
 
     /**
-     * @param nome the nome to set
+     * @param numero the numero to set
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     /**
-     * @return the uf
+     * @return the tipo
      */
-    public String getUf() {
-        return uf;
+    public TipoTelefone getTipo() {
+        return tipo;
     }
 
     /**
-     * @param uf the uf to set
+     * @param tipo the tipo to set
      */
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setTipo(TipoTelefone tipo) {
+        this.tipo = tipo;
     }
 }

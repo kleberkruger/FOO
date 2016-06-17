@@ -14,44 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model;
-
-import java.util.List;
+package br.ufms.desafio.model.bean;
 
 /**
  *
  * @author angelino.caon
  */
-public class Responsavel extends Jogador {
+public enum Deficiencia {
     
-    private String cpf;
-    private List<Aluno> dependentes;
-
-    /**
-     * @return the cpf
-     */
-    public String getCpf() {
-        return cpf;
-    }
-
-    /**
-     * @param cpf the cpf to set
-     */
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    /**
-     * @return the dependentes
-     */
-    public List<Aluno> getDependentes() {
-        return dependentes;
-    }
-
-    /**
-     * @param dependentes the dependentes to set
-     */
-    public void setDependentes(List<Aluno> dependentes) {
-        this.dependentes = dependentes;
-    }
+    AUDITIVA, FISICA, MENTAL, VISUAL
 }
