@@ -32,13 +32,13 @@ public class DesafioFXApp extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-        
+
         // Carrega arquivo fxml do pacote view.fxml
         Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
                 "br/ufms/desafio/view/fxml/Login.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         // Adiciona o arquivo CSS para a personalização desta cena
         scene.getStylesheets().add(getClass().getClassLoader().getResource(
                 "br/ufms/desafio/view/css/desafio.css").toExternalForm());
