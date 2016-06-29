@@ -17,47 +17,44 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Responsavel;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class ResponsavelDAO implements InterfaceDAO<Responsavel> {
+public class ResponsavelDAO extends GenericDAO<Responsavel> {
 
     @Override
-    public void save(Responsavel bean) {
+    public void save(Responsavel bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Responsavel bean) {
+    public void update(Responsavel bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveOrUpdate(Responsavel bean) {
+    public void delete(Responsavel bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Responsavel bean) {
+    public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) {
+    public Responsavel get(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void get(long codigo) {
+    public List<Responsavel> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Responsavel> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+   
 }

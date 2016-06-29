@@ -17,47 +17,44 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Endereco;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class EnderecoDAO implements InterfaceDAO<Endereco> {
+public class EnderecoDAO extends GenericDAO<Endereco> {
 
     @Override
-    public void save(Endereco bean) {
+    public void save(Endereco bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Endereco bean) {
+    public void update(Endereco bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveOrUpdate(Endereco bean) {
+    public void delete(Endereco bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Endereco bean) {
+    public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) {
+    public Endereco get(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void get(long codigo) {
+    public List<Endereco> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Endereco> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
 }

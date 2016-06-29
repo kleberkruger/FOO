@@ -23,28 +23,13 @@ import java.util.List;
  *
  * @author angelino.caon
  */
-public class Turma implements Serializable {
-    
-    private Long codigo;
+public class Turma extends Bean implements Serializable {
+
     private String nome;
     private Professor responsavel;
     private Escola escola;
     private List<Aluno> alunos;
     private Periodo periodo;
-
-    /**
-     * @return the codigo
-     */
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
 
     /**
      * @return the nome

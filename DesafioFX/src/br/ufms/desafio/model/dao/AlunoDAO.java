@@ -17,47 +17,42 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Aluno;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class AlunoDAO implements InterfaceDAO<Aluno> {
+public class AlunoDAO extends GenericDAO<Aluno> {
 
     @Override
-    public void save(Aluno bean) {
+    public void save(Aluno bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Aluno bean) {
+    public void update(Aluno bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveOrUpdate(Aluno bean) {
+    public void delete(Aluno bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Aluno bean) {
+    public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) {
+    public Aluno get(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void get(long codigo) {
+    public List<Aluno> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public List<Aluno> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

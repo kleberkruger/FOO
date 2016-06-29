@@ -17,46 +17,57 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Municipio;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class MunicipioDAO implements InterfaceDAO<Municipio> {
+public class MunicipioDAO extends GenericDAO<Municipio> {
 
     @Override
-    public void save(Municipio bean) {
+    public void save(Municipio bean) throws SQLException {
+        String sql = "INSERT INTO desafio.municipio (codigo_ibge, nome, uf) VALUES (?, ?, ?)";
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setLong(1, bean.getCodigoIBGE());
+            ps.setString(2, bean.getNome());
+            ps.setString(3, bean.getUF());
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.first()) {
+                    bean.setCodigo(rs.getLong(1));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void update(Municipio bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Municipio bean) {
+    public void delete(Municipio bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveOrUpdate(Municipio bean) {
+    public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Municipio bean) {
+    public Municipio get(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void get(long codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Municipio> getAll() {
+    public List<Municipio> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

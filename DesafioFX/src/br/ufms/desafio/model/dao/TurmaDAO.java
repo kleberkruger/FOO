@@ -17,47 +17,44 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Turma;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author angelino.caon
  */
-public class TurmaDAO implements InterfaceDAO<Turma> {
+public class TurmaDAO extends GenericDAO<Turma> {
 
     @Override
-    public void save(Turma bean) {
+    public void save(Turma bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Turma bean) {
+    public void update(Turma bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveOrUpdate(Turma bean) {
+    public void delete(Turma bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Turma bean) {
+    public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) {
+    public Turma get(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void get(long codigo) {
+    public List<Turma> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Turma> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+   
 }

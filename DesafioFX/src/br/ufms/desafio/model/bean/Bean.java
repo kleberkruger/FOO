@@ -16,13 +16,25 @@
  */
 package br.ufms.desafio.model.bean;
 
-import java.io.Serializable;
-
 /**
- * Classe que armazenará as estatísticas futuras de cada jogador.
- * 
- * @author Kleber Kruger
+ *
+ * @author angelino.caon
  */
-public class Desempenho extends Bean implements Serializable {
+public class Bean {
     
+    private Long codigo;
+
+    /**
+     * @return the codigo
+     */
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 }

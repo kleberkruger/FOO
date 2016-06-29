@@ -22,28 +22,13 @@ import java.io.Serializable;
  *
  * @author angelino.caon
  */
-public class Endereco implements Serializable {
-    
-    private Long codigo;
+public class Endereco extends Bean implements Serializable {
+
     private String logradouro;
     private String numero;
     private String bairro;
     private String cep;
     private Municipio municipio;
-
-    /**
-     * @return the codigo
-     */
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
 
     /**
      * @return the logradouro

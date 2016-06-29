@@ -24,9 +24,8 @@ import java.util.List;
  *
  * @author kleberkruger
  */
-public class Usuario implements Serializable {
-    
-    private Long codigo;
+public class Usuario extends Bean implements Serializable {
+
     private String nome;
     private String usuario;
     private String senha;
@@ -34,20 +33,6 @@ public class Usuario implements Serializable {
     private String email;
     private List<Telefone> telefone;
     private Endereco endereco;
-
-    /**
-     * @return the codigo
-     */
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
 
     /**
      * @return the nome
@@ -145,5 +130,5 @@ public class Usuario implements Serializable {
      */
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    } 
+    }
 }

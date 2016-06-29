@@ -22,26 +22,11 @@ import java.io.Serializable;
  *
  * @author angelino.caon
  */
-public class Telefone implements Serializable {
+public class Telefone extends Bean implements Serializable {
     
-    private Long codigo;
     private Integer ddd;
     private Integer numero;
     private TipoTelefone tipo;
-
-    /**
-     * @return the codigo
-     */
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
 
     /**
      * @return the ddd

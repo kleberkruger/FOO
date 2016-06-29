@@ -22,26 +22,11 @@ import java.io.Serializable;
  *
  * @author angelino.caon
  */
-public class Municipio implements Serializable {
-    
-    private Long codigo;
+public class Municipio extends Bean implements Serializable {
+
     private Long codigoIBGE;
     private String nome;
     private String uf;
-
-    /**
-     * @return the codigo
-     */
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
 
     /**
      * @return the codigoIBGE
@@ -74,14 +59,14 @@ public class Municipio implements Serializable {
     /**
      * @return the uf
      */
-    public String getUf() {
+    public String getUF() {
         return uf;
     }
 
     /**
      * @param uf the uf to set
      */
-    public void setUf(String uf) {
+    public void setUF(String uf) {
         this.uf = uf;
     }
 }
