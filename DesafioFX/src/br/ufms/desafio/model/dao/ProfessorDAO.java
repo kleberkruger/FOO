@@ -37,11 +37,6 @@ public class ProfessorDAO extends GenericDAO<Professor> {
     }
 
     @Override
-    public void delete(Professor bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void delete(long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

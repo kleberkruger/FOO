@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ import java.util.List;
 public class MunicipioDAO extends GenericDAO<Municipio> {
 
     @Override
-    public void save(Municipio bean) throws SQLException {
+        public void save(Municipio bean) throws SQLException {
         String sql = "INSERT INTO desafio.municipio (codigo_ibge, nome, uf) VALUES (?, ?, ?)";
         try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
                 sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -48,27 +49,65 @@ public class MunicipioDAO extends GenericDAO<Municipio> {
 
     @Override
     public void update(Municipio bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Municipio bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "UPDATE desafio.municipio SET (codigo_ibge = ?, nome = ?, uf = ?) WHERE codigo = ?";
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            
+            ps.setLong(1, bean.getCodigoIBGE());
+            ps.setString(2, bean.getNome());
+            ps.setString(3, bean.getUF());
+            ps.setLong(4, bean.getCodigo());
+            ps.executeUpdate();
+        }
     }
 
     @Override
     public void delete(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM desafio.municipio WHERE codigo = ?";
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            
+            ps.setLong(1, codigo);
+            ps.executeUpdate();
+        }
     }
 
     @Override
     public Municipio get(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM desafio.municipio WHERE codigo = ?";
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {  
+            ps.setLong(1, codigo);            
+            try (ResultSet rs = ps.executeQuery();) {
+                if (rs.first()) {
+                    Municipio m = new Municipio();
+                    m.setCodigo(rs.getLong("codigo"));
+                    m.setCodigoIBGE(rs.getLong("codigo_ibge"));
+                    m.setNome(rs.getString("nome"));
+                    m.setUF(rs.getString("uf"));
+                    return m;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public List<Municipio> getAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM desafio.municipio";
+        List<Municipio> municipios = new ArrayList<>();
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {             
+            try (ResultSet rs = ps.executeQuery();) {
+                while(rs.next()) {
+                    Municipio m = new Municipio();
+                    m.setCodigo(rs.getLong("codigo"));
+                    m.setCodigoIBGE(rs.getLong("codigo_ibge"));
+                    m.setNome(rs.getString("nome"));
+                    m.setUF(rs.getString("uf"));
+                    municipios.add(m);
+                }
+            }
+        }
+        return municipios;
     }
 
 }

@@ -18,8 +18,13 @@ package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Bean;
 import br.ufms.desafio.util.Database;
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,14 +34,23 @@ import java.util.List;
 public abstract class GenericDAO<T extends Bean> {
 
     protected Database db = new Database();
-    
+    protected Class<T> clazz;
+
+    public GenericDAO() {
+
+    }
+
+    public GenericDAO(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
     /**
      * @return the db
      */
     public Database getDatabase() {
         return db;
     }
-    
+
     public abstract void save(T bean) throws SQLException;
 
     public abstract void update(T bean) throws SQLException;
@@ -49,11 +63,13 @@ public abstract class GenericDAO<T extends Bean> {
         }
     }
 
-    public abstract void delete(T bean) throws SQLException;
+    public void delete(T bean) throws SQLException {
+        delete(bean.getCodigo());
+    }
 
     public abstract void delete(long codigo) throws SQLException;
 
     public abstract T get(long codigo) throws SQLException;
 
-    public abstract List<T> getAll() throws SQLException; 
+    public abstract List<T> getAll() throws SQLException;
 }
