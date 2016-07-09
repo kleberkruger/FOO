@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
 public class Escola extends Usuario implements Serializable {
     

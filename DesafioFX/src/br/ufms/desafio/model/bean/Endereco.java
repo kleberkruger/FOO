@@ -20,12 +20,14 @@ import java.io.Serializable;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
 public class Endereco extends Bean implements Serializable {
 
     private String logradouro;
-    private String numero;
+    private Integer numero;
+    private Boolean sn;
+    private String complemento;
     private String bairro;
     private String cep;
     private Municipio municipio;
@@ -47,15 +49,43 @@ public class Endereco extends Bean implements Serializable {
     /**
      * @return the numero
      */
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
     /**
      * @param numero the numero to set
      */
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    /**
+     * @return the sn
+     */
+    public Boolean getSn() {
+        return sn;
+    }
+
+    /**
+     * @param sn the sn to set
+     */
+    public void setSn(Boolean sn) {
+        this.sn = sn;
+    }
+
+    /**
+     * @return the complemento
+     */
+    public String getComplemento() {
+        return complemento;
+    }
+
+    /**
+     * @param complemento the complemento to set
+     */
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     /**
@@ -99,4 +129,5 @@ public class Endereco extends Bean implements Serializable {
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
     }
+
 }

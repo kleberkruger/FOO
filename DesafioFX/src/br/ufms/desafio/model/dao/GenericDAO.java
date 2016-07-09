@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,34 +18,17 @@ package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Bean;
 import br.ufms.desafio.util.Database;
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Kleber Kruger
  * @param <T>
  */
-public abstract class GenericDAO<T extends Bean> {
-
-    protected Database db = new Database();
-    protected Class<T> clazz;
-
-    public GenericDAO() {
-
-    }
-
-    public GenericDAO(Class<T> clazz) {
-        this.clazz = clazz;
-    }
+public abstract class GenericDAO<T extends Bean> extends ReadOnlyDAO<T> {
 
     /**
-     * @return the db
+     * @return the database object
      */
     public Database getDatabase() {
         return db;
@@ -68,8 +51,5 @@ public abstract class GenericDAO<T extends Bean> {
     }
 
     public abstract void delete(long codigo) throws SQLException;
-
-    public abstract T get(long codigo) throws SQLException;
-
-    public abstract List<T> getAll() throws SQLException;
+    
 }

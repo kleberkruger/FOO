@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +20,28 @@ import java.io.Serializable;
 
 /**
  *
- * @author angelino.caon
+ * @author Kleber Kruger
  */
 public class Telefone extends Bean implements Serializable {
-    
+
+    private TipoTelefone tipo;
     private Integer ddd;
     private Integer numero;
-    private TipoTelefone tipo;
+    private Boolean principal;
+
+    /**
+     * @return the tipo
+     */
+    public TipoTelefone getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(TipoTelefone tipo) {
+        this.tipo = tipo;
+    }
 
     /**
      * @return the ddd
@@ -57,16 +72,17 @@ public class Telefone extends Bean implements Serializable {
     }
 
     /**
-     * @return the tipo
+     * @return the principal
      */
-    public TipoTelefone getTipo() {
-        return tipo;
+    public Boolean getPrincipal() {
+        return principal;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param principal the principal to set
      */
-    public void setTipo(TipoTelefone tipo) {
-        this.tipo = tipo;
+    public void setPrincipal(Boolean principal) {
+        this.principal = principal;
     }
+
 }

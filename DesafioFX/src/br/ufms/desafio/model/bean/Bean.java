@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@ package br.ufms.desafio.model.bean;
 
 /**
  *
- * @author angelino.caon
+ * @author Kleber Kruger
  */
 public class Bean {
     
@@ -37,4 +37,5 @@ public class Bean {
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
+    
 }

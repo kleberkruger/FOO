@@ -28,49 +28,49 @@ import java.util.List;
  *
  * @author angelino.caon
  */
-public class MunicipioDAO extends GenericDAO<Municipio> {
+public class MunicipioDAO extends ReadOnlyDAO<Municipio> {
 
-    @Override
-        public void save(Municipio bean) throws SQLException {
-        String sql = "INSERT INTO desafio.municipio (codigo_ibge, nome, uf) VALUES (?, ?, ?)";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setLong(1, bean.getCodigoIBGE());
-            ps.setString(2, bean.getNome());
-            ps.setString(3, bean.getUF());
-            ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.first()) {
-                    bean.setCodigo(rs.getLong(1));
-                }
-            }
-        }
-    }
-
-    @Override
-    public void update(Municipio bean) throws SQLException {
-        String sql = "UPDATE desafio.municipio SET (codigo_ibge = ?, nome = ?, uf = ?) WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            
-            ps.setLong(1, bean.getCodigoIBGE());
-            ps.setString(2, bean.getNome());
-            ps.setString(3, bean.getUF());
-            ps.setLong(4, bean.getCodigo());
-            ps.executeUpdate();
-        }
-    }
-
-    @Override
-    public void delete(long codigo) throws SQLException {
-        String sql = "DELETE FROM desafio.municipio WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            
-            ps.setLong(1, codigo);
-            ps.executeUpdate();
-        }
-    }
+//    @Override
+//        public void save(Municipio bean) throws SQLException {
+//        String sql = "INSERT INTO desafio.municipio (codigo_ibge, nome, uf) VALUES (?, ?, ?)";
+//        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+//                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+//            ps.setLong(1, bean.getCodigo());
+//            ps.setString(2, bean.getNome());
+//            ps.setString(3, bean.getUF());
+//            ps.executeUpdate();
+//            try (ResultSet rs = ps.getGeneratedKeys()) {
+//                if (rs.first()) {
+//                    bean.setCodigo(rs.getLong(1));
+//                }
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void update(Municipio bean) throws SQLException {
+//        String sql = "UPDATE desafio.municipio SET (codigo_ibge = ?, nome = ?, uf = ?) WHERE codigo = ?";
+//        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+//                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+//            
+//            ps.setLong(1, bean.getCodigo());
+//            ps.setString(2, bean.getNome());
+//            ps.setString(3, bean.getUF());
+//            ps.setLong(4, bean.getCodigo());
+//            ps.executeUpdate();
+//        }
+//    }
+//
+//    @Override
+//    public void delete(long codigo) throws SQLException {
+//        String sql = "DELETE FROM desafio.municipio WHERE codigo = ?";
+//        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
+//                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+//            
+//            ps.setLong(1, codigo);
+//            ps.executeUpdate();
+//        }
+//    }
 
     @Override
     public Municipio get(long codigo) throws SQLException {
@@ -80,8 +80,7 @@ public class MunicipioDAO extends GenericDAO<Municipio> {
             try (ResultSet rs = ps.executeQuery();) {
                 if (rs.first()) {
                     Municipio m = new Municipio();
-                    m.setCodigo(rs.getLong("codigo"));
-                    m.setCodigoIBGE(rs.getLong("codigo_ibge"));
+                    m.setCodigo(rs.getLong("codigo_ibge"));
                     m.setNome(rs.getString("nome"));
                     m.setUF(rs.getString("uf"));
                     return m;
@@ -99,8 +98,7 @@ public class MunicipioDAO extends GenericDAO<Municipio> {
             try (ResultSet rs = ps.executeQuery();) {
                 while(rs.next()) {
                     Municipio m = new Municipio();
-                    m.setCodigo(rs.getLong("codigo"));
-                    m.setCodigoIBGE(rs.getLong("codigo_ibge"));
+                    m.setCodigo(rs.getLong("codigo_ibge"));
                     m.setNome(rs.getString("nome"));
                     m.setUF(rs.getString("uf"));
                     municipios.add(m);

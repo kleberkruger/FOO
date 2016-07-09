@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
 public class Aluno extends Jogador implements Serializable {
     

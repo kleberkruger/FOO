@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,27 +20,12 @@ import java.io.Serializable;
 
 /**
  *
- * @author angelino.caon
+ * @author Kleber Kruger
  */
 public class Municipio extends Bean implements Serializable {
 
-    private Long codigoIBGE;
     private String nome;
     private String uf;
-
-    /**
-     * @return the codigoIBGE
-     */
-    public Long getCodigoIBGE() {
-        return codigoIBGE;
-    }
-
-    /**
-     * @param codigoIBGE the codigoIBGE to set
-     */
-    public void setCodigoIBGE(Long codigoIBGE) {
-        this.codigoIBGE = codigoIBGE;
-    }
 
     /**
      * @return the nome
@@ -69,4 +54,5 @@ public class Municipio extends Bean implements Serializable {
     public void setUF(String uf) {
         this.uf = uf;
     }
+    
 }

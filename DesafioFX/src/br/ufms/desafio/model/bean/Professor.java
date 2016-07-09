@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
 public class Professor extends Jogador implements Serializable {
     

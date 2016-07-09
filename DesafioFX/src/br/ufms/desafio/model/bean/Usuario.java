@@ -22,17 +22,17 @@ import java.util.List;
 
 /**
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class Usuario extends Bean implements Serializable {
 
     private String nome;
     private String usuario;
     private String senha;
-    private LocalDate criacao;
     private String email;
     private List<Telefone> telefone;
     private Endereco endereco;
+    private LocalDate criacao;
 
     /**
      * @return the nome
@@ -77,20 +77,6 @@ public class Usuario extends Bean implements Serializable {
     }
 
     /**
-     * @return the criacao
-     */
-    public LocalDate getCriacao() {
-        return criacao;
-    }
-
-    /**
-     * @param criacao the criacao to set
-     */
-    public void setCriacao(LocalDate criacao) {
-        this.criacao = criacao;
-    }
-
-    /**
      * @return the email
      */
     public String getEmail() {
@@ -131,4 +117,19 @@ public class Usuario extends Bean implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    /**
+     * @return the criacao
+     */
+    public LocalDate getCriacao() {
+        return criacao;
+    }
+
+    /**
+     * @param criacao the criacao to set
+     */
+    public void setCriacao(LocalDate criacao) {
+        this.criacao = criacao;
+    }
+
 }

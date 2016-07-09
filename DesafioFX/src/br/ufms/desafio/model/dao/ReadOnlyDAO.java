@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,25 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.controller;
+package br.ufms.desafio.model.dao;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import br.ufms.desafio.model.bean.Bean;
+import br.ufms.desafio.util.Database;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
- * FXML Controller class
  *
- * @author angelino.caon
+ * @author Kleber Kruger
+ * @param <T>
  */
-public class PrincipalController implements Initializable {
+public abstract class ReadOnlyDAO<T extends Bean> {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    protected Database db = new Database();
     
+    public abstract T get(long codigo) throws SQLException;
+
+    public abstract List<T> getAll() throws SQLException;
 }

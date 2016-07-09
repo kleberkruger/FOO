@@ -16,9 +16,6 @@
  */
 package br.ufms.desafio.app;
 
-import br.ufms.desafio.model.bean.Municipio;
-import br.ufms.desafio.model.dao.MunicipioDAO;
-import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +24,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class DesafioFXApp extends Application {
     
@@ -56,18 +53,7 @@ public class DesafioFXApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        Municipio municipio = new Municipio();
-        municipio.setCodigoIBGE(8l);
-        municipio.setNome("Pedro Gomes");
-        municipio.setUF("MS");
-        
-        MunicipioDAO dao = new MunicipioDAO();
-        try {
-            System.out.println(dao.getAll().size());
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
+        launch(args);
     }
     
 }

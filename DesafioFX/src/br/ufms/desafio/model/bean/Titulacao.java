@@ -18,7 +18,7 @@ package br.ufms.desafio.model.bean;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
 public enum Titulacao {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,13 +22,12 @@ import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author Kleber Kruger
  */
 public class Jogador extends Usuario implements Serializable {
-    
+
     private LocalDate nascimento;
     private List<Deficiencia> deficiencias;
-    private Desempenho desempenho;
 
     /**
      * @return the nascimento
@@ -58,17 +57,4 @@ public class Jogador extends Usuario implements Serializable {
         this.deficiencias = deficiencias;
     }
 
-    /**
-     * @return the desempenho
-     */
-    public Desempenho getDesempenho() {
-        return desempenho;
-    }
-
-    /**
-     * @param desempenho the desempenho to set
-     */
-    public void setDesempenho(Desempenho desempenho) {
-        this.desempenho = desempenho;
-    }
 }

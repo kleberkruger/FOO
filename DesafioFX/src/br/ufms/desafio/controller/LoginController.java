@@ -19,7 +19,6 @@ package br.ufms.desafio.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +26,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -37,12 +35,12 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    private Button fxEntrar;
+//    @FXML
+//    private Button fxEntrar;
 
     @FXML
     private TextField fxUsuario;
@@ -65,29 +63,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void fxEntrarOnAction(ActionEvent event) {
-//        mostrarMensagem("Aparecer");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException ex) {
-//            mostrarMensagem("Apagar");
-//        }
-//        Task<Integer> task = new Task<Integer>() {
-//            
-//            @Override
-//            protected Integer call() throws Exception {
-//                int iterations;
-//                for (iterations = 0; iterations < 100000; iterations++) {
-//                    if (isCancelled()) {
-//                        break;
-//                    }
-//                    System.out.println("Iteration " + iterations);
-//                }
-//                return iterations;
-//            }
-//        };
-//        
-//        task.run();
+    protected void fxEntrarOnAction(ActionEvent event) {
         
         if (fxUsuario.getText().isEmpty() || fxSenha.getText().isEmpty()) {
             mostrarMensagem("Digite usuário e senha.");
@@ -119,4 +95,5 @@ public class LoginController implements Initializable {
         fxMensagem.setVisible(true);
         fxMensagem.setText(msg);
     }
+    
 }
