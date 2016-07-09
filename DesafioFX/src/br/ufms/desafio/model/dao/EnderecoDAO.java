@@ -99,7 +99,7 @@ public class EnderecoDAO extends GenericDAO<Endereco> {
                     Endereco e = new Endereco();
                     e.setCodigo(rs.getLong("codigo"));
                     e.setLogradouro(rs.getString("logradouro"));
-                    e.setNumero(rs.getInt("numero"));
+                    e.setNumero(rs.getShort("numero"));
                     e.setSn(rs.getBoolean("s_n"));
                     e.setComplemento(rs.getString("complemento"));
                     e.setBairro(rs.getString("bairro"));
@@ -123,7 +123,7 @@ public class EnderecoDAO extends GenericDAO<Endereco> {
                     Endereco e = new Endereco();
                     e.setCodigo(rs.getLong("codigo"));
                     e.setLogradouro(rs.getString("logradouro"));
-                    e.setNumero(rs.getInt("numero"));
+                    e.setNumero(rs.getShort("numero"));
                     e.setSn(rs.getBoolean("s_n"));
                     e.setComplemento(rs.getString("complemento"));
                     e.setBairro(rs.getString("bairro"));

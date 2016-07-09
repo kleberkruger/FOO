@@ -24,10 +24,25 @@ import java.io.Serializable;
  */
 public class Telefone extends Bean implements Serializable {
 
+    private Usuario usuario;
     private TipoTelefone tipo;
     private Integer ddd;
     private Integer numero;
     private Boolean principal;
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     /**
      * @return the tipo
@@ -46,14 +61,14 @@ public class Telefone extends Bean implements Serializable {
     /**
      * @return the ddd
      */
-    public Integer getDdd() {
+    public Integer getDDD() {
         return ddd;
     }
 
     /**
      * @param ddd the ddd to set
      */
-    public void setDdd(Integer ddd) {
+    public void setDDD(Integer ddd) {
         this.ddd = ddd;
     }
 

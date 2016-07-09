@@ -74,7 +74,7 @@ public class MunicipioDAO extends ReadOnlyDAO<Municipio> {
 
     @Override
     public Municipio get(long codigo) throws SQLException {
-        String sql = "SELECT * FROM desafio.municipio WHERE codigo = ?";
+        String sql = "SELECT * FROM desafio.municipio WHERE codigo_ibge = ?";
         try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {  
             ps.setLong(1, codigo);            
             try (ResultSet rs = ps.executeQuery();) {

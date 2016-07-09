@@ -22,5 +22,5 @@ package br.ufms.desafio.model.bean;
  */
 public enum TipoTelefone {
     
-    CELULAR, RESIDENCIAL, COMERCIAL, FAX
+    CELULAR, RESIDENCIAL, COMERCIAL, FAX_RESIDENCIAL, FAX_COMERCIAL
 }

@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class Endereco extends Bean implements Serializable {
 
     private String logradouro;
-    private Integer numero;
+    private Short numero;
     private Boolean sn;
     private String complemento;
     private String bairro;
@@ -49,14 +49,14 @@ public class Endereco extends Bean implements Serializable {
     /**
      * @return the numero
      */
-    public Integer getNumero() {
+    public Short getNumero() {
         return numero;
     }
 
     /**
      * @param numero the numero to set
      */
-    public void setNumero(Integer numero) {
+    public void setNumero(Short numero) {
         this.numero = numero;
     }
 
