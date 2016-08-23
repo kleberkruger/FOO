@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,44 +17,48 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Turma;
+import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
-public class TurmaDAO extends GenericDAO<Turma> {
+public class TurmaDAO extends ReadWriteDAO<Turma, Long> {
+
+    public TurmaDAO() {
+        super(Turma.class);
+    }
 
     @Override
-    public void save(Turma bean) throws SQLException {
+    protected void insert(Connection conn, Turma bean, Serializable... dependencies) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Turma bean) throws SQLException {
+    protected void update(Connection conn, Turma bean) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Turma bean) throws SQLException {
+    protected void delete(Connection conn, Long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(long codigo) throws SQLException {
+    protected Turma get(Connection conn, Long codigo) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Turma get(long codigo) throws SQLException {
+    protected List<Turma> getAll(Connection conn) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public List<Turma> findByProfessor(Connection conn, Long codigoProfessor) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Turma> getAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
 }

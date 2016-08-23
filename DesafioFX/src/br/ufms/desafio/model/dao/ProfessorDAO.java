@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,39 +17,74 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Professor;
+import br.ufms.desafio.model.bean.enumerate.Titulacao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
  */
-public class ProfessorDAO extends GenericDAO<Professor> {
+public class ProfessorDAO extends JogadorDAO<Professor> {
 
-    @Override
-    public void save(Professor bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ProfessorDAO() {
+        super(Professor.class);
     }
 
     @Override
-    public void update(Professor bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected Professor populateBean(Professor prof, Connection conn, ResultSet rs) throws SQLException {
+        // Popula os atributos comum a todos os jogadores
+        super.populateBean(prof, conn, rs);
+
+        // Popula apenas os atributos do professor
+        prof.setTitulacao(Titulacao.valueOf(rs.getString("titulacao")));
+        prof.setEscolas(new EscolaDAO().findByProfessor(conn, prof.getCodigo()));
+        prof.setTurmas(new TurmaDAO().findByProfessor(conn, prof.getCodigo()));
+
+        return prof;
     }
 
     @Override
-    public void delete(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected Professor resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
+        return populateBean(new Professor(), conn, rs);
     }
 
     @Override
-    public Professor get(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected String sqlToGet(Long codigo) {
+        StringBuilder command = new StringBuilder("SELECT * FROM desafio.usuario u, desafio.jogador j, desafio.professor p ");
+        command.append("WHERE u.codigo = ").append(codigo);
+        command.append("and j.codigo = ").append(codigo);
+        command.append("and p.codigo = ").append(codigo);
+        return command.toString();
     }
 
     @Override
-    public List<Professor> getAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected String sqlToGetAll() {
+        return "SELECT * FROM desafio.usuario u JOIN desafio.jogador j ON u.codigo = j.codigo "
+                + "JOIN desafio.professor p ON j.codigo = p.codigo";
+
+//        SELECT * FROM desafio.professor p JOIN desafio.escola_professor ep ON p.codigo = ep.codigo_professor JOIN desafio.escola e ON e.codigo = ep.codigo_escola WHERE ep.codigo_professor = 8; -- where e.tipo = 'ESTADUAL';
     }
 
-   
+    public List<Professor> findByEscola(Connection conn, Long codigo) throws SQLException {
+        final String sql = "SELECT * FROM desafio.usuario u JOIN desafio.jogador j ON u.codigo = j.codigo "
+                + "JOIN desafio.professor p ON j.codigo = p.codigo JOIN desafio.escola_professor ep "
+                + "ON p.codigo = ep.codigo_professor JOIN desafio.escola e ON e.codigo = ep.codigo_escola "
+                + "WHERE ep.codigo_escola = ?";
+        List<Professor> beans = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, codigo);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    beans.add(resultSetToBean(conn, rs));
+                }
+            }
+        }
+        return beans;
+    }
+
 }

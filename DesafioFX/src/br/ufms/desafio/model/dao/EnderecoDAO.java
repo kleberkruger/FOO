@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Endereco;
+import br.ufms.desafio.model.bean.Municipio;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,27 +27,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe responsável pelas operações de leitura e escrita na tabela endereco.
  *
  * @author Kleber Kruger
  */
-public class EnderecoDAO extends GenericDAO<Endereco> {
+public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
 
+    public EnderecoDAO() {
+        super(Endereco.class);
+    }
+
+    /**
+     *
+     * @param conn
+     * @param bean
+     * @param dependencies
+     * @throws SQLException
+     */
     @Override
-    public void save(Endereco bean) throws SQLException {
-        String sql = "INSERT INTO desafio.endereco (logradouro, numero, s_n, complemento, "
-                + "bairro, cep, codigo_municipio) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    protected void insert(Connection conn, Endereco bean, Serializable... dependencies) throws SQLException {
+        final String sql = "INSERT INTO desafio.endereco (codigo_usuario, logradouro, numero, s_n, "
+                + "complemento, bairro, cep, codigo_municipio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            final Municipio municipio = bean.getMunicipio();
 
-            ps.setString(1, bean.getLogradouro());
-            ps.setInt(2, bean.getNumero());
-            ps.setBoolean(3, bean.getSn());
-            ps.setString(4, bean.getComplemento());
-            ps.setString(5, bean.getComplemento());
-            ps.setString(6, bean.getComplemento());
-            ps.setLong(7, bean.getMunicipio().getCodigo());
-
+            ps.setLong(1, (long) dependencies[0]);
+            ps.setObject(2, bean.getLogradouro());
+            ps.setObject(3, bean.getNumero());
+            ps.setObject(4, bean.getSemNumero());
+            ps.setObject(5, bean.getComplemento());
+            ps.setObject(6, bean.getBairro());
+            ps.setObject(7, bean.getCEP());
+            ps.setObject(8, municipio != null ? municipio.getCodigo() : null);
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -56,84 +70,128 @@ public class EnderecoDAO extends GenericDAO<Endereco> {
         }
     }
 
+    /**
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
     @Override
-    public void update(Endereco bean) throws SQLException {
-        String sql = "UPDATE desafio.endereco SET (logradouro = ?, numero = ?, s_n = ?, "
+    protected void update(Connection conn, Endereco bean) throws SQLException {
+        final String sql = "UPDATE desafio.endereco SET (logradouro = ?, numero = ?, s_n = ?, "
                 + "complemento = ?, bairro = ?, cep = ?, codigo_municipio = ?) WHERE codigo = ?";
-        
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, bean.getLogradouro());
-            ps.setInt(2, bean.getNumero());
-            ps.setBoolean(3, bean.getSn());
-            ps.setString(4, bean.getComplemento());
-            ps.setString(5, bean.getComplemento());
-            ps.setString(6, bean.getComplemento());
-            ps.setLong(7, bean.getMunicipio().getCodigo());
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final Municipio municipio = bean.getMunicipio();
+            ps.setObject(1, bean.getLogradouro());
+            ps.setObject(2, bean.getNumero());
+            ps.setObject(3, bean.getSemNumero());
+            ps.setObject(4, bean.getComplemento());
+            ps.setObject(5, bean.getBairro());
+            ps.setObject(6, bean.getCEP());
+            ps.setObject(7, municipio != null ? municipio.getCodigo() : null);
             ps.setLong(8, bean.getCodigo());
-            
             ps.executeUpdate();
         }
     }
 
+    /**
+     *
+     * @param conn
+     * @param codigo
+     * @throws SQLException
+     */
     @Override
-    public void delete(long codigo) throws SQLException {
-        String sql = "DELETE FROM desafio.endereco WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            
+    protected void delete(Connection conn, Long codigo) throws SQLException {
+        final String sql = "DELETE FROM desafio.endereco WHERE codigo = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, codigo);
+            ps.executeUpdate();
+        }
+    }
+
+    /**
+     *
+     * @param conn
+     * @param codigo
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    protected Endereco get(Connection conn, Long codigo) throws SQLException {
+        final String sql = "SELECT * FROM desafio.endereco WHERE codigo = ?";
+        Endereco endereco = null;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, codigo);
-            ps.executeUpdate();
-        }
-    }
-
-    @Override
-    public Endereco get(long codigo) throws SQLException {
-        String sql = "SELECT * FROM desafio.endereco WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {  
-            ps.setLong(1, codigo);            
-            try (ResultSet rs = ps.executeQuery();) {
-                MunicipioDAO municipioDAO = new MunicipioDAO();
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.first()) {
-                    Endereco e = new Endereco();
-                    e.setCodigo(rs.getLong("codigo"));
-                    e.setLogradouro(rs.getString("logradouro"));
-                    e.setNumero(rs.getShort("numero"));
-                    e.setSn(rs.getBoolean("s_n"));
-                    e.setComplemento(rs.getString("complemento"));
-                    e.setBairro(rs.getString("bairro"));
-                    e.setCep(rs.getString("cep"));
-                    e.setMunicipio(municipioDAO.get(rs.getLong("codigo_municipio")));
-                    return e;
+                    endereco = resultSetToBean(conn, rs);
                 }
             }
         }
-        return null;
+        return endereco;
     }
 
+    /**
+     *
+     * @param conn
+     * @return
+     * @throws SQLException
+     */
     @Override
-    public List<Endereco> getAll() throws SQLException {
-        String sql = "SELECT * FROM desafio.endereco";
+    protected List<Endereco> getAll(Connection conn) throws SQLException {
+        final String sql = "SELECT * FROM desafio.endereco";
         List<Endereco> enderecos = new ArrayList<>();
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {             
-            try (ResultSet rs = ps.executeQuery();) {
-                MunicipioDAO municipioDAO = new MunicipioDAO();
-                while(rs.next()) {
-                    Endereco e = new Endereco();
-                    e.setCodigo(rs.getLong("codigo"));
-                    e.setLogradouro(rs.getString("logradouro"));
-                    e.setNumero(rs.getShort("numero"));
-                    e.setSn(rs.getBoolean("s_n"));
-                    e.setComplemento(rs.getString("complemento"));
-                    e.setBairro(rs.getString("bairro"));
-                    e.setCep(rs.getString("cep"));
-                    e.setMunicipio(municipioDAO.get(rs.getLong("codigo_municipio")));
-                    enderecos.add(e);
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    enderecos.add(resultSetToBean(conn, rs));
                 }
             }
         }
         return enderecos;
+    }
+
+    /**
+     *
+     * @param conn
+     * @param codigoUsuario
+     * @return
+     * @throws SQLException
+     */
+    protected Endereco findByUsuario(Connection conn, Long codigoUsuario) throws SQLException {
+        final String sql = "SELECT * FROM desafio.endereco WHERE codigo_usuario = ?";
+        Endereco endereco = null;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, codigoUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.first()) {
+                    endereco = resultSetToBean(conn, rs);
+                }
+            }
+        }
+        return endereco;
+    }
+
+    /**
+     *
+     * @param conn
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
+    private Endereco resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
+        Endereco endereco = new Endereco();
+        endereco.setCodigo(rs.getLong("codigo"));
+        endereco.setLogradouro(rs.getString("logradouro"));
+        endereco.setNumero(rs.getShort("numero"));
+        endereco.setSemNumero(rs.getBoolean("s_n"));
+        endereco.setComplemento(rs.getString("complemento"));
+        endereco.setBairro(rs.getString("bairro"));
+        endereco.setCEP(rs.getString("cep"));
+        endereco.setMunicipio(new MunicipioDAO().get(conn, rs.getLong("codigo_municipio")));
+
+        return endereco;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,17 +16,44 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.TipoEscola;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Escola do banco de dados.
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class Escola extends Usuario implements Serializable {
-    
+
+    private static final long serialVersionUID = 1L;
+
+    private TipoEscola tipo;
     private List<Professor> professores;
-    private List<Turma> turmas;
+
+    /**
+     * Cria um novo objeto Escola com o tipo nulo e a lista de professores vazia. O restante dos
+     * atributos são inicializados de acordo com o construtor da superclasse Usuario.
+     */
+    public Escola() {
+        this.professores = new ArrayList<>();
+    }
+
+    /**
+     * @return the tipo
+     */
+    public TipoEscola getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(TipoEscola tipo) {
+        this.tipo = tipo;
+    }
 
     /**
      * @return the professores
@@ -42,17 +69,4 @@ public class Escola extends Usuario implements Serializable {
         this.professores = professores;
     }
 
-    /**
-     * @return the turmas
-     */
-    public List<Turma> getTurmas() {
-        return turmas;
-    }
-
-    /**
-     * @param turmas the turmas to set
-     */
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
-    }
 }

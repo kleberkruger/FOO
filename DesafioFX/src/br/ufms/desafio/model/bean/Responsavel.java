@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,58 +16,56 @@
  */
 package br.ufms.desafio.model.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Responsavel do banco de dados.
  *
  * @author Kleber Kruger
  */
-public class Responsavel extends Jogador {
+public class Responsavel extends Jogador implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String cpf;
-    private List<Aluno> dependentes;
-    private List<Aluno> dependentesAtivos;
+    private List<Dependencia> dependencias;
+
+    /**
+     * Cria um novo objeto Responsavel com o CPF nulo e a lista de dependências vazia. O restante
+     * dos atributos são inicializados conforme os construtores das superclasses Jogador e Usuario.
+     */
+    public Responsavel() {
+        this.dependencias = new ArrayList<>();
+    }
 
     /**
      * @return the cpf
      */
-    public String getCpf() {
+    public String getCPF() {
         return cpf;
     }
 
     /**
      * @param cpf the cpf to set
      */
-    public void setCpf(String cpf) {
+    public void setCPF(String cpf) {
         this.cpf = cpf;
     }
 
     /**
-     * @return the dependentes
+     * @return the dependencias
      */
-    public List<Aluno> getDependentes() {
-        return dependentes;
+    public List<Dependencia> getDependencias() {
+        return dependencias;
     }
 
     /**
-     * @param dependentes the dependentes to set
+     * @param dependencias the dependencias to set
      */
-    public void setDependentes(List<Aluno> dependentes) {
-        this.dependentes = dependentes;
-    }
-
-    /**
-     * @return the dependentesAtivos
-     */
-    public List<Aluno> getDependentesAtivos() {
-        return dependentesAtivos;
-    }
-
-    /**
-     * @param dependentesAtivos the dependentesAtivos to set
-     */
-    public void setDependentesAtivos(List<Aluno> dependentesAtivos) {
-        this.dependentesAtivos = dependentesAtivos;
+    public void setDependencias(List<Dependencia> dependencias) {
+        this.dependencias = dependencias;
     }
 
 }

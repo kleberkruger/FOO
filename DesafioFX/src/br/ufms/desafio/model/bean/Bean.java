@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,26 +16,41 @@
  */
 package br.ufms.desafio.model.bean;
 
+import java.io.Serializable;
+
 /**
+ * Classe base para qualquer bean do banco de dados.
  *
  * @author Kleber Kruger
+ * @param <T> tipo da chave primitiva
  */
-public class Bean {
-    
-    private Long codigo;
+public class Bean<T extends Serializable> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private T codigo;
+
+    /**
+     * Cria um novo objeto Bean. O construtor desta classe é protegido porque um objeto Bean só
+     * existirá por meio de classes derivadas. Estes "beans" têm a função de representar as
+     * entidades do banco de dados.
+     */
+    protected Bean() {
+        codigo = null;
+    }
 
     /**
      * @return the codigo
      */
-    public Long getCodigo() {
+    public T getCodigo() {
         return codigo;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(Long codigo) {
+    public void setCodigo(T codigo) {
         this.codigo = codigo;
     }
-    
+
 }

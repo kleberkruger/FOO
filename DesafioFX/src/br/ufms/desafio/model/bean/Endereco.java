@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,13 @@ package br.ufms.desafio.model.bean;
 import java.io.Serializable;
 
 /**
+ * Classe que mapeia a tabela Endereco do banco de dados.
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
-public class Endereco extends Bean implements Serializable {
+public class Endereco extends Bean<Long> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String logradouro;
     private Short numero;
@@ -31,6 +34,13 @@ public class Endereco extends Bean implements Serializable {
     private String bairro;
     private String cep;
     private Municipio municipio;
+
+    /**
+     * Cria um novo objeto Endereco com todos os atributos nulos inicialmente.
+     */
+    public Endereco() {
+        super();
+    }
 
     /**
      * @return the logradouro
@@ -63,14 +73,14 @@ public class Endereco extends Bean implements Serializable {
     /**
      * @return the sn
      */
-    public Boolean getSn() {
+    public Boolean getSemNumero() {
         return sn;
     }
 
     /**
      * @param sn the sn to set
      */
-    public void setSn(Boolean sn) {
+    public void setSemNumero(Boolean sn) {
         this.sn = sn;
     }
 
@@ -105,14 +115,14 @@ public class Endereco extends Bean implements Serializable {
     /**
      * @return the cep
      */
-    public String getCep() {
+    public String getCEP() {
         return cep;
     }
 
     /**
      * @param cep the cep to set
      */
-    public void setCep(String cep) {
+    public void setCEP(String cep) {
         this.cep = cep;
     }
 

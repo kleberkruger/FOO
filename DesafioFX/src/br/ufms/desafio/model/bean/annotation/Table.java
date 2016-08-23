@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Kleber Kruger
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,28 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.app;
+package br.ufms.desafio.model.bean.annotation;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Classe Application que contém o método main deste programa.
  *
- * @author Kleber Kruger
+ * @author kleberkruger
  */
-public class DesafioFXApp extends Application {
+@Target(value = {ElementType.TYPE})
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface Table {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public String name() default "";
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+    public String catalog() default "";
+
+    public String schema() default "";
 
 }

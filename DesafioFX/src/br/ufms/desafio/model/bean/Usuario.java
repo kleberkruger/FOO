@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,21 +18,34 @@ package br.ufms.desafio.model.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Usuario do banco de dados.
  *
  * @author Kleber Kruger
  */
-public class Usuario extends Bean implements Serializable {
+public class Usuario extends Bean<Long> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nome;
     private String usuario;
     private String senha;
     private String email;
-    private List<Telefone> telefone;
+    private List<Telefone> telefones;
     private Endereco endereco;
     private LocalDate criacao;
+
+    /**
+     * Cria um novo objeto usuário com nome, usuário, senha, email e endereço nulos; instancia uma
+     * lista vazia de telefones; e inicializa o atributo criação com a data atual.
+     */
+    protected Usuario() {
+        this.telefones = new ArrayList<>();
+        this.criacao = LocalDate.now();
+    }
 
     /**
      * @return the nome
@@ -91,17 +104,17 @@ public class Usuario extends Bean implements Serializable {
     }
 
     /**
-     * @return the telefone
+     * @return the telefones
      */
-    public List<Telefone> getTelefone() {
-        return telefone;
+    public List<Telefone> getTelefones() {
+        return telefones;
     }
 
     /**
-     * @param telefone the telefone to set
+     * @param telefones the telefones to set
      */
-    public void setTelefone(List<Telefone> telefone) {
-        this.telefone = telefone;
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
     }
 
     /**

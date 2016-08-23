@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,33 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.Titulacao;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Professor do banco de dados.
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class Professor extends Jogador implements Serializable {
-    
+
+    private static final long serialVersionUID = 1L;
+
     private Titulacao titulacao;
     private List<Escola> escolas;
     private List<Turma> turmas;
+
+    /**
+     * Cria um novo objeto Professor com a titulação nula e as listas de escolas e de turmas vazias.
+     * O restante dos atributos são inicializados conforme os construtores das superclasses Jogador
+     * e Usuario.
+     */
+    public Professor() {
+        this.escolas = new ArrayList<>();
+        this.turmas = new ArrayList<>();
+    }
 
     /**
      * @return the titulacao
@@ -70,4 +85,5 @@ public class Professor extends Jogador implements Serializable {
     public void setTurmas(List<Turma> turmas) {
         this.turmas = turmas;
     }
+
 }

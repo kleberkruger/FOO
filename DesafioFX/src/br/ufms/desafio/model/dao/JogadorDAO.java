@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,43 +17,75 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Jogador;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
- * @author angelino.caon
+ * @author kleberkruger
+ * @param <B>
  */
-public class JogadorDAO extends GenericDAO<Jogador>{
+public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
 
-    @Override
-    public void save(Jogador bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public JogadorDAO(Class<B> clazz) {
+        super(clazz);
+    }
+
+    private void insertJogador(Connection conn, B bean) throws SQLException {
+        final String sql = "INSERT INTO desafio.professor (codigo, data_nascimento, deficiencias) "
+                + "VALUES (?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, bean.getCodigo());
+            ps.setDate(2, Date.valueOf(bean.getNascimento()));
+            ps.setArray(3, conn.createArrayOf("VARCHAR", bean.getDeficiencias().toArray()));
+            ps.executeUpdate();
+        }
+    }
+
+    private void updateJogador(Connection conn, B bean) throws SQLException {
+        final String sql = "UPDATE desafio.escola SET (data_nascimento = ?, deficiencias = ?) "
+                + "WHERE codigo = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setDate(1, Date.valueOf(bean.getNascimento()));
+            ps.setArray(2, conn.createArrayOf("VARCHAR", bean.getDeficiencias().toArray()));
+            ps.setLong(3, bean.getCodigo());
+            ps.executeUpdate();
+        }
+    }
+
+    protected void saveJogador(Connection conn, B bean) throws SQLException {
+        if (bean.getCodigo() == null) {
+            insertJogador(conn, bean);
+        } else {
+            updateJogador(conn, bean);
+        }
     }
 
     @Override
-    public void update(Jogador bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
+        super.insert(conn, bean, dependencies);
+        insertJogador(conn, bean);
     }
 
     @Override
-    public void delete(Jogador bean) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void update(Connection conn, B bean) throws SQLException {
+        super.update(conn, bean);
+        updateJogador(conn, bean);
     }
 
     @Override
-    public void delete(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    protected B populateBean(B jogador, Connection conn, ResultSet rs) throws SQLException {
+        super.populateBean(jogador, conn, rs);
+        jogador.setNascimento(rs.getDate("data_nascimento").toLocalDate());
+//        jogador.setDeficiencias(rs.getString("deficiencias").split(","));
 
-    @Override
-    public Jogador get(long codigo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Jogador> getAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return jogador;
     }
 
 }

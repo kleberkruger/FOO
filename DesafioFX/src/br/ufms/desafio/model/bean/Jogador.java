@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,31 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.Deficiencia;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
+ * Classe que mapeia a tabela Jogador do banco de dados.
  *
  * @author Kleber Kruger
  */
 public class Jogador extends Usuario implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private LocalDate nascimento;
-    private List<Deficiencia> deficiencias;
+    private Set<Deficiencia> deficiencias;
+
+    /**
+     * Cria um novo objeto Jogador com a data de nascimento nula e o HashSet de deficiências vazio.
+     * O restante dos atributos são inicializados de acordo com o construtor da superclasse Usuario.
+     */
+    protected Jogador() {
+        this.deficiencias = new HashSet<>();
+    }
 
     /**
      * @return the nascimento
@@ -46,15 +59,33 @@ public class Jogador extends Usuario implements Serializable {
     /**
      * @return the deficiencias
      */
-    public List<Deficiencia> getDeficiencias() {
+    public Set<Deficiencia> getDeficiencias() {
         return deficiencias;
     }
 
     /**
      * @param deficiencias the deficiencias to set
      */
-    public void setDeficiencias(List<Deficiencia> deficiencias) {
+    public void setDeficiencias(Set<Deficiencia> deficiencias) {
         this.deficiencias = deficiencias;
+    }
+
+    /**
+     * @param deficiencias the deficiencias to set
+     */
+    public void setDeficiencias(String[] deficiencias) {
+        System.out.println(deficiencias);
+        this.deficiencias.clear();
+        for (String d : deficiencias) {
+            this.deficiencias.add(Deficiencia.valueOf(d));
+        }
+    }
+
+    /**
+     * @return the deficiente
+     */
+    public boolean isDeficiente() {
+        return deficiencias.size() > 0;
     }
 
 }

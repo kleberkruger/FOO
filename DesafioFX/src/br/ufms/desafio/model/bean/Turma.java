@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,33 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.Periodo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Turma do banco de dados.
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
-public class Turma extends Bean implements Serializable {
+public class Turma extends Bean<Long> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nome;
     private Professor responsavel;
     private Escola escola;
     private List<Aluno> alunos;
     private Periodo periodo;
+
+    /**
+     * Cria um novo objeto Turma com os atributos nome, resposável, escola e período nulos, e
+     * instancia a lista de alunos deixando-a inicialmente vazia.
+     */
+    public Turma() {
+        this.alunos = new ArrayList<>();
+    }
 
     /**
      * @return the nome
@@ -100,4 +113,5 @@ public class Turma extends Bean implements Serializable {
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
     }
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model.bean;
+package br.ufms.desafio.model.bean.enumerate;
 
 /**
  *
  * @author kleberkruger
  */
-public enum TipoTelefone {
+public enum Deficiencia {
     
-    CELULAR, RESIDENCIAL, COMERCIAL, FAX_RESIDENCIAL, FAX_COMERCIAL
+    AUDITIVA, FISICA, MENTAL, VISUAL;
 }

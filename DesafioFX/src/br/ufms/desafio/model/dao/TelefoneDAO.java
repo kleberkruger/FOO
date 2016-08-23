@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Telefone;
-import br.ufms.desafio.model.bean.TipoTelefone;
-import br.ufms.desafio.model.bean.Usuario;
+import br.ufms.desafio.model.bean.enumerate.TipoTelefone;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,25 +27,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe responsável pelas operações de leitura e escrita na tabela telefone.
  *
- * @author angelino.caon
+ * @author Kleber Kruger
  */
-public class TelefoneDAO extends GenericDAO<Telefone> {
+public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
 
+    public TelefoneDAO() {
+        super(Telefone.class);
+    }
+
+    /**
+     *
+     * @param conn - conexão com o banco de dados
+     * @param bean - objeto telefone
+     * @param dependencies - código do usuário
+     * @throws SQLException
+     */
     @Override
-    public void save(Telefone bean) throws SQLException {
-        String sql = "INSERT INTO desafio.telefone (codigo_usuario, tipo, ddd, numero, principal "
+    protected void insert(Connection conn, Telefone bean, Serializable... dependencies) throws SQLException {
+        final String sql = "INSERT INTO desafio.telefone (codigo_usuario, tipo, ddd, numero, principal) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-            ps.setLong(1, bean.getUsuario().getCodigo());
-            ps.setString(2, bean.getTipo().toString());
-            ps.setInt(3, bean.getDDD());
-            ps.setInt(4, bean.getNumero());
-            ps.setBoolean(5, bean.getPrincipal());
-
+        try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            final TipoTelefone tipo = bean.getTipo();
+            ps.setLong(1, (long) dependencies[0]);
+            ps.setObject(2, tipo != null ? tipo.toString() : null);
+            ps.setString(3, bean.getDDD());
+            ps.setString(4, bean.getNumero());
+            ps.setObject(5, bean.getPrincipal());
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -56,100 +66,122 @@ public class TelefoneDAO extends GenericDAO<Telefone> {
         }
     }
 
+    /**
+     *
+     * @param conn - conexão com o banco de dados
+     * @param bean - objeto telefone
+     * @throws SQLException
+     */
     @Override
-    public void update(Telefone bean) throws SQLException {
-        String sql = "UPDATE desafio.telefone SET (codigo_usuario = ?, tipo = ?, ddd = ?, "
-                + "numero = ?, principal = ?) WHERE codigo = ?";
+    protected void update(Connection conn, Telefone bean) throws SQLException {
+        final String sql = "UPDATE desafio.telefone SET (tipo = ?, ddd = ?, numero = ?, "
+                + "principal = ?) WHERE codigo = ?";
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-            ps.setLong(1, bean.getUsuario().getCodigo());
-            ps.setString(2, bean.getTipo().toString());
-            ps.setInt(3, bean.getDDD());
-            ps.setInt(4, bean.getNumero());
-            ps.setBoolean(5, bean.getPrincipal());
-            ps.setLong(6, bean.getCodigo());
-
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final TipoTelefone tipo = bean.getTipo();
+            ps.setObject(1, tipo != null ? tipo.toString() : null);
+            ps.setString(2, bean.getDDD());
+            ps.setString(3, bean.getNumero());
+            ps.setObject(4, bean.getPrincipal());
+            ps.setLong(5, bean.getCodigo());
             ps.executeUpdate();
         }
     }
 
+    /**
+     * 
+     * @param conn - conexão com o banco de dados
+     * @param codigo - código do telefone
+     * @throws SQLException 
+     */
     @Override
-    public void delete(long codigo) throws SQLException {
-        String sql = "DELETE FROM desafio.telefone WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
+    protected void delete(Connection conn, Long codigo) throws SQLException {
+        final String sql = "DELETE FROM desafio.telefone WHERE codigo = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, codigo);
             ps.executeUpdate();
         }
     }
 
+    /**
+     * 
+     * @param conn - conexão com o banco de dados
+     * @param codigo - código do telefone
+     * @return
+     * @throws SQLException 
+     */
     @Override
-    public Telefone get(long codigo) throws SQLException {
-        String sql = "SELECT * FROM desafio.telefone WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+    protected Telefone get(Connection conn, Long codigo) throws SQLException {
+        final String sql = "SELECT * FROM desafio.telefone WHERE codigo = ?";
+        Telefone telefone = null;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, codigo);
-            try (ResultSet rs = ps.executeQuery();) {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.first()) {
-                    Telefone t = new Telefone();
-                    t.setCodigo(rs.getLong("codigo"));
-                    t.setTipo(TipoTelefone.valueOf(rs.getString("tipo")));
-                    t.setDDD(rs.getInt("ddd"));
-                    t.setNumero(rs.getInt("numero"));
-                    t.setPrincipal(rs.getBoolean("principal"));
-                    t.setUsuario(usuarioDAO.get(rs.getLong("codigo_usuario")));
-                    return t;
+                    telefone = resultSetToBean(rs);
                 }
             }
         }
-        return null;
+        return telefone;
     }
 
+    /**
+     * 
+     * @param conn - conexão com o banco de dados
+     * @return
+     * @throws SQLException 
+     */
     @Override
-    public List<Telefone> getAll() throws SQLException {
-        String sql = "SELECT * FROM desafio.telefone";
+    protected List<Telefone> getAll(Connection conn) throws SQLException {
+        final String sql = "SELECT * FROM desafio.telefone";
         List<Telefone> telefones = new ArrayList<>();
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            try (ResultSet rs = ps.executeQuery();) {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Telefone t = new Telefone();
-                    t.setCodigo(rs.getLong("codigo"));
-                    t.setTipo(TipoTelefone.valueOf(rs.getString("tipo")));
-                    t.setDDD(rs.getInt("ddd"));
-                    t.setNumero(rs.getInt("numero"));
-                    t.setPrincipal(rs.getBoolean("principal"));
-                    t.setUsuario(usuarioDAO.get(rs.getLong("codigo_usuario")));
-                    telefones.add(t);
+                    telefones.add(resultSetToBean(rs));
                 }
             }
         }
         return telefones;
     }
 
-    public List<Telefone> getAllByUser(Usuario usuario) throws SQLException {
-        String sql = "SELECT * FROM desafio.telefone WHERE codigo_usuario = ?";
+    /**
+     * 
+     * @param conn - conexão com o banco de dados
+     * @param codigoUsuario - código do usuário
+     * @return
+     * @throws SQLException 
+     */
+    public List<Telefone> findByUsuario(Connection conn, Long codigoUsuario) throws SQLException {
+        final String sql = "SELECT * FROM desafio.telefone WHERE codigo_usuario = ?";
         List<Telefone> telefones = new ArrayList<>();
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setLong(1, usuario.getCodigo());
-            try (ResultSet rs = ps.executeQuery();) {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, codigoUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Telefone t = new Telefone();
-                    t.setCodigo(rs.getLong("codigo"));
-                    t.setTipo(TipoTelefone.valueOf(rs.getString("tipo")));
-                    t.setDDD(rs.getInt("ddd"));
-                    t.setNumero(rs.getInt("numero"));
-                    t.setPrincipal(rs.getBoolean("principal"));
-                    t.setUsuario(usuarioDAO.get(rs.getLong("codigo_usuario")));
-                    telefones.add(t);
+                    telefones.add(resultSetToBean(rs));
                 }
             }
         }
         return telefones;
+    }
+
+    /**
+     * 
+     * @param rs - ResultSet com as informações vindas do banco
+     * @return
+     * @throws SQLException 
+     */
+    private Telefone resultSetToBean(ResultSet rs) throws SQLException {
+        Telefone telefone = new Telefone();
+        telefone.setCodigo(rs.getLong("codigo"));
+        telefone.setTipo(rs.getString("tipo") != null
+                ? TipoTelefone.valueOf(rs.getString("tipo")) : null);
+        telefone.setDDD(rs.getString("ddd"));
+        telefone.setNumero(rs.getString("numero"));
+        telefone.setPrincipal(rs.getBoolean("principal"));
+
+        return telefone;
     }
 
 }

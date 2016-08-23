@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,27 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.UF;
 import java.io.Serializable;
 
 /**
+ * Classe que mapeia a tabela Municipio do banco de dados.
  *
  * @author Kleber Kruger
  */
-public class Municipio extends Bean implements Serializable {
+public class Municipio extends Bean<Long> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private String nome;
-    private String uf;
+    private UF uf;
+
+    /**
+     * Cria um novo objeto Municipio com nome e UF nulos.
+     */
+    public Municipio() {
+        super();
+    }
 
     /**
      * @return the nome
@@ -44,14 +55,14 @@ public class Municipio extends Bean implements Serializable {
     /**
      * @return the uf
      */
-    public String getUF() {
+    public UF getUF() {
         return uf;
     }
 
     /**
      * @param uf the uf to set
      */
-    public void setUF(String uf) {
+    public void setUF(UF uf) {
         this.uf = uf;
     }
     

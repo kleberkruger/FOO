@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 kleberkruger
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,20 +17,82 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Bean;
-import br.ufms.desafio.util.Database;
+import br.ufms.desafio.util.DatabaseManager;
+import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author Kleber Kruger
+ *
+ * @param <B>
  * @param <T>
  */
-public abstract class ReadOnlyDAO<T extends Bean> {
+public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
 
-    protected Database db = new Database();
-    
-    public abstract T get(long codigo) throws SQLException;
+    protected final DatabaseManager db;
+    protected final Class<B> beanClass;
 
-    public abstract List<T> getAll() throws SQLException;
+    /**
+     * Cria um ReadOnlyDAO para Beans do tipo B.
+     *
+     * @param clazz
+     */
+    public ReadOnlyDAO(Class<B> clazz) {
+        this.db = DatabaseManager.getInstance();
+        this.beanClass = clazz;
+    }
+
+    /**
+     * Retorna o objeto gerenciador do banco de dados.
+     *
+     * @return the database manager
+     */
+    protected DatabaseManager getDatabaseManager() {
+        return db;
+    }
+
+    /**
+     * @return the beanClass
+     */
+    public Class<B> getBeanClass() {
+        return beanClass;
+    }
+
+    /**
+     * Carrega do banco de dados as informações do objeto Bean.
+     *
+     * @param codigo
+     * @return
+     * @throws SQLException
+     */
+    public B get(T codigo) throws SQLException {
+        B bean;
+        try (Connection conn = db.getConnection()) {
+            bean = get(conn, codigo);
+        }
+        return bean;
+    }
+
+    protected abstract B get(Connection conn, T codigo) throws SQLException;
+
+    /**
+     * Carrega do banco de dados a lista de todos os obhetos do tipo Bean.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public List<B> getAll() throws SQLException {
+        List<B> beans;
+        try (Connection conn = db.getConnection()) {
+            beans = getAll(conn);
+        }
+        return beans;
+    }
+
+    protected abstract List<B> getAll(Connection conn) throws SQLException;
+
+//    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
 }

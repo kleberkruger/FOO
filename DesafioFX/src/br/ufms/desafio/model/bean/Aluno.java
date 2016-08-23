@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 angelino.caon
+ * Copyright (C) 2016 Kleber Kruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,63 @@
  */
 package br.ufms.desafio.model.bean;
 
+import br.ufms.desafio.model.bean.enumerate.NivelEnsino;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe que mapeia a tabela Aluno do banco de dados.
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class Aluno extends Jogador implements Serializable {
-    
+
+    private static final long serialVersionUID = 1L;
+
+    private Short serie;
+    private NivelEnsino nivel;
     private Escola escola;
-    private Integer serie;
     private LocalDate ingresso;
     private List<Responsavel> responsaveis;
+
+    /**
+     * Cria um novo objeto Aluno com os atributos série, nível, escola e data de ingresso nulos. A
+     * lista de responsáveis é inicializada vazia e o restante dos atributps são inicializados de
+     * acordo com os construtores das superclasses Jogador e Usuario.
+     */
+    public Aluno() {
+        this.responsaveis = new ArrayList<>();
+    }
+
+    /**
+     * @return the serie
+     */
+    public Short getSerie() {
+        return serie;
+    }
+
+    /**
+     * @param serie the serie to set
+     */
+    public void setSerie(Short serie) {
+        this.serie = serie;
+    }
+
+    /**
+     * @return the nivel
+     */
+    public NivelEnsino getNivel() {
+        return nivel;
+    }
+
+    /**
+     * @param nivel the nivel to set
+     */
+    public void setNivel(NivelEnsino nivel) {
+        this.nivel = nivel;
+    }
 
     /**
      * @return the escola
@@ -43,20 +86,6 @@ public class Aluno extends Jogador implements Serializable {
      */
     public void setEscola(Escola escola) {
         this.escola = escola;
-    }
-
-    /**
-     * @return the serie
-     */
-    public Integer getSerie() {
-        return serie;
-    }
-
-    /**
-     * @param serie the serie to set
-     */
-    public void setSerie(Integer serie) {
-        this.serie = serie;
     }
 
     /**
@@ -86,4 +115,5 @@ public class Aluno extends Jogador implements Serializable {
     public void setResponsaveis(List<Responsavel> responsaveis) {
         this.responsaveis = responsaveis;
     }
+
 }

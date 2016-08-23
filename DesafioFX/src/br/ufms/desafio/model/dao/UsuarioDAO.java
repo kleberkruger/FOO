@@ -16,8 +16,9 @@
  */
 package br.ufms.desafio.model.dao;
 
-import br.ufms.desafio.model.bean.Endereco;
+import br.ufms.desafio.model.bean.Telefone;
 import br.ufms.desafio.model.bean.Usuario;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,125 +28,199 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe responsável pelas operações de leitura e escrita na tabela usuário.
  *
  * @author Kleber Kruger
+ * @param <B>
  */
-public class UsuarioDAO extends GenericDAO<Usuario> {
+public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long> {
 
-    @Override
-    public void save(Usuario bean) throws SQLException {
-        String sql = "INSERT INTO desafio.usuario (codigo_endereco, nome, email, "
-                + "usuario, senha, data_criacao) VALUES (?, ?, ?, ?, ?, ?)";
+    public UsuarioDAO(Class<B> clazz) {
+        super(clazz);
+    }
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+    /**
+     * Insere o elemento na tabela usuario.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    private void insertUsuario(Connection conn, B bean) throws SQLException {
+        final String sql = "INSERT INTO desafio.usuario (nome, email, usuario, senha, data_criacao) "
+                + "VALUES (?, ?, ?, ?, ?)";
 
-            if (bean.getEndereco() == null) {
-                bean.setEndereco(new Endereco());
-            }
-
-            EnderecoDAO enderecoDAO = new EnderecoDAO();
-            enderecoDAO.save(bean.getEndereco());
-
-            ps.setLong(1, bean.getEndereco().getCodigo());
-            ps.setString(2, bean.getNome());
-            ps.setString(3, bean.getEmail());
-            ps.setString(4, bean.getUsuario());
-            ps.setString(5, bean.getSenha());
-            ps.setDate(6, Date.valueOf(bean.getCriacao()));
-
-            try {
-                
-                ps.executeUpdate();
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.first()) {
-                        bean.setCodigo(rs.getLong(1));
-                    }
+        try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, bean.getNome());
+            ps.setString(2, bean.getEmail());
+            ps.setString(3, bean.getUsuario());
+            ps.setString(4, bean.getSenha());
+            ps.setDate(5, Date.valueOf(bean.getCriacao()));
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.first()) {
+                    bean.setCodigo(rs.getLong(1));
                 }
-            } catch (SQLException ex) {
-                enderecoDAO.delete(bean.getEndereco());
-                throw ex;
             }
         }
     }
 
+    /**
+     * Atualiza os dados do elemento na tabela usuario.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    private void updateUsuario(Connection conn, B bean) throws SQLException {
+        final String sql = "UPDATE desafio.usuario SET (nome = ?, email = ?, usuario = ?, senha = ?, "
+                + "data_criacao = ?) WHERE codigo = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, bean.getNome());
+            ps.setString(2, bean.getEmail());
+            ps.setString(3, bean.getUsuario());
+            ps.setString(4, bean.getSenha());
+            ps.setDate(5, Date.valueOf(bean.getCriacao()));
+            ps.setLong(6, bean.getCodigo());
+            ps.executeUpdate();
+        }
+    }
+
+    /**
+     * Salva (insere ou atualiza) o elemento na tabela usuario.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    protected void saveUsuario(Connection conn, B bean) throws SQLException {
+        if (bean.getCodigo() == null) {
+            insertUsuario(conn, bean);
+        } else {
+            updateUsuario(conn, bean);
+        }
+    }
+
+    /**
+     * Salva (insere ou atualiza) o elemento na tabela usuario.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    protected void saveEndereco(Connection conn, B bean) throws SQLException {
+        if (bean.getEndereco() != null) {
+            new EnderecoDAO().save(conn, bean.getEndereco(), bean.getCodigo());
+        }
+    }
+
+    /**
+     * Salva (insere ou atualiza) o elemento na tabela usuario.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    protected void saveTelefones(Connection conn, B bean) throws SQLException {
+        if (bean.getTelefones().size() > 0) {
+            TelefoneDAO telefoneDAO = new TelefoneDAO();
+            for (Telefone telefone : bean.getTelefones()) {
+                telefoneDAO.save(conn, telefone, bean.getCodigo());
+            }
+        }
+    }
+
+    /**
+     * Insere o objeto bean na tabela "usuario" do banco de dados. Caso os campos endereço e
+     * telefones tenham algum valor, insere
+     *
+     * @param conn
+     * @param bean
+     * @param dependencies
+     * @throws SQLException
+     */
     @Override
-    public void update(Usuario bean) throws SQLException {
-        String sql = "UPDATE desafio.usuario SET (codigo_endereco = ?, nome = ?, email = ?, "
-                + "usuario = ?, senha = ?, data_criacao = ?) WHERE codigo = ?";
+    protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
+        insertUsuario(conn, bean);
+        saveEndereco(conn, bean);
+        saveTelefones(conn, bean);
+    }
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+    @Override
+    protected void update(Connection conn, B bean) throws SQLException {
+        updateUsuario(conn, bean);
+        saveEndereco(conn, bean);
+        saveTelefones(conn, bean);
+    }
 
-            ps.setLong(1, bean.getEndereco().getCodigo());
-            ps.setString(2, bean.getNome());
-            ps.setString(3, bean.getEmail());
-            ps.setString(4, bean.getUsuario());
-            ps.setString(5, bean.getSenha());
-            ps.setDate(6, Date.valueOf(bean.getCriacao()));
-            ps.setLong(7, bean.getCodigo());
-
+    @Override
+    protected void delete(Connection conn, Long codigo) throws SQLException {
+        final String sql = "DELETE FROM desafio.usuario WHERE codigo = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, codigo);
             ps.executeUpdate();
         }
     }
 
     @Override
-    public void delete(long codigo) throws SQLException {
-        String sql = "DELETE FROM desafio.usuario WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-            ps.setLong(1, codigo);
-            ps.executeUpdate();
-        }
-    }
-
-    @Override
-    public Usuario get(long codigo) throws SQLException {
-        String sql = "SELECT * FROM desafio.usuario WHERE codigo = ?";
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setLong(1, codigo);
-            try (ResultSet rs = ps.executeQuery();) {
-                EnderecoDAO enderecoDAO = new EnderecoDAO();
-                TelefoneDAO telefoneDAO = new TelefoneDAO();
-                while (rs.next()) {
-                    Usuario u = new Usuario();
-                    u.setCodigo(rs.getLong("codigo"));
-                    u.setEndereco(enderecoDAO.get(rs.getLong("codigo_endereco")));
-                    u.setNome(rs.getString("nome"));
-                    u.setUsuario(rs.getString("usuario"));
-                    u.setSenha(rs.getString("senha"));
-                    u.setCriacao(rs.getDate("data_criacao").toLocalDate());
-                    u.setTelefone(telefoneDAO.getAllByUser(u));
-                    return u;
+    protected B get(Connection conn, Long codigo) throws SQLException {
+        B bean = null;
+        try (PreparedStatement ps = conn.prepareStatement(sqlToGet(codigo))) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.first()) {
+                    bean = resultSetToBean(conn, rs);
                 }
             }
         }
-        return null;
+        return bean;
     }
 
     @Override
-    public List<Usuario> getAll() throws SQLException {
-        String sql = "SELECT * FROM desafio.usuario";
-        List<Usuario> usuarios = new ArrayList<>();
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            try (ResultSet rs = ps.executeQuery();) {
-                EnderecoDAO enderecoDAO = new EnderecoDAO();
-                TelefoneDAO telefoneDAO = new TelefoneDAO();
+    protected List<B> getAll(Connection conn) throws SQLException {
+        List<B> beans = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sqlToGetAll())) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Usuario u = new Usuario();
-                    u.setCodigo(rs.getLong("codigo"));
-                    u.setEndereco(enderecoDAO.get(rs.getLong("codigo_endereco")));
-                    u.setNome(rs.getString("nome"));
-                    u.setUsuario(rs.getString("usuario"));
-                    u.setSenha(rs.getString("senha"));
-                    u.setCriacao(rs.getDate("data_criacao").toLocalDate());
-                    u.setTelefone(telefoneDAO.getAllByUser(u));
-                    usuarios.add(u);
+                    beans.add(resultSetToBean(conn, rs));
                 }
             }
         }
-        return usuarios;
+        return beans;
     }
 
+    protected B populateBean(B usuario, Connection conn, ResultSet rs) throws SQLException {
+        usuario.setCodigo(rs.getLong("codigo"));
+        usuario.setNome(rs.getString("nome"));
+        usuario.setUsuario(rs.getString("senha"));
+        usuario.setSenha(rs.getString("senha"));
+        usuario.setEmail(rs.getString("email"));
+        usuario.setTelefones(new TelefoneDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setEndereco(new EnderecoDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setCriacao(rs.getDate("data_criacao").toLocalDate());
+        return usuario;
+    }
+
+    protected abstract String sqlToGet(Long codigo);
+
+    protected abstract String sqlToGetAll();
+
+    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
+
+//    /**
+//     * -------------------------------------------------------------------------------------------
+//     * Este método usa reflections para instanciar um objeto (derivado de Jogador) B. Commo
+//     * reflections gera um custo adicional no desempenho, vou deixar este método comentado e usar
+//     * outra abordagem.
+//     * -------------------------------------------------------------------------------------------
+//     */
+//    protected B resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
+//        B jogador = null;
+//        try {
+//            return populateBean(getBeanClass().newInstance(), conn, rs);
+//        } catch (InstantiationException | IllegalAccessException ex) {
+//            Logger.getLogger(JogadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return jogador;
+//    }
 }
