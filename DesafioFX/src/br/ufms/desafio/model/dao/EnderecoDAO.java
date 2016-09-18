@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
 
-    public EnderecoDAO() {
+    protected EnderecoDAO() {
         super(Endereco.class);
     }
 
@@ -78,8 +78,8 @@ public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
      */
     @Override
     protected void update(Connection conn, Endereco bean) throws SQLException {
-        final String sql = "UPDATE desafio.endereco SET (logradouro = ?, numero = ?, s_n = ?, "
-                + "complemento = ?, bairro = ?, cep = ?, codigo_municipio = ?) WHERE codigo = ?";
+        final String sql = "UPDATE desafio.endereco SET logradouro = ?, numero = ?, s_n = ?, "
+                + "complemento = ?, bairro = ?, cep = ?, codigo_municipio = ? WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             final Municipio municipio = bean.getMunicipio();
@@ -189,7 +189,7 @@ public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
         endereco.setComplemento(rs.getString("complemento"));
         endereco.setBairro(rs.getString("bairro"));
         endereco.setCEP(rs.getString("cep"));
-        endereco.setMunicipio(new MunicipioDAO().get(conn, rs.getLong("codigo_municipio")));
+        endereco.setMunicipio(factory.getMunicipioDAO().get(conn, rs.getLong("codigo_municipio")));
 
         return endereco;
     }

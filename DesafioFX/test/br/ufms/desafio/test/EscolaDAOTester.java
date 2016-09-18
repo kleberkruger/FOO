@@ -14,35 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.model.dao;
+package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Responsavel;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import br.ufms.desafio.model.bean.Escola;
+import br.ufms.desafio.model.dao.DAOFactory;
 
 /**
  *
  * @author kleberkruger
  */
-public class ResponsavelDAO extends JogadorDAO<Responsavel> {
+public class EscolaDAOTester extends UsuarioDAOTester<Escola> {
 
-    protected ResponsavelDAO() {
-        super(Responsavel.class);
+    public EscolaDAOTester() {
+        super(DAOFactory.getInstance().getEscolaDAO());
     }
 
     @Override
-    protected String sqlToGet(Long codigo) {
+    protected void printBean(Escola bean) {
+        super.printBean(bean);
+    }
+
+    @Override
+    protected Escola createBean() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected String sqlToGetAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected Responsavel resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
+    protected void updateBean(Escola bean) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

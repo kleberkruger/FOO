@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
 
-    public TelefoneDAO() {
+    protected TelefoneDAO() {
         super(Telefone.class);
     }
 
@@ -74,8 +74,8 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
      */
     @Override
     protected void update(Connection conn, Telefone bean) throws SQLException {
-        final String sql = "UPDATE desafio.telefone SET (tipo = ?, ddd = ?, numero = ?, "
-                + "principal = ?) WHERE codigo = ?";
+        final String sql = "UPDATE desafio.telefone SET tipo = ?, ddd = ?, numero = ?, "
+                + "principal = ? WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             final TipoTelefone tipo = bean.getTipo();
@@ -160,6 +160,7 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     telefones.add(resultSetToBean(rs));
+                    System.out.println(telefones.get(0).getNumero());
                 }
             }
         }

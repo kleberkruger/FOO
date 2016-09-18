@@ -32,7 +32,7 @@ import java.sql.SQLException;
  */
 public class AlunoDAO extends JogadorDAO<Aluno> {
 
-    public AlunoDAO() {
+    protected AlunoDAO() {
         super(Aluno.class);
     }
     
@@ -62,8 +62,8 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
     @Override
     protected void update(Connection conn, Aluno bean) throws SQLException {
         super.update(conn, bean);
-        final String sql = "UPDATE desafio.aluno SET (codigo_escola, serie, nivel, "
-                + "data_inicio = ?) WHERE codigo = ?";
+        final String sql = "UPDATE desafio.aluno SET codigo_escola, serie, nivel, "
+                + "data_inicio = ? WHERE codigo = ?";
         conn.setAutoCommit(false);
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -91,7 +91,7 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         // Popula apenas os atributos do aluno
         aluno.setSerie(rs.getShort("serie"));
         aluno.setNivel(NivelEnsino.valueOf(rs.getString("nivel")));
-        aluno.setEscola(new EscolaDAO().get(rs.getLong("codigo_escola")));
+        aluno.setEscola(factory.getEscolaDAO().get(rs.getLong("codigo_escola")));
         aluno.setIngresso(rs.getDate("data_ingresso").toLocalDate());
 
         return aluno;
@@ -111,7 +111,7 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
     @Override
     protected String sqlToGetAll() {
         return "SELECT * FROM desafio.usuario u INNER JOIN desafio.jogador j INNER JOIN "
-                + "desafio.aluno a ON p.codigo = j.codigo = u.codigo";
+                + "desafio.aluno a ON a.codigo = j.codigo = u.codigo";
     }
 
 }

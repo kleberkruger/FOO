@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class EscolaDAO extends UsuarioDAO<Escola> {
 
-    public EscolaDAO() {
+    protected EscolaDAO() {
         super(Escola.class);
     }
 
@@ -46,7 +46,7 @@ public class EscolaDAO extends UsuarioDAO<Escola> {
     }
 
     private void updateEscola(Connection conn, Escola bean) throws SQLException {
-        final String sql = "UPDATE desafio.escola SET (tipo = ?) WHERE codigo = ?";
+        final String sql = "UPDATE desafio.escola SET tipo = ? WHERE codigo = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, bean.getTipo().toString());
             ps.setLong(2, bean.getCodigo());
@@ -126,7 +126,7 @@ public class EscolaDAO extends UsuarioDAO<Escola> {
 
         // Popula apenas os atributos da escola
         escola.setTipo(TipoEscola.valueOf(rs.getString("tipo")));
-//        escola.setProfessores(new ProfessorDAO().findByEscola(conn, escola.getCodigo()));
+//        escola.setProfessores(factory.getProfessorDAO().findByEscola(conn, escola.getCodigo()));
 
         return escola;
     }

@@ -34,8 +34,8 @@ import java.util.List;
  * @param <B>
  */
 public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long> {
-
-    public UsuarioDAO(Class<B> clazz) {
+    
+    protected UsuarioDAO(Class<B> clazz) {
         super(clazz);
     }
 
@@ -73,8 +73,8 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
      * @throws SQLException
      */
     private void updateUsuario(Connection conn, B bean) throws SQLException {
-        final String sql = "UPDATE desafio.usuario SET (nome = ?, email = ?, usuario = ?, senha = ?, "
-                + "data_criacao = ?) WHERE codigo = ?";
+        final String sql = "UPDATE desafio.usuario SET nome = ?, email = ?, usuario = ?, senha = ?, "
+                + "data_criacao = ? WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, bean.getNome());
@@ -111,7 +111,7 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
      */
     protected void saveEndereco(Connection conn, B bean) throws SQLException {
         if (bean.getEndereco() != null) {
-            new EnderecoDAO().save(conn, bean.getEndereco(), bean.getCodigo());
+            factory.getEnderecoDAO().save(conn, bean.getEndereco(), bean.getCodigo());
         }
     }
 
@@ -124,9 +124,8 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
      */
     protected void saveTelefones(Connection conn, B bean) throws SQLException {
         if (bean.getTelefones().size() > 0) {
-            TelefoneDAO telefoneDAO = new TelefoneDAO();
             for (Telefone telefone : bean.getTelefones()) {
-                telefoneDAO.save(conn, telefone, bean.getCodigo());
+                factory.getTelefoneDAO().save(conn, telefone, bean.getCodigo());
             }
         }
     }
@@ -195,8 +194,8 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
         usuario.setUsuario(rs.getString("senha"));
         usuario.setSenha(rs.getString("senha"));
         usuario.setEmail(rs.getString("email"));
-        usuario.setTelefones(new TelefoneDAO().findByUsuario(conn, usuario.getCodigo()));
-        usuario.setEndereco(new EnderecoDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setTelefones(factory.getTelefoneDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setEndereco(factory.getEnderecoDAO().findByUsuario(conn, usuario.getCodigo()));
         usuario.setCriacao(rs.getDate("data_criacao").toLocalDate());
         return usuario;
     }

@@ -33,6 +33,7 @@ import java.util.List;
 public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
 
     protected final DatabaseManager db;
+    protected final DAOFactory factory;
     protected final Class<B> beanClass;
 
     /**
@@ -42,6 +43,7 @@ public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
      */
     public ReadOnlyDAO(Class<B> clazz) {
         this.db = DatabaseManager.getInstance();
+        this.factory = DAOFactory.getInstance();
         this.beanClass = clazz;
     }
 

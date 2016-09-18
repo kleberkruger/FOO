@@ -43,7 +43,7 @@ public abstract class ReadWriteDAO<B extends Bean<T>, T extends Serializable> ex
      */
     public void insert(B bean, Serializable... dependencies) throws SQLException {
         try (Connection conn = db.getConnection()) {
-            insert(conn, bean);
+            insert(conn, bean, dependencies);
         }
     }
 

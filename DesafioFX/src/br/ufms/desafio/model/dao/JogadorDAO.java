@@ -31,7 +31,7 @@ import java.sql.SQLException;
  */
 public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
 
-    public JogadorDAO(Class<B> clazz) {
+    protected JogadorDAO(Class<B> clazz) {
         super(clazz);
     }
 
@@ -48,7 +48,7 @@ public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
     }
 
     private void updateJogador(Connection conn, B bean) throws SQLException {
-        final String sql = "UPDATE desafio.escola SET (data_nascimento = ?, deficiencias = ?) "
+        final String sql = "UPDATE desafio.escola SET data_nascimento = ?, deficiencias = ? "
                 + "WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

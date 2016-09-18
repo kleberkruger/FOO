@@ -28,10 +28,10 @@ import java.util.List;
  */
 public class TurmaDAO extends ReadWriteDAO<Turma, Long> {
 
-    public TurmaDAO() {
+    protected TurmaDAO() {
         super(Turma.class);
     }
-
+    
     @Override
     protected void insert(Connection conn, Turma bean, Serializable... dependencies) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

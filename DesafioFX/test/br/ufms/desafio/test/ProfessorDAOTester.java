@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Kleber Kruger
+ * Copyright (C) 2016 kleberkruger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,28 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.desafio.app;
+package br.ufms.desafio.test;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import br.ufms.desafio.model.bean.Professor;
+import br.ufms.desafio.model.dao.DAOFactory;
 
 /**
- * Classe Application que contém o método main deste programa.
  *
- * @author Kleber Kruger
+ * @author kleberkruger
  */
-public class DesafioFXApp extends Application {
+public class ProfessorDAOTester extends DAOTester<Professor, Long> {
+
+    public ProfessorDAOTester() {
+        super(DAOFactory.getInstance().getProfessorDAO());
+    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    protected void printBean(Professor bean) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    @Override
+    protected Professor createBean() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    protected void updateBean(Professor bean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

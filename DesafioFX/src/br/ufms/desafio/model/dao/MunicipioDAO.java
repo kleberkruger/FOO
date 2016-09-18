@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class MunicipioDAO extends ReadOnlyDAO<Municipio, Long> {
 
-    public MunicipioDAO() {
+    protected MunicipioDAO() {
         super(Municipio.class);
     }
 

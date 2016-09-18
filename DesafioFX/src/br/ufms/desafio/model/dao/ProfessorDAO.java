@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ProfessorDAO extends JogadorDAO<Professor> {
 
-    public ProfessorDAO() {
+    protected ProfessorDAO() {
         super(Professor.class);
     }
 
@@ -42,8 +42,8 @@ public class ProfessorDAO extends JogadorDAO<Professor> {
 
         // Popula apenas os atributos do professor
         prof.setTitulacao(Titulacao.valueOf(rs.getString("titulacao")));
-        prof.setEscolas(new EscolaDAO().findByProfessor(conn, prof.getCodigo()));
-        prof.setTurmas(new TurmaDAO().findByProfessor(conn, prof.getCodigo()));
+        prof.setEscolas(factory.getEscolaDAO().findByProfessor(conn, prof.getCodigo()));
+        prof.setTurmas(factory.getTurmaDAO().findByProfessor(conn, prof.getCodigo()));
 
         return prof;
     }
