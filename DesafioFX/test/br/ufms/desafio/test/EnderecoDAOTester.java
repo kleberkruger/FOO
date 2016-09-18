@@ -37,7 +37,7 @@ public class EnderecoDAOTester extends DAOTester<Endereco, Long> {
     protected void printBean(Endereco bean) {
         System.out.println(
                 "Logradouro: " + bean.getLogradouro()
-                + "\nN˙mero: " + bean.getNumero()
+                + "\nNúmero: " + bean.getNumero()
                 + "\nS/N: " + bean.getSemNumero()
                 + "\nBairro: " + bean.getBairro()
                 + "\nComplemento: " + bean.getComplemento()
@@ -75,7 +75,7 @@ public class EnderecoDAOTester extends DAOTester<Endereco, Long> {
 
     @Override
     protected void insertDependencyList(List<Serializable> dependencies) {
-        dependencies.add(1L);
+        dependencies.add(1l);
     }
 
 }

@@ -111,7 +111,7 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
      */
     protected void saveEndereco(Connection conn, B bean) throws SQLException {
         if (bean.getEndereco() != null) {
-            factory.getEnderecoDAO().save(conn, bean.getEndereco(), bean.getCodigo());
+            getDAOFactory().getEnderecoDAO().save(conn, bean.getEndereco(), bean.getCodigo());
         }
     }
 
@@ -125,7 +125,7 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
     protected void saveTelefones(Connection conn, B bean) throws SQLException {
         if (bean.getTelefones().size() > 0) {
             for (Telefone telefone : bean.getTelefones()) {
-                factory.getTelefoneDAO().save(conn, telefone, bean.getCodigo());
+                getDAOFactory().getTelefoneDAO().save(conn, telefone, bean.getCodigo());
             }
         }
     }
@@ -194,8 +194,8 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
         usuario.setUsuario(rs.getString("senha"));
         usuario.setSenha(rs.getString("senha"));
         usuario.setEmail(rs.getString("email"));
-        usuario.setTelefones(factory.getTelefoneDAO().findByUsuario(conn, usuario.getCodigo()));
-        usuario.setEndereco(factory.getEnderecoDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setTelefones(getDAOFactory().getTelefoneDAO().findByUsuario(conn, usuario.getCodigo()));
+        usuario.setEndereco(getDAOFactory().getEnderecoDAO().findByUsuario(conn, usuario.getCodigo()));
         usuario.setCriacao(rs.getDate("data_criacao").toLocalDate());
         return usuario;
     }

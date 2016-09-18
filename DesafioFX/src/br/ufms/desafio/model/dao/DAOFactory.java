@@ -97,18 +97,22 @@ public class DAOFactory {
     public TurmaDAO getTurmaDAO() {
         return turmaDAO;
     }
-    
+
     /**
      * Gets the single instance of DAOFactory class.
-     * 
+     *
      * @return the singleton instance
      */
     public static DAOFactory getInstance() {
         return DAOFactoryHolder.INSTANCE;
     }
 
+    /**
+     * Classe privada que armazena a única instância de DAOFactory.
+     */
     private static class DAOFactoryHolder {
 
         private static final DAOFactory INSTANCE = new DAOFactory();
     }
+
 }

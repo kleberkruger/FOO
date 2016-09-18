@@ -17,7 +17,11 @@
 package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Turma;
+import br.ufms.desafio.model.bean.enumerate.Periodo;
 import br.ufms.desafio.model.dao.DAOFactory;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,17 +35,30 @@ public class TurmaDAOTester extends DAOTester<Turma, Long> {
 
     @Override
     protected void printBean(Turma bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Código: " + bean.getCodigo() + "\n" + 
+                "Nome: " + bean.getNome()+ "\n" + 
+                "Responsável: " + bean.getResponsavel()+ "\n");
     }
 
     @Override
     protected Turma createBean() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Turma t = new Turma();
+            t.setNome("Fundamentos em Orientação a Objetos");
+            t.setResponsavel(DAOFactory.getInstance().getProfessorDAO().get(1L));
+            t.setPeriodo(Periodo.NOTURNO);
+            
+            return t;
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     protected void updateBean(Turma bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.setNome("Técnicas em Orientação a Objetos");
     }
     
 }

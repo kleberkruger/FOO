@@ -29,11 +29,11 @@ public class TesteDAOs {
 //        new AlunoDAOTester().start();
         new EnderecoDAOTester().start();
 //        new EscolaDAOTester().start();
-//        new MunicipioDAOTester().start();
+        new MunicipioDAOTester().start();
 //        new ProfessorDAOTester().start();
 //        new ResponsavelDAOTester().start();
-//        new TelefoneDAOTester().start();
-//        new TurmaDAOTester().start();
+        new TelefoneDAOTester().start();
+        new TurmaDAOTester().start();
     }
 
 }

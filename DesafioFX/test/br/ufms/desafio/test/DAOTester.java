@@ -57,7 +57,7 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
             } else {
                 System.out.println("Elements not found.");
             }
-            
+
         } catch (SQLException ex) {
             System.err.println(msgError + ex.getMessage());
         }
@@ -72,51 +72,51 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
             testGet(bean.getCodigo());
             testDelete(bean.getCodigo());
             testGetAll();
-            
+
         } catch (SQLException ex) {
             System.err.println(msgError + ex.getMessage());
         }
     }
 
     private B testInsert(B bean) throws SQLException {
-        System.out.println("Testing insert()...");
+        print("Testing insert()...");
         msgError = "insert() Error: ";
-        
+
         // insert dependencies if exists...
         List<Serializable> dependencies = new ArrayList<>();
         insertDependencyList(dependencies);
-        
+
         readWriteDAO.insert(bean, dependencies.toArray(new Serializable[dependencies.size()]));
         return bean;
     }
-    
+
     private B testUpdate(B bean) throws SQLException {
-        System.out.println("Testing update()...");
+        print("Testing update()...");
         msgError = "update() Error: ";
         readWriteDAO.update(bean);
         return bean;
     }
-    
+
     private void testDelete(T id) throws SQLException {
-        System.out.println("Testing delete()...");
+        print("Testing delete()...");
         msgError = "delete() Error: ";
-        
+
         readWriteDAO.delete(id);
     }
-    
+
     private Bean testGet(T id) throws SQLException {
-        System.out.println("Testing get()...");
+        print("Testing get()...");
         msgError = "get() Error: ";
-        
+
         B bean = readOnlyDAO.get(id);
         printBean(bean);
         return bean;
     }
-    
+
     private List<B> testGetAll() throws SQLException {
-        System.out.println("Testing getAll()...");
+        print("Testing getAll()...");
         msgError = "getAll() Error: ";
-        
+
         List<B> list = readOnlyDAO.getAll();
         list.stream().forEach((b) -> {
             printBean(b);
@@ -127,10 +127,48 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
     protected abstract void printBean(B bean);
 
     protected abstract B createBean();
-    
+
     protected abstract void updateBean(B bean);
-    
+
     protected void insertDependencyList(List<Serializable> dependencies) {
         //
     }
+
+    protected void print(String msg) {
+        StringBuilder str = new StringBuilder();
+        str.append("------------------------------------------------------------\n");
+        str.append(msg).append("\n");
+        str.append("------------------------------------------------------------\n");
+        System.out.print(str);
+    }
+
+//    private abstract class DAOTest {
+//
+//        protected abstract String getTestName();
+//
+//        protected abstract void test();
+//
+//        public void run() {
+//            StringBuilder str = new StringBuilder();
+//            
+//            str.append("------------------------------------------------------------\n");
+//            str.append(getTestName()).append("\n");
+//            str.append("------------------------------------------------------------\n");
+//            
+//            System.out.print(str);
+//        }
+//    }
+//
+//    private class InsertTest extends DAOTest {
+//
+//        @Override
+//        protected String getTestName() {
+//            return "InsertTest";
+//        }
+//
+//        @Override
+//        protected void test() {
+//            
+//        }
+//    }
 }

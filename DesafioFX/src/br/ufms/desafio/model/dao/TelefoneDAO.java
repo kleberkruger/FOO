@@ -46,6 +46,13 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
      */
     @Override
     protected void insert(Connection conn, Telefone bean, Serializable... dependencies) throws SQLException {
+        if (dependencies.length < 1) {
+            throw new IllegalArgumentException("Dependência 'codigo_usuario' não informada");
+        } else if (!(dependencies[0] instanceof Long)) {
+            throw new ClassCastException("Dependência 'codigo_usuario' informada com tipo incorreto: "
+                    + dependencies[0].getClass().getName() + " cannot be cast to java.lang.Long");
+        }
+        
         final String sql = "INSERT INTO desafio.telefone (codigo_usuario, tipo, ddd, numero, principal) "
                 + "VALUES (?, ?, ?, ?, ?)";
 

@@ -46,12 +46,18 @@ public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
      */
     @Override
     protected void insert(Connection conn, Endereco bean, Serializable... dependencies) throws SQLException {
+        if (dependencies.length < 1) {
+            throw new IllegalArgumentException("Dependência 'codigo_usuario' não informada");
+        } else if (!(dependencies[0] instanceof Long)) {
+            throw new ClassCastException("Dependência 'codigo_usuario' informada com tipo incorreto: "
+                    + dependencies[0].getClass().getName() + " cannot be cast to java.lang.Long");
+        }
+
         final String sql = "INSERT INTO desafio.endereco (codigo_usuario, logradouro, numero, s_n, "
                 + "complemento, bairro, cep, codigo_municipio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             final Municipio municipio = bean.getMunicipio();
-
             ps.setLong(1, (long) dependencies[0]);
             ps.setObject(2, bean.getLogradouro());
             ps.setObject(3, bean.getNumero());
@@ -189,7 +195,7 @@ public class EnderecoDAO extends ReadWriteDAO<Endereco, Long> {
         endereco.setComplemento(rs.getString("complemento"));
         endereco.setBairro(rs.getString("bairro"));
         endereco.setCEP(rs.getString("cep"));
-        endereco.setMunicipio(factory.getMunicipioDAO().get(conn, rs.getLong("codigo_municipio")));
+        endereco.setMunicipio(getDAOFactory().getMunicipioDAO().get(conn, rs.getLong("codigo_municipio")));
 
         return endereco;
     }

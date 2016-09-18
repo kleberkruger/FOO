@@ -42,8 +42,8 @@ public class ProfessorDAO extends JogadorDAO<Professor> {
 
         // Popula apenas os atributos do professor
         prof.setTitulacao(Titulacao.valueOf(rs.getString("titulacao")));
-        prof.setEscolas(factory.getEscolaDAO().findByProfessor(conn, prof.getCodigo()));
-        prof.setTurmas(factory.getTurmaDAO().findByProfessor(conn, prof.getCodigo()));
+        prof.setEscolas(getDAOFactory().getEscolaDAO().findByProfessor(conn, prof.getCodigo()));
+        prof.setTurmas(getDAOFactory().getTurmaDAO().findByProfessor(conn, prof.getCodigo()));
 
         return prof;
     }

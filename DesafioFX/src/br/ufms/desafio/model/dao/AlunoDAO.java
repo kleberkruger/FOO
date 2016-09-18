@@ -91,7 +91,7 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         // Popula apenas os atributos do aluno
         aluno.setSerie(rs.getShort("serie"));
         aluno.setNivel(NivelEnsino.valueOf(rs.getString("nivel")));
-        aluno.setEscola(factory.getEscolaDAO().get(rs.getLong("codigo_escola")));
+        aluno.setEscola(getDAOFactory().getEscolaDAO().get(rs.getLong("codigo_escola")));
         aluno.setIngresso(rs.getDate("data_ingresso").toLocalDate());
 
         return aluno;
