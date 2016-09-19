@@ -229,7 +229,7 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
         final Date criacao = rs.getDate("data_criacao");
         bean.setCodigo(rs.getLong("codigo"));
         bean.setNome(rs.getString("nome"));
-        bean.setUsuario(rs.getString("senha"));
+        bean.setUsuario(rs.getString("usuario"));
         bean.setSenha(rs.getString("senha"));
         bean.setEmail(rs.getString("email"));
         bean.setTelefones(telefones != null ? telefones : new ArrayList<>());

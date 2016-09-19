@@ -24,9 +24,9 @@ import br.ufms.desafio.model.dao.DAOFactory;
  *
  * @author kleberkruger
  */
-public class EscolaDAOTester extends UsuarioDAOTester<Escola> {
+public class EscolaTester extends UsuarioTester<Escola> {
 
-    public EscolaDAOTester() {
+    public EscolaTester() {
         super(DAOFactory.getInstance().getEscolaDAO());
     }
 

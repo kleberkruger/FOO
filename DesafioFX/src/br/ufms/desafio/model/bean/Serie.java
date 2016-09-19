@@ -24,7 +24,7 @@ import java.io.Serializable;
  *
  * @author Kleber Kruger
  */
-public class Serie implements Serializable {
+public class Serie extends Bean<Long> implements Serializable {
     
     private static final long serialVersionUID = 1L;
     

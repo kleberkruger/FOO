@@ -27,9 +27,9 @@ import java.util.logging.Logger;
  *
  * @author kleberkruger
  */
-public class TurmaDAOTester extends DAOTester<Turma, Long> {
+public class TurmaTester extends DAOTester<Turma, Long> {
 
-    public TurmaDAOTester() {
+    public TurmaTester() {
         super(DAOFactory.getInstance().getTurmaDAO());
     }
 

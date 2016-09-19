@@ -16,28 +16,34 @@
  */
 package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Jogador;
-import br.ufms.desafio.model.dao.JogadorDAO;
-import java.time.format.DateTimeFormatter;
+import br.ufms.desafio.model.bean.Usuario;
+import br.ufms.desafio.model.dao.UsuarioDAO;
 
 /**
  *
  * @author kleberkruger
  * @param <B>
  */
-public abstract class JogadorDAOTester<B extends Jogador> extends UsuarioDAOTester<B> {
+public abstract class UsuarioTester<B extends Usuario> extends DAOTester<B, Long> {
 
-    public JogadorDAOTester(JogadorDAO<B> dao) {
+    public UsuarioTester(UsuarioDAO<B> dao) {
         super(dao);
     }
 
     @Override
     protected void printBean(B bean) {
-        super.printBean(bean);
-        System.out.println("Data de nascimento: " + bean.getNascimento().format(DateTimeFormatter.ISO_DATE) + "\n"
-                + "Deficiências: \n");
-        bean.getDeficiencias().stream().forEach((d) -> {
-            System.out.println(d.toString());
+        System.out.print("Código: " + bean.getCodigo() + "\n"
+                + "Nome: " + bean.getNome() + "\n"
+                + "Email: " + bean.getEmail() + "\n"
+                + "Usuario: " + bean.getUsuario() + "\n"
+                + "Senha: " + bean.getSenha() + "\n"
+                + "Data de criação: " + bean.getCriacao() + "\n");
+
+        new EnderecoTester().printBean(bean.getEndereco());
+
+        TelefoneTester telDAOTester = new TelefoneTester();
+        bean.getTelefones().stream().forEach((tel) -> {
+            telDAOTester.printBean(tel);
         });
     }
 
@@ -46,5 +52,5 @@ public abstract class JogadorDAOTester<B extends Jogador> extends UsuarioDAOTest
 
     @Override
     protected abstract void updateBean(B bean);
-    
+
 }

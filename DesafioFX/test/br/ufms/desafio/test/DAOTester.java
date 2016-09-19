@@ -72,7 +72,7 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
             }
             testUpdate(bean);
             testGet(bean.getCodigo());
-            testDelete(bean.getCodigo());
+//            testDelete(bean.getCodigo());
             testGetAll();
 
         } catch (SQLException ex) {

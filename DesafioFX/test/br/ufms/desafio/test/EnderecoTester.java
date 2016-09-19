@@ -27,9 +27,9 @@ import java.util.List;
  *
  * @author kleberkruger
  */
-public class EnderecoDAOTester extends DAOTester<Endereco, Long> {
+public class EnderecoTester extends DAOTester<Endereco, Long> {
 
-    public EnderecoDAOTester() {
+    public EnderecoTester() {
         super(DAOFactory.getInstance().getEnderecoDAO());
     }
 

@@ -16,39 +16,39 @@
  */
 package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Municipio;
-import br.ufms.desafio.model.bean.enumerate.UF;
+import br.ufms.desafio.model.bean.Professor;
 import br.ufms.desafio.model.dao.DAOFactory;
+import java.time.LocalDate;
 
 /**
  *
  * @author kleberkruger
  */
-public class MunicipioDAOTester extends DAOTester<Municipio, Long> {
+public class ProfessorTester extends DAOTester<Professor, Long> {
 
-    public MunicipioDAOTester() {
-        super(DAOFactory.getInstance().getMunicipioDAO());
+    public ProfessorTester() {
+        super(DAOFactory.getInstance().getProfessorDAO());
     }
 
     @Override
-    protected void printBean(Municipio bean) {
-        System.out.println("Código IBGE: " + bean.getCodigo() + "\n"
-                + "Nome: " + bean.getNome() + "\n"
-                + "UF: " + bean.getUF().toString());
+    protected void printBean(Professor bean) {
+        System.out.println("Nome: " + bean.getNome());
     }
 
     @Override
-    protected Municipio createBean() {
-        Municipio m = new Municipio();
-        m.setCodigo(1L);
-        m.setNome("Coxim");
-        m.setUF(UF.MS);
-        return m;
+    protected Professor createBean() {
+        Professor a = new Professor();
+        a.setNome("Kleber Krueger");
+        a.setEmail("kleberkruger@gmail.com");
+        a.setUsuario("kleberkruger  ");
+        a.setSenha("123");
+        a.setNascimento(LocalDate.of(1988, 12, 8));
+        return a;
     }
 
     @Override
-    protected void updateBean(Municipio bean) {
-        bean.setNome("Rio Verde");
+    protected void updateBean(Professor bean) {
+        bean.setNome("Kleber Kruger");
     }
-
+    
 }

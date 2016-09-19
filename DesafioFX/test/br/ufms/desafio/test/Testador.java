@@ -20,7 +20,7 @@ package br.ufms.desafio.test;
  *
  * @author kleberkruger
  */
-public class TesteDAOs {
+public class Testador {
 
     /**
      * @param args the command line arguments
@@ -45,12 +45,12 @@ public class TesteDAOs {
 //        str = str.substring(1, str.length() - 1).replace(" ", "");
 //        System.out.println(str);
 
-        new AlunoDAOTester().start();
+        new AlunoTester().start();
 //        new EnderecoDAOTester().start();
-        new EscolaDAOTester().start();
-        new MunicipioDAOTester().start();
-        new ProfessorDAOTester().start();
-        new ResponsavelDAOTester().start();
+        new EscolaTester().start();
+        new MunicipioTester().start();
+        new ProfessorTester().start();
+        new ResponsavelTester().start();
 //        new TelefoneDAOTester().start();
 //        new TurmaDAOTester().start();
     }

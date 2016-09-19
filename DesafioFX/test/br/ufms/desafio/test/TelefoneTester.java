@@ -26,9 +26,9 @@ import java.util.List;
  *
  * @author kleberkruger
  */
-public class TelefoneDAOTester extends DAOTester<Telefone, Long> {
+public class TelefoneTester extends DAOTester<Telefone, Long> {
 
-    public TelefoneDAOTester() {
+    public TelefoneTester() {
         super(DAOFactory.getInstance().getTelefoneDAO());
     }
 

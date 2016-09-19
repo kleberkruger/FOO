@@ -28,6 +28,7 @@ public class DAOFactory {
     private final MunicipioDAO municipioDAO;
     private final ProfessorDAO professorDAO;
     private final ResponsavelDAO responsavelDAO;
+    private final SerieDAO serieDAO;
     private final TelefoneDAO telefoneDAO;
     private final TurmaDAO turmaDAO;
 
@@ -38,6 +39,7 @@ public class DAOFactory {
         this.municipioDAO = new MunicipioDAO();
         this.professorDAO = new ProfessorDAO();
         this.responsavelDAO = new ResponsavelDAO();
+        this.serieDAO = new SerieDAO();
         this.telefoneDAO = new TelefoneDAO();
         this.turmaDAO = new TurmaDAO();
     }
@@ -82,6 +84,13 @@ public class DAOFactory {
      */
     public ResponsavelDAO getResponsavelDAO() {
         return responsavelDAO;
+    }
+    
+    /**
+     * @return the serieDAO
+     */
+    public SerieDAO getSerieDAO() {
+        return serieDAO;
     }
 
     /**

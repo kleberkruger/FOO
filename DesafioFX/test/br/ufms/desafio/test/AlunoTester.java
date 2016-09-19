@@ -28,9 +28,9 @@ import java.util.List;
  *
  * @author kleberkruger
  */
-public class AlunoDAOTester extends JogadorDAOTester<Aluno> {
+public class AlunoTester extends JogadorTester<Aluno> {
 
-    public AlunoDAOTester() {
+    public AlunoTester() {
         super(DAOFactory.getInstance().getAlunoDAO());
     }
 

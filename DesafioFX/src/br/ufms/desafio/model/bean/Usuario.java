@@ -114,11 +114,6 @@ public class Usuario extends Bean<Long> implements Serializable {
      * @param telefones the telefones to set
      */
     public void setTelefones(List<Telefone> telefones) {
-        if (this.telefones != null) {
-            System.out.println("Lista jogada fora: ");
-            System.out.println(this.telefones);
-            System.out.println(telefones);
-        }
         this.telefones = telefones;
     }
 

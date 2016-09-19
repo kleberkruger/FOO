@@ -16,7 +16,7 @@
  */
 package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Professor;
+import br.ufms.desafio.model.bean.Responsavel;
 import br.ufms.desafio.model.dao.DAOFactory;
 import java.time.LocalDate;
 
@@ -24,31 +24,32 @@ import java.time.LocalDate;
  *
  * @author kleberkruger
  */
-public class ProfessorDAOTester extends DAOTester<Professor, Long> {
+public class ResponsavelTester extends DAOTester<Responsavel, Long> {
 
-    public ProfessorDAOTester() {
-        super(DAOFactory.getInstance().getProfessorDAO());
+    public ResponsavelTester() {
+        super(DAOFactory.getInstance().getResponsavelDAO());
     }
 
     @Override
-    protected void printBean(Professor bean) {
+    protected void printBean(Responsavel bean) {
         System.out.println("Nome: " + bean.getNome());
     }
 
     @Override
-    protected Professor createBean() {
-        Professor a = new Professor();
-        a.setNome("Kleber Krueger");
-        a.setEmail("kleberkruger@gmail.com");
-        a.setUsuario("kleberkruger  ");
-        a.setSenha("123");
-        a.setNascimento(LocalDate.of(1988, 12, 8));
+    protected Responsavel createBean() {
+        Responsavel a = new Responsavel();
+        a.setNome("Menino Angelo");
+        a.setEmail("garotinhoangelical@gmail.com");
+        a.setUsuario("garotinhoangelical");
+        a.setSenha("2424");
+        a.setCPF("875.926.946-71");
+        a.setNascimento(LocalDate.of(1985, 5, 8));
         return a;
     }
 
     @Override
-    protected void updateBean(Professor bean) {
-        bean.setNome("Kleber Kruger");
+    protected void updateBean(Responsavel bean) {
+        System.out.println("Ângelo");
     }
     
 }

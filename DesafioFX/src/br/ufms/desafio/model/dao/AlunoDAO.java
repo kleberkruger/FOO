@@ -35,8 +35,7 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         super(Aluno.class);
     }
 
-    @Override
-    protected void insertAbst(Connection conn, Aluno bean) throws SQLException {
+    protected void insertAluno(Connection conn, Aluno bean) throws SQLException {
         final String sql = "INSERT INTO desafio.aluno (codigo, codigo_escola, data_inicio) VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -49,10 +48,9 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         }
     }
 
-    @Override
-    protected void updateAbst(Connection conn, Aluno bean) throws SQLException {
-                final String sql = "UPDATE desafio.aluno SET codigo_escola = ?, data_inicio = ? "
-                        + "WHERE codigo = ?";
+    protected void updateAluno(Connection conn, Aluno bean) throws SQLException {
+        final String sql = "UPDATE desafio.aluno SET codigo_escola = ?, data_inicio = ? "
+                + "WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             final Escola escola = bean.getEscola();
@@ -64,16 +62,42 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         }
     }
 
+    /**
+     * Salva (insere ou atualiza) a serie.
+     *
+     * @param conn
+     * @param bean
+     * @throws SQLException
+     */
+    protected void saveSerie(Connection conn, Aluno bean) throws SQLException {
+        if (bean.getSerie() != null) {
+            getDAOFactory().getSerieDAO().save(conn, bean.getSerie(), bean.getCodigo());
+        }
+    }
+
+    @Override
+    protected void insertAbst(Connection conn, Aluno bean) throws SQLException {
+        insertAluno(conn, bean);
+        saveSerie(conn, bean);
+    }
+
+    @Override
+    protected void updateAbst(Connection conn, Aluno bean) throws SQLException {
+        updateAluno(conn, bean);
+        saveSerie(conn, bean);
+    }
+
     @Override
     protected Aluno populateBean(Aluno aluno, Connection conn, ResultSet rs) throws SQLException {
         // Popula os atributos comum a todos os jogadores
         super.populateBean(aluno, conn, rs);
+        
+        final Date ingresso = rs.getDate("data_ingresso");
 
 //        // Popula apenas os atributos do aluno
-//        aluno.setSerie(rs.getShort("serie"));
-//        aluno.setNivel(NivelEnsino.valueOf(rs.getString("nivel")));
+        aluno.setSerie(getDAOFactory().getSerieDAO().findByUsuario(conn, aluno.getCodigo()));
         aluno.setEscola(getDAOFactory().getEscolaDAO().get(rs.getLong("codigo_escola")));
-//        aluno.setIngresso(rs.getDate("data_ingresso").toLocalDate());
+        aluno.setIngresso(ingresso != null ? ingresso.toLocalDate() : null);
         return aluno;
     }
 

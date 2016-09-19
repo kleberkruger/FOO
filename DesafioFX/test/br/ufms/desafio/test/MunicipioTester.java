@@ -16,40 +16,39 @@
  */
 package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Responsavel;
+import br.ufms.desafio.model.bean.Municipio;
+import br.ufms.desafio.model.bean.enumerate.UF;
 import br.ufms.desafio.model.dao.DAOFactory;
-import java.time.LocalDate;
 
 /**
  *
  * @author kleberkruger
  */
-public class ResponsavelDAOTester extends DAOTester<Responsavel, Long> {
+public class MunicipioTester extends DAOTester<Municipio, Long> {
 
-    public ResponsavelDAOTester() {
-        super(DAOFactory.getInstance().getResponsavelDAO());
+    public MunicipioTester() {
+        super(DAOFactory.getInstance().getMunicipioDAO());
     }
 
     @Override
-    protected void printBean(Responsavel bean) {
-        System.out.println("Nome: " + bean.getNome());
+    protected void printBean(Municipio bean) {
+        System.out.println("Código IBGE: " + bean.getCodigo() + "\n"
+                + "Nome: " + bean.getNome() + "\n"
+                + "UF: " + bean.getUF().toString());
     }
 
     @Override
-    protected Responsavel createBean() {
-        Responsavel a = new Responsavel();
-        a.setNome("Menino Angelo");
-        a.setEmail("garotinhoangelical@gmail.com");
-        a.setUsuario("garotinhoangelical");
-        a.setSenha("2424");
-        a.setCPF("875.926.946-71");
-        a.setNascimento(LocalDate.of(1985, 5, 8));
-        return a;
+    protected Municipio createBean() {
+        Municipio m = new Municipio();
+        m.setCodigo(1L);
+        m.setNome("Coxim");
+        m.setUF(UF.MS);
+        return m;
     }
 
     @Override
-    protected void updateBean(Responsavel bean) {
-        System.out.println("Ângelo");
+    protected void updateBean(Municipio bean) {
+        bean.setNome("Rio Verde");
     }
-    
+
 }
