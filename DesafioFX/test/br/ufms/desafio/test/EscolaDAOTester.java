@@ -17,6 +17,7 @@
 package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Escola;
+import br.ufms.desafio.model.bean.enumerate.TipoEscola;
 import br.ufms.desafio.model.dao.DAOFactory;
 
 /**
@@ -36,12 +37,18 @@ public class EscolaDAOTester extends UsuarioDAOTester<Escola> {
 
     @Override
     protected Escola createBean() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Escola e = new Escola();
+        e.setNome("Pedro Mendes Fontoura");
+        e.setEmail("pmf@gmail.com");
+        e.setUsuario("pmf");
+        e.setSenha("123");
+        e.setTipo(TipoEscola.ESTADUAL);
+        return e;
     }
 
     @Override
     protected void updateBean(Escola bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.setNome("Escola Estadual Pedro Mendes Fontoura");
     }
-    
+
 }

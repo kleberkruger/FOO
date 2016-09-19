@@ -60,8 +60,8 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
             final TipoTelefone tipo = bean.getTipo();
             ps.setLong(1, (long) dependencies[0]);
             ps.setObject(2, tipo != null ? tipo.toString() : null);
-            ps.setString(3, bean.getDDD());
-            ps.setString(4, bean.getNumero());
+            ps.setObject(3, bean.getDDD());
+            ps.setObject(4, bean.getNumero());
             ps.setObject(5, bean.getPrincipal());
             ps.executeUpdate();
 
@@ -87,8 +87,8 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             final TipoTelefone tipo = bean.getTipo();
             ps.setObject(1, tipo != null ? tipo.toString() : null);
-            ps.setString(2, bean.getDDD());
-            ps.setString(3, bean.getNumero());
+            ps.setObject(2, bean.getDDD());
+            ps.setObject(3, bean.getNumero());
             ps.setObject(4, bean.getPrincipal());
             ps.setLong(5, bean.getCodigo());
             ps.executeUpdate();
@@ -167,7 +167,6 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     telefones.add(resultSetToBean(rs));
-                    System.out.println(telefones.get(0).getNumero());
                 }
             }
         }
@@ -181,10 +180,10 @@ public class TelefoneDAO extends ReadWriteDAO<Telefone, Long> {
      * @throws SQLException 
      */
     private Telefone resultSetToBean(ResultSet rs) throws SQLException {
+        final String tipo = rs.getString("tipo");
         Telefone telefone = new Telefone();
         telefone.setCodigo(rs.getLong("codigo"));
-        telefone.setTipo(rs.getString("tipo") != null
-                ? TipoTelefone.valueOf(rs.getString("tipo")) : null);
+        telefone.setTipo(tipo != null ? TipoTelefone.valueOf(tipo) : null);
         telefone.setDDD(rs.getString("ddd"));
         telefone.setNumero(rs.getString("numero"));
         telefone.setPrincipal(rs.getBoolean("principal"));

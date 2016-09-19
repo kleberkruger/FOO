@@ -25,20 +25,10 @@ import java.sql.SQLException;
  *
  * @author kleberkruger
  */
-public class ResponsavelDAO extends JogadorDAO<Responsavel> {
+public class ResponsavelDAO_Copy extends JogadorDAO_Copy<Responsavel> {
 
-    protected ResponsavelDAO() {
+    protected ResponsavelDAO_Copy() {
         super(Responsavel.class);
-    }
-
-    @Override
-    protected void insertAbst(Connection conn, Responsavel bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void updateAbst(Connection conn, Responsavel bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

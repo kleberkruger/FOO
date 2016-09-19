@@ -20,6 +20,7 @@ import br.ufms.desafio.model.bean.Turma;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class TurmaDAO extends ReadWriteDAO<Turma, Long> {
     }
     
     public List<Turma> findByProfessor(Connection conn, Long codigoProfessor) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
 }

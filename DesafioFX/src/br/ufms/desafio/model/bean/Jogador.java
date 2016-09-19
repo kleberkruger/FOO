@@ -62,6 +62,24 @@ public class Jogador extends Usuario implements Serializable {
     public Set<Deficiencia> getDeficiencias() {
         return deficiencias;
     }
+    
+    /**
+     * @return the deficiencias
+     */
+    public String getDeficienciasString() {
+        if (deficiencias == null) {
+            return null;
+        } else if (deficiencias.isEmpty()) {
+            return "";
+        }
+        
+        Deficiencia array[] = deficiencias.toArray(new Deficiencia[deficiencias.size()]);
+        StringBuilder str = new StringBuilder(array[0].toString());
+        for (int i = 1; i < array.length; i++) {
+            str.append(",").append(array[i]);
+        }
+        return str.toString();
+    }
 
     /**
      * @param deficiencias the deficiencias to set
@@ -74,10 +92,11 @@ public class Jogador extends Usuario implements Serializable {
      * @param deficiencias the deficiencias to set
      */
     public void setDeficiencias(String[] deficiencias) {
-        System.out.println(deficiencias);
         this.deficiencias.clear();
-        for (String d : deficiencias) {
-            this.deficiencias.add(Deficiencia.valueOf(d));
+        for (String deficiencia : deficiencias) {
+            if (!deficiencia.isEmpty()) {
+                this.deficiencias.add(Deficiencia.valueOf(deficiencia));
+            }
         }
     }
 

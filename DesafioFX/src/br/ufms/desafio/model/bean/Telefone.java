@@ -34,7 +34,7 @@ public class Telefone extends Bean<Long> implements Serializable {
     private TipoTelefone tipo;
 
     /**
-     * Cria um novo objeto Telefone com todos os atributos nulos inicialmente.
+     * Cria um novo objeto Telefone com todos os atributos inicialmente nulos.
      */
     public Telefone() {
         super();
@@ -96,4 +96,37 @@ public class Telefone extends Bean<Long> implements Serializable {
         this.tipo = tipo;
     }
 
+    /**
+     * @FIXME: Implementar corretamente este método.
+     *
+     * @return the telephone number formated
+     */
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("(").append(ddd).append(")").append(numero);
+
+        return str.toString();
+    }
+
+//    private static final NumberFormat defaultFormat8 = new DecimalFormat("####-####");
+//    private static final NumberFormat defaultFormat9 = new DecimalFormat("#-####-####");
+//
+//    /**
+//     * @TODO: Implementar a formatação do número do telefone.
+//     * 
+//     * @return the format
+//     */
+//    public static NumberFormat getFormat() {
+//        return null;
+//    }
+//
+//    /**
+//     * @TODO: Implementar a formatação do número do telefone.
+//     * 
+//     * @param format the format to set
+//     */
+//    public static void setFormat(NumberFormat format) {
+//    
+//    }
 }

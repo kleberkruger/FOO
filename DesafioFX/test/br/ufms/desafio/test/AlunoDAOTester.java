@@ -17,7 +17,12 @@
 package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Aluno;
+import br.ufms.desafio.model.bean.Endereco;
+import br.ufms.desafio.model.bean.Telefone;
 import br.ufms.desafio.model.dao.DAOFactory;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,12 +36,35 @@ public class AlunoDAOTester extends JogadorDAOTester<Aluno> {
 
     @Override
     protected Aluno createBean() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Endereco e = new Endereco();
+        e.setLogradouro("Rua da Casa do Rafael");
+        e.setNumero((short) 24);
+        
+        Telefone t1 = new Telefone();
+        t1.setDDD("67");
+        t1.setNumero("9-9845-1863");
+        List<Telefone> tels = new ArrayList<>();
+        tels.add(t1);
+        
+        Aluno a = new Aluno();
+        a.setNome("Rafael Viana");
+        a.setEmail("rafaelgov95@gmail.com");
+        a.setUsuario("rafaelgov");
+        a.setSenha("123");
+        a.setCriacao(LocalDate.now());
+        a.setNascimento(LocalDate.of(1994, 06, 18));
+//        a.setSerie((short) 2);
+//        a.setNivel(NivelEnsino.SUPERIOR);
+//        a.setEndereco(e);
+//        a.setTelefones(tels);
+        
+        return a;
     }
 
     @Override
     protected void updateBean(Aluno bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.setNome("Rafael Gouveia Viana");
     }
-    
+
 }

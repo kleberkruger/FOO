@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -36,56 +37,97 @@ public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
     }
 
     private void insertJogador(Connection conn, B bean) throws SQLException {
-        final String sql = "INSERT INTO desafio.professor (codigo, data_nascimento, deficiencias) "
+        final String sql = "INSERT INTO desafio.jogador (codigo, data_nascimento, deficiencias) "
                 + "VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final LocalDate nascimento = bean.getNascimento();
             ps.setLong(1, bean.getCodigo());
-            ps.setDate(2, Date.valueOf(bean.getNascimento()));
-            ps.setArray(3, conn.createArrayOf("VARCHAR", bean.getDeficiencias().toArray()));
+            ps.setDate(2, nascimento != null ? Date.valueOf(nascimento) : null);
+            ps.setString(3, bean.getDeficienciasString());
             ps.executeUpdate();
         }
     }
 
     private void updateJogador(Connection conn, B bean) throws SQLException {
-        final String sql = "UPDATE desafio.escola SET data_nascimento = ?, deficiencias = ? "
+        final String sql = "UPDATE desafio.jogador SET data_nascimento = ?, deficiencias = ? "
                 + "WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDate(1, Date.valueOf(bean.getNascimento()));
-            ps.setArray(2, conn.createArrayOf("VARCHAR", bean.getDeficiencias().toArray()));
+            final LocalDate nascimento = bean.getNascimento();
+            ps.setDate(1, nascimento != null ? Date.valueOf(nascimento) : null);
+            ps.setString(2, bean.getDeficienciasString());
             ps.setLong(3, bean.getCodigo());
             ps.executeUpdate();
         }
     }
 
-    protected void saveJogador(Connection conn, B bean) throws SQLException {
-        if (bean.getCodigo() == null) {
+    @Override
+    protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
+        conn.setAutoCommit(false);
+        try {
+            saveUsuario(conn, bean);
+            saveEndereco(conn, bean);
+            saveTelefones(conn, bean);
+            
             insertJogador(conn, bean);
-        } else {
-            updateJogador(conn, bean);
+            insertAbst(conn, bean);
+            conn.commit();
+
+        } catch (SQLException ex) {
+            conn.rollback();
+            throw ex;
+        } finally {
+            conn.setAutoCommit(true);
         }
     }
 
     @Override
-    protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
-        super.insert(conn, bean, dependencies);
-        insertJogador(conn, bean);
-    }
-
-    @Override
     protected void update(Connection conn, B bean) throws SQLException {
-        super.update(conn, bean);
-        updateJogador(conn, bean);
+        conn.setAutoCommit(false);
+        try {
+            saveUsuario(conn, bean);
+            saveEndereco(conn, bean);
+            saveTelefones(conn, bean);
+
+            updateJogador(conn, bean);
+            updateAbst(conn, bean);
+            conn.commit();
+
+        } catch (SQLException ex) {
+            conn.rollback();
+            throw ex;
+        } finally {
+            conn.setAutoCommit(true);
+        }
     }
 
     @Override
     protected B populateBean(B jogador, Connection conn, ResultSet rs) throws SQLException {
         super.populateBean(jogador, conn, rs);
-        jogador.setNascimento(rs.getDate("data_nascimento").toLocalDate());
-//        jogador.setDeficiencias(rs.getString("deficiencias").split(","));
+        
+        final Date nascimento = rs.getDate("data_nascimento"); 
+        jogador.setNascimento(nascimento != null ? nascimento.toLocalDate() : null);
+        
+        final String deficiencias = rs.getString("deficiencias");
+        jogador.setDeficiencias(deficiencias != null ? deficiencias.split(",") : null);
 
         return jogador;
     }
+
+    @Override
+    protected abstract void insertAbst(Connection conn, B bean) throws SQLException;
+
+    @Override
+    protected abstract void updateAbst(Connection conn, B bean) throws SQLException;
+    
+    @Override
+    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
+
+    @Override
+    protected abstract String sqlToGet(Long codigo);
+
+    @Override
+    protected abstract String sqlToGetAll();
 
 }

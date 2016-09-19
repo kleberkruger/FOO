@@ -18,6 +18,7 @@ package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Professor;
 import br.ufms.desafio.model.dao.DAOFactory;
+import java.time.LocalDate;
 
 /**
  *
@@ -31,17 +32,23 @@ public class ProfessorDAOTester extends DAOTester<Professor, Long> {
 
     @Override
     protected void printBean(Professor bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Nome: " + bean.getNome());
     }
 
     @Override
     protected Professor createBean() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Professor a = new Professor();
+        a.setNome("Kleber Krueger");
+        a.setEmail("kleberkruger@gmail.com");
+        a.setUsuario("kleberkruger  ");
+        a.setSenha("123");
+        a.setNascimento(LocalDate.of(1988, 12, 8));
+        return a;
     }
 
     @Override
     protected void updateBean(Professor bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.setNome("Kleber Kruger");
     }
     
 }

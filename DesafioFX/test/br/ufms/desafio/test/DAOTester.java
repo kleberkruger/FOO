@@ -66,8 +66,10 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
     private void readWriteRoutine() {
         try {
             B bean = testInsert(createBean());
-            testGet(bean.getCodigo());
-            updateBean(bean);
+            bean = testGet(bean.getCodigo());
+            if (bean != null) {
+                updateBean(bean);
+            }
             testUpdate(bean);
             testGet(bean.getCodigo());
             testDelete(bean.getCodigo());
@@ -104,12 +106,16 @@ public abstract class DAOTester<B extends Bean<T>, T extends Serializable> {
         readWriteDAO.delete(id);
     }
 
-    private Bean testGet(T id) throws SQLException {
+    private B testGet(T id) throws SQLException {
         print("Testing get()...");
         msgError = "get() Error: ";
 
         B bean = readOnlyDAO.get(id);
-        printBean(bean);
+        if (bean != null) {
+            printBean(bean);
+        } else {
+            System.err.println("Element not found.");
+        }
         return bean;
     }
 

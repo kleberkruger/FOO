@@ -35,9 +35,9 @@ import java.util.List;
  * @author Kleber Kruger
  * @param <B>
  */
-public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long> {
-
-    protected UsuarioDAO(Class<B> clazz) {
+public abstract class UsuarioDAO_Copy<B extends Usuario> extends ReadWriteDAO<B, Long> {
+    
+    protected UsuarioDAO_Copy(Class<B> clazz) {
         super(clazz);
     }
 
@@ -58,7 +58,7 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
             ps.setString(2, bean.getEmail());
             ps.setString(3, bean.getUsuario());
             ps.setString(4, bean.getSenha());
-            ps.setDate(5, Date.valueOf(criacao != null ? criacao : LocalDate.now()));
+            ps.setDate(5, (criacao != null) ? Date.valueOf(criacao) : null);
             ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.first()) {
@@ -127,10 +127,10 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
      * @throws SQLException
      */
     protected void saveTelefones(Connection conn, B bean) throws SQLException {
-        TelefoneDAO telefoneDAO = getDAOFactory().getTelefoneDAO();
+        DAOFactory factory = getDAOFactory();
         if (bean.getTelefones().size() > 0) {
             for (Telefone telefone : bean.getTelefones()) {
-                telefoneDAO.save(conn, telefone, bean.getCodigo());
+                factory.getTelefoneDAO().save(conn, telefone, bean.getCodigo());
             }
         }
     }
@@ -147,45 +147,19 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
     @Override
     protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
         conn.setAutoCommit(false);
-        try {
-            insertUsuario(conn, bean);
-            saveEndereco(conn, bean);
-            saveTelefones(conn, bean);
-            
-            insertAbst(conn, bean);
-            conn.commit();
-
-        } catch (SQLException ex) {
-            conn.rollback();
-            throw ex;
-        } finally {
-            conn.setAutoCommit(true);
-        }
+        
+        insertUsuario(conn, bean);
+        saveEndereco(conn, bean);
+        saveTelefones(conn, bean);
     }
 
-    /**
-     * 
-     * @param conn
-     * @param bean
-     * @throws SQLException 
-     */
     @Override
     protected void update(Connection conn, B bean) throws SQLException {
         conn.setAutoCommit(false);
-        try {
-            updateUsuario(conn, bean);
-            saveEndereco(conn, bean);
-            saveTelefones(conn, bean);
-            
-            updateAbst(conn, bean);
-            conn.commit();
-
-        } catch (SQLException ex) {
-            conn.rollback();
-            throw ex;
-        } finally {
-            conn.setAutoCommit(true);
-        }
+        
+        updateUsuario(conn, bean);
+        saveEndereco(conn, bean);
+        saveTelefones(conn, bean);
     }
 
     @Override
@@ -223,30 +197,26 @@ public abstract class UsuarioDAO<B extends Usuario> extends ReadWriteDAO<B, Long
         return beans;
     }
 
-    protected B populateBean(B bean, Connection conn, ResultSet rs) throws SQLException {
+    protected B populateBean(B usuario, Connection conn, ResultSet rs) throws SQLException {
         final Endereco endereco = getDAOFactory().getEnderecoDAO().findByUsuario(conn, rs.getLong("codigo"));
-        final List<Telefone> telefones = getDAOFactory().getTelefoneDAO().findByUsuario(conn, rs.getLong("codigo"));
+        final List<Telefone> telefones = getDAOFactory().getTelefoneDAO().findByUsuario(conn, usuario.getCodigo());
         final Date criacao = rs.getDate("data_criacao");
-        bean.setCodigo(rs.getLong("codigo"));
-        bean.setNome(rs.getString("nome"));
-        bean.setUsuario(rs.getString("senha"));
-        bean.setSenha(rs.getString("senha"));
-        bean.setEmail(rs.getString("email"));
-        bean.setTelefones(telefones != null ? telefones : new ArrayList<>());
-        bean.setEndereco(endereco != null ? endereco : new Endereco());
-        bean.setCriacao(criacao != null ? criacao.toLocalDate() : null);
-        return bean;
+        usuario.setCodigo(rs.getLong("codigo"));
+        usuario.setNome(rs.getString("nome"));
+        usuario.setUsuario(rs.getString("senha"));
+        usuario.setSenha(rs.getString("senha"));
+        usuario.setEmail(rs.getString("email"));
+        usuario.setTelefones(telefones != null ? telefones : new ArrayList<>());
+        usuario.setEndereco(endereco != null ? endereco : new Endereco());
+        usuario.setCriacao(criacao != null ? criacao.toLocalDate() : null);
+        return usuario;
     }
-    
-    protected abstract void insertAbst(Connection conn, B bean) throws SQLException;
-    
-    protected abstract void updateAbst(Connection conn, B bean) throws SQLException;
-    
-    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
 
     protected abstract String sqlToGet(Long codigo);
 
     protected abstract String sqlToGetAll();
+
+    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
 
 //    /**
 //     * -------------------------------------------------------------------------------------------

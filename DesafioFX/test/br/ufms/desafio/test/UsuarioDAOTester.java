@@ -32,7 +32,6 @@ public abstract class UsuarioDAOTester<B extends Usuario> extends DAOTester<B, L
 
     @Override
     protected void printBean(B bean) {
-
         System.out.print("Código: " + bean.getCodigo() + "\n"
                 + "Nome: " + bean.getNome() + "\n"
                 + "Email: " + bean.getEmail() + "\n"

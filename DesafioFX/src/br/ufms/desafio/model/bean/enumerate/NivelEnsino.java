@@ -22,5 +22,5 @@ package br.ufms.desafio.model.bean.enumerate;
  */
 public enum NivelEnsino {
     
-    PRE_ESCOLA, FUNDAMENTAL, MEDIO, SUPERIOR;
+    PRE_ESCOLA, FUNDAMENTAL, MEDIO, SUPERIOR, POS_GRADUACAO;
 }

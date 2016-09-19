@@ -17,12 +17,7 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Aluno;
-import br.ufms.desafio.model.bean.Escola;
-import br.ufms.desafio.model.bean.enumerate.NivelEnsino;
-import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -35,83 +30,30 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
     protected AlunoDAO() {
         super(Aluno.class);
     }
-    
+
     @Override
-    protected void insert(Connection conn, Aluno bean, Serializable... dependencies) throws SQLException {
-        final String sql = "INSERT INTO desafio.aluno (codigo, codigo_escola, serie, "
-                + "nivel, data_inicio) VALUES (?, ?, ?, ?, ?)";
-        conn.setAutoCommit(false);
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            final Escola escola = bean.getEscola();
-            ps.setLong(1, bean.getCodigo());
-            ps.setObject(2, escola != null ? escola.getCodigo() : null);
-            ps.setObject(3, bean.getSerie());
-            ps.setObject(4, bean.getNivel().toString());
-            ps.setDate(5, Date.valueOf(bean.getIngresso()));
-            ps.executeUpdate();
-
-            conn.commit();
-
-        } catch (SQLException ex) {
-            conn.rollback();
-            throw ex;
-        }
-    }
-    
-    @Override
-    protected void update(Connection conn, Aluno bean) throws SQLException {
-        super.update(conn, bean);
-        final String sql = "UPDATE desafio.aluno SET codigo_escola, serie, nivel, "
-                + "data_inicio = ? WHERE codigo = ?";
-        conn.setAutoCommit(false);
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            final Escola escola = bean.getEscola();
-            ps.setObject(1, escola != null ? escola.getCodigo() : null);
-            ps.setObject(2, bean.getSerie());
-            ps.setObject(3, bean.getNivel().toString());
-            ps.setDate(4, Date.valueOf(bean.getIngresso()));
-            ps.setLong(5, bean.getCodigo());
-            ps.executeUpdate();
-
-            conn.commit();
-
-        } catch (SQLException ex) {
-            conn.rollback();
-            throw ex;
-        }
+    protected void insertAbst(Connection conn, Aluno bean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected Aluno populateBean(Aluno aluno, Connection conn, ResultSet rs) throws SQLException {
-        // Popula os atributos comum a todos os jogadores
-        super.populateBean(aluno, conn, rs);
-
-        // Popula apenas os atributos do aluno
-        aluno.setSerie(rs.getShort("serie"));
-        aluno.setNivel(NivelEnsino.valueOf(rs.getString("nivel")));
-        aluno.setEscola(getDAOFactory().getEscolaDAO().get(rs.getLong("codigo_escola")));
-        aluno.setIngresso(rs.getDate("data_ingresso").toLocalDate());
-
-        return aluno;
-    }
-
-    @Override
-    protected Aluno resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
-        return populateBean(new Aluno(), conn, rs);
+    protected void updateAbst(Connection conn, Aluno bean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected String sqlToGet(Long codigo) {
-        return "SELECT * FROM desafio.usuario u, desafio.jogador j, desafio.aluno a WHERE "
-                + "u.codigo = " + codigo;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected String sqlToGetAll() {
-        return "SELECT * FROM desafio.usuario u INNER JOIN desafio.jogador j INNER JOIN "
-                + "desafio.aluno a ON a.codigo = j.codigo = u.codigo";
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    protected Aluno resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

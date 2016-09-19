@@ -16,7 +16,6 @@
  */
 package br.ufms.desafio.model.bean;
 
-import br.ufms.desafio.model.bean.enumerate.NivelEnsino;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,8 +30,7 @@ public class Aluno extends Jogador implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Short serie;
-    private NivelEnsino nivel;
+    private Serie serie;
     private Escola escola;
     private LocalDate ingresso;
     private List<Responsavel> responsaveis;
@@ -49,29 +47,15 @@ public class Aluno extends Jogador implements Serializable {
     /**
      * @return the serie
      */
-    public Short getSerie() {
+    public Serie getSerie() {
         return serie;
     }
 
     /**
      * @param serie the serie to set
      */
-    public void setSerie(Short serie) {
+    public void setSerie(Serie serie) {
         this.serie = serie;
-    }
-
-    /**
-     * @return the nivel
-     */
-    public NivelEnsino getNivel() {
-        return nivel;
-    }
-
-    /**
-     * @param nivel the nivel to set
-     */
-    public void setNivel(NivelEnsino nivel) {
-        this.nivel = nivel;
     }
 
     /**
