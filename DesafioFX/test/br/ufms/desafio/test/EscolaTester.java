@@ -33,6 +33,7 @@ public class EscolaTester extends UsuarioTester<Escola> {
     @Override
     protected void printBean(Escola bean) {
         super.printBean(bean);
+        System.out.println("Tipo:" + bean.getTipo());
     }
 
     @Override

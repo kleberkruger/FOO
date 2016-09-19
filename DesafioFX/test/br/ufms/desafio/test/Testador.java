@@ -36,7 +36,6 @@ public class Testador {
 //        tel.setNumero("99839-3619");
 //        tel.setNumero("9-9839-3619");
 //        System.out.println(tel);
-
 //        Set<Deficiencia> defs = new HashSet<>();
 //        defs.add(Deficiencia.MENTAL);
 //        defs.add(Deficiencia.FISICA);
@@ -44,14 +43,16 @@ public class Testador {
 //        String str = defs.toString();
 //        str = str.substring(1, str.length() - 1).replace(" ", "");
 //        System.out.println(str);
-
-        new AlunoTester().start();
-//        new EnderecoDAOTester().start();
-        new EscolaTester().start();
+//
         new MunicipioTester().start();
+//        new EnderecoDAOTester().start();
+//        new TelefoneDAOTester().start();
+
+        new EscolaTester().start();
+        new AlunoTester().start();
         new ProfessorTester().start();
         new ResponsavelTester().start();
-//        new TelefoneDAOTester().start();
+
 //        new TurmaDAOTester().start();
     }
 

@@ -24,7 +24,7 @@ import java.time.LocalDate;
  *
  * @author kleberkruger
  */
-public class ProfessorTester extends DAOTester<Professor, Long> {
+public class ProfessorTester extends JogadorTester<Professor> {
 
     public ProfessorTester() {
         super(DAOFactory.getInstance().getProfessorDAO());
@@ -32,7 +32,8 @@ public class ProfessorTester extends DAOTester<Professor, Long> {
 
     @Override
     protected void printBean(Professor bean) {
-        System.out.println("Nome: " + bean.getNome());
+        super.printBean(bean);
+        System.out.println("Titulação: " + bean.getTitulacao());
     }
 
     @Override

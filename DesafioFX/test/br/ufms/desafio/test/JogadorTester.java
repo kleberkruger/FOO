@@ -34,11 +34,14 @@ public abstract class JogadorTester<B extends Jogador> extends UsuarioTester<B> 
     @Override
     protected void printBean(B bean) {
         super.printBean(bean);
-        System.out.println("Data de nascimento: " + bean.getNascimento().format(DateTimeFormatter.ISO_DATE) + "\n"
-                + "Deficiências: \n");
-        bean.getDeficiencias().stream().forEach((d) -> {
-            System.out.println(d.toString());
+        
+        StringBuilder output = new StringBuilder();
+        output.append("Data de nascimento: ").append(bean.getNascimento().format(DateTimeFormatter.ISO_DATE)).append("\n");
+        output.append("Deficiências: ").append("\n");
+        bean.getDeficiencias().stream().forEach((deficiencia) -> {
+            output.append(deficiencia.toString()).append("\n");
         });
+        System.out.println(output);
     }
 
     @Override

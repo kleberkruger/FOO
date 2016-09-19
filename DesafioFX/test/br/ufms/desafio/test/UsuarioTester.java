@@ -18,6 +18,7 @@ package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Usuario;
 import br.ufms.desafio.model.dao.UsuarioDAO;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -32,13 +33,15 @@ public abstract class UsuarioTester<B extends Usuario> extends DAOTester<B, Long
 
     @Override
     protected void printBean(B bean) {
-        System.out.print("Código: " + bean.getCodigo() + "\n"
-                + "Nome: " + bean.getNome() + "\n"
-                + "Email: " + bean.getEmail() + "\n"
-                + "Usuario: " + bean.getUsuario() + "\n"
-                + "Senha: " + bean.getSenha() + "\n"
-                + "Data de criação: " + bean.getCriacao() + "\n");
-
+        StringBuilder output = new StringBuilder();
+        output.append("Código: ").append(bean.getCodigo()).append("\n");
+        output.append("Nome: ").append(bean.getNome()).append("\n");
+        output.append("Email: ").append(bean.getEmail()).append("\n");
+        output.append("Usuário: ").append(bean.getUsuario()).append("\n");
+        output.append("Senha: ").append(bean.getSenha()).append("\n");
+        output.append("Data de criação: ").append(bean.getCriacao().format(DateTimeFormatter.ISO_DATE)).append("\n");
+        System.out.println(output);
+        
         new EnderecoTester().printBean(bean.getEndereco());
 
         TelefoneTester telDAOTester = new TelefoneTester();

@@ -92,10 +92,10 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
         // Popula os atributos comum a todos os jogadores
         super.populateBean(aluno, conn, rs);
         
-        final Date ingresso = rs.getDate("data_ingresso");
+        final Date ingresso = rs.getDate("data_inicio");
 
 //        // Popula apenas os atributos do aluno
-        aluno.setSerie(getDAOFactory().getSerieDAO().findByUsuario(conn, aluno.getCodigo()));
+        aluno.setSerie(getDAOFactory().getSerieDAO().findByAluno(conn, aluno.getCodigo()));
         aluno.setEscola(getDAOFactory().getEscolaDAO().get(rs.getLong("codigo_escola")));
         aluno.setIngresso(ingresso != null ? ingresso.toLocalDate() : null);
         return aluno;

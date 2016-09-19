@@ -35,21 +35,26 @@ public class EnderecoTester extends DAOTester<Endereco, Long> {
 
     @Override
     protected void printBean(Endereco bean) {
-        System.out.println(
-                "Logradouro: " + bean.getLogradouro()
-                + "\nNúmero: " + bean.getNumero()
-                + "\nS/N: " + bean.getSemNumero()
-                + "\nBairro: " + bean.getBairro()
-                + "\nComplemento: " + bean.getComplemento()
-                + "\nCEP: " + bean.getCEP()
-        );
+        StringBuilder output = new StringBuilder();
+        output.append("Código: ").append(bean.getCodigo()).append("\n");
+        output.append("Logradouro: ").append(bean.getLogradouro()).append("\n");
+        output.append("Número: ").append(bean.getNumero()).append("\n");
+        output.append("S/N: ").append(bean.getSemNumero()).append("\n");
+        output.append("Complemento: ").append(bean.getComplemento()).append("\n");
+        output.append("Bairro: ").append(bean.getBairro()).append("\n");
+        output.append("CEP: ").append(bean.getCEP()).append("\n");
+        System.out.println(output);
+
+        if (bean.getMunicipio() != null) {
+            new MunicipioTester().printBean(bean.getMunicipio());
+        }
     }
 
     @Override
     protected Endereco createBean() {
-        
+
         Endereco e = new Endereco();
-        
+
         e.setBairro("Santa Maria");
         e.setCEP("794000000");
         e.setCodigo(1l);
@@ -57,14 +62,14 @@ public class EnderecoTester extends DAOTester<Endereco, Long> {
         e.setLogradouro("Rua Marcio Lima Nantes");
         e.setNumero((short) 1115);
         e.setSemNumero(false);
-        
+
         Municipio m = new Municipio();
         m.setCodigo(1l);
         m.setNome("Coxim");
         m.setUF(UF.MS);
-        
+
         e.setMunicipio(m);
-        
+
         return e;
     }
 

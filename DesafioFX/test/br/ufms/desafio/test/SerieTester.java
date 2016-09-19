@@ -16,41 +16,40 @@
  */
 package br.ufms.desafio.test;
 
-import br.ufms.desafio.model.bean.Municipio;
-import br.ufms.desafio.model.bean.enumerate.UF;
-import br.ufms.desafio.model.dao.DAOFactory;
+import br.ufms.desafio.model.bean.Serie;
+import br.ufms.desafio.model.bean.enumerate.NivelEnsino;
+import br.ufms.desafio.model.dao.SerieDAO;
 
 /**
  *
  * @author kleberkruger
  */
-public class MunicipioTester extends DAOTester<Municipio, Long> {
+public class SerieTester extends DAOTester<Serie, Long> {
 
-    public MunicipioTester() {
-        super(DAOFactory.getInstance().getMunicipioDAO());
+    public SerieTester() {
+        super(new SerieDAO());
     }
 
     @Override
-    protected void printBean(Municipio bean) {
+    protected void printBean(Serie bean) {
         StringBuilder output = new StringBuilder();
-        output.append("Código IBGE: ").append(bean.getCodigo()).append("\n");
-        output.append("Nome: ").append(bean.getCodigo()).append("\n");
-        output.append("UF: ").append(bean.getCodigo()).append("\n");
+        output.append("Código: ").append(bean.getCodigo()).append("\n");
+        output.append("Ano: ").append(bean.getAno()).append("\n");
+        output.append("Nível: ").append(bean.getNivel().toString()).append("\n");
         System.out.println(output);
     }
 
     @Override
-    protected Municipio createBean() {
-        Municipio m = new Municipio();
-        m.setCodigo(1L);
-        m.setNome("Rio Verde");
-        m.setUF(UF.MS);
-        return m;
+    protected Serie createBean() {
+        Serie s = new Serie();
+        s.setAno((short) 2);
+        s.setNivel(NivelEnsino.MEDIO);
+        return s;
     }
 
     @Override
-    protected void updateBean(Municipio bean) {
-        bean.setNome("Coxim");
+    protected void updateBean(Serie bean) {
+        bean.setAno((short) 3);
     }
 
 }

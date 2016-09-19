@@ -24,7 +24,7 @@ import java.time.LocalDate;
  *
  * @author kleberkruger
  */
-public class ResponsavelTester extends DAOTester<Responsavel, Long> {
+public class ResponsavelTester extends JogadorTester<Responsavel> {
 
     public ResponsavelTester() {
         super(DAOFactory.getInstance().getResponsavelDAO());
@@ -32,7 +32,8 @@ public class ResponsavelTester extends DAOTester<Responsavel, Long> {
 
     @Override
     protected void printBean(Responsavel bean) {
-        System.out.println("Nome: " + bean.getNome());
+        super.printBean(bean);
+        System.out.println("CPF: " + bean.getCPF());
     }
 
     @Override

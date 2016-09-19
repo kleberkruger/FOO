@@ -18,7 +18,9 @@ package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Aluno;
 import br.ufms.desafio.model.bean.Endereco;
+import br.ufms.desafio.model.bean.Serie;
 import br.ufms.desafio.model.bean.Telefone;
+import br.ufms.desafio.model.bean.enumerate.NivelEnsino;
 import br.ufms.desafio.model.dao.DAOFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,6 +37,18 @@ public class AlunoTester extends JogadorTester<Aluno> {
     }
 
     @Override
+    protected void printBean(Aluno bean) {
+        super.printBean(bean);
+        
+        if (bean.getSerie() != null) {
+            new SerieTester().printBean(bean.getSerie());
+        }
+        if (bean.getEscola()!= null) {
+            new EscolaTester().printBean(bean.getEscola());
+        }
+    }
+
+    @Override
     protected Aluno createBean() {
         
         Telefone t1 = new Telefone();
@@ -43,6 +57,10 @@ public class AlunoTester extends JogadorTester<Aluno> {
         List<Telefone> tels = new ArrayList<>();
         tels.add(t1);
         
+        Serie s = new Serie();
+        s.setAno((short) 2);
+        s.setNivel(NivelEnsino.SUPERIOR);
+        
         Aluno a = new Aluno();
         a.setNome("Rafael Viana");
         a.setEmail("rafaelgov95@gmail.com");
@@ -50,9 +68,7 @@ public class AlunoTester extends JogadorTester<Aluno> {
         a.setSenha("123");
         a.setCriacao(LocalDate.now());
         a.setNascimento(LocalDate.of(1994, 06, 18));
-//        a.setSerie((short) 2);
-//        a.setNivel(NivelEnsino.SUPERIOR);
-        
+        a.setSerie(s);
         a.setTelefones(tels);
         
         return a;

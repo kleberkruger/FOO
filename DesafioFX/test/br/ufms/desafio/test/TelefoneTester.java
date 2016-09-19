@@ -34,10 +34,13 @@ public class TelefoneTester extends DAOTester<Telefone, Long> {
 
     @Override
     protected void printBean(Telefone bean) {
-        System.out.println("DDD: " + bean.getDDD() + "\n"
-                + "Numero: " + bean.getNumero() + "\n"
-                + "Tipo: " + bean.getTipo() + "\n"
-                + "Principal: " + bean.getPrincipal());
+        StringBuilder output = new StringBuilder();
+        output.append("Código: ").append(bean.getCodigo()).append("\n");
+        output.append("DDD: ").append(bean.getDDD()).append("\n");
+        output.append("Número: ").append(bean.getNumero()).append("\n");
+        output.append("Tipo: ").append(bean.getTipo()).append("\n");
+        output.append("Principal: ").append(bean.getPrincipal()).append("\n");
+        System.out.println(output);
     }
 
     @Override

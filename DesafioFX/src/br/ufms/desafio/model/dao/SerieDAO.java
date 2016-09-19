@@ -46,18 +46,19 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
     @Override
     protected void insert(Connection conn, Serie bean, Serializable... dependencies) throws SQLException {
         if (dependencies.length < 1) {
-            throw new IllegalArgumentException("Dependência 'codigo_usuario' não informada");
+            throw new IllegalArgumentException("Dependência 'codigo_aluno' não informada");
         } else if (!(dependencies[0] instanceof Long)) {
-            throw new ClassCastException("Dependência 'codigo_usuario' informada com tipo incorreto: "
+            throw new ClassCastException("Dependência 'codigo_aluno' informada com tipo incorreto: "
                     + dependencies[0].getClass().getName() + " cannot be cast to java.lang.Long");
         }
 
-        final String sql = "INSERT INTO desafio.serie (codigo_usuario, ano, nivel) VALUES (?, ?, ?)";
+        final String sql = "INSERT INTO desafio.serie (codigo_aluno, ano, nivel) VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            final NivelEnsino nivel = bean.getNivel();
             ps.setLong(1, (long) dependencies[0]);
             ps.setObject(2, bean.getAno());
-            ps.setObject(3, bean.getNivel());
+            ps.setObject(3, nivel != null ? nivel.toString() : null);
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -79,8 +80,9 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
         final String sql = "UPDATE desafio.serie SET ano = ?, nivel = ? WHERE codigo = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final NivelEnsino nivel = bean.getNivel();
             ps.setObject(1, bean.getAno());
-            ps.setObject(2, bean.getNivel());
+            ps.setObject(2, nivel != null ? bean.getNivel().toString() : null);
             ps.setLong(3, bean.getCodigo());
             ps.executeUpdate();
         }
@@ -110,7 +112,7 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
      */
     @Override
     protected Serie get(Connection conn, Long codigo) throws SQLException {
-        final String sql = "SELECT * FROM desafio.telefone WHERE codigo = ?";
+        final String sql = "SELECT * FROM desafio.serie WHERE codigo = ?";
         Serie serie = null;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, codigo);
@@ -131,7 +133,7 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
      */
     @Override
     protected List<Serie> getAll(Connection conn) throws SQLException {
-        final String sql = "SELECT * FROM desafio.telefone";
+        final String sql = "SELECT * FROM desafio.serie";
         List<Serie> series = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -158,11 +160,11 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
         return serie;
     }
 
-    public Serie findByUsuario(Connection conn, Long codigoUsuario) throws SQLException {
-        final String sql = "SELECT * FROM desafio.serie WHERE codigo_usuario = ?";
+    public Serie findByAluno(Connection conn, Long codigoAluno) throws SQLException {
+        final String sql = "SELECT * FROM desafio.serie WHERE codigo_aluno = ?";
         Serie serie = null;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setLong(1, codigoUsuario);
+            ps.setLong(1, codigoAluno);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.first()) {
                     serie = resultSetToBean(rs);
@@ -171,4 +173,5 @@ public class SerieDAO extends ReadWriteDAO<Serie, Long> {
         }
         return serie;
     }
+    
 }

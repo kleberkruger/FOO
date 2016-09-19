@@ -20,8 +20,6 @@ import br.ufms.desafio.model.bean.Turma;
 import br.ufms.desafio.model.bean.enumerate.Periodo;
 import br.ufms.desafio.model.dao.DAOFactory;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,9 +33,16 @@ public class TurmaTester extends DAOTester<Turma, Long> {
 
     @Override
     protected void printBean(Turma bean) {
-        System.out.println("Código: " + bean.getCodigo() + "\n" + 
-                "Nome: " + bean.getNome()+ "\n" + 
-                "Responsável: " + bean.getResponsavel()+ "\n");
+        StringBuilder output = new StringBuilder();
+        output.append("Código: ").append(bean.getCodigo()).append("\n");
+        output.append("Nome: ").append(bean.getNome()).append("\n");
+        output.append("Período: ").append(bean.getPeriodo()).append("\n");
+        output.append("Responsável: ").append(bean.getResponsavel().getNome()).append("\n");
+        output.append("Deficiências: ").append("\n");
+        bean.getAlunos().stream().forEach((aluno) -> {
+            output.append(aluno.getNome()).append("\n");
+        });
+        System.out.println(output);
     }
 
     @Override
