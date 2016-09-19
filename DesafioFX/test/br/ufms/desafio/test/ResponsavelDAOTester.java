@@ -18,7 +18,7 @@ package br.ufms.desafio.test;
 
 import br.ufms.desafio.model.bean.Responsavel;
 import br.ufms.desafio.model.dao.DAOFactory;
-import br.ufms.desafio.model.dao.ReadOnlyDAO;
+import java.time.LocalDate;
 
 /**
  *
@@ -32,17 +32,24 @@ public class ResponsavelDAOTester extends DAOTester<Responsavel, Long> {
 
     @Override
     protected void printBean(Responsavel bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Nome: " + bean.getNome());
     }
 
     @Override
     protected Responsavel createBean() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Responsavel a = new Responsavel();
+        a.setNome("Menino Angelo");
+        a.setEmail("garotinhoangelical@gmail.com");
+        a.setUsuario("garotinhoangelical");
+        a.setSenha("2424");
+        a.setCPF("875.926.946-71");
+        a.setNascimento(LocalDate.of(1985, 5, 8));
+        return a;
     }
 
     @Override
     protected void updateBean(Responsavel bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Ângelo");
     }
     
 }

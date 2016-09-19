@@ -37,10 +37,6 @@ public class AlunoDAOTester extends JogadorDAOTester<Aluno> {
     @Override
     protected Aluno createBean() {
         
-        Endereco e = new Endereco();
-        e.setLogradouro("Rua da Casa do Rafael");
-        e.setNumero((short) 24);
-        
         Telefone t1 = new Telefone();
         t1.setDDD("67");
         t1.setNumero("9-9845-1863");
@@ -56,15 +52,20 @@ public class AlunoDAOTester extends JogadorDAOTester<Aluno> {
         a.setNascimento(LocalDate.of(1994, 06, 18));
 //        a.setSerie((short) 2);
 //        a.setNivel(NivelEnsino.SUPERIOR);
-//        a.setEndereco(e);
-//        a.setTelefones(tels);
+        
+        a.setTelefones(tels);
         
         return a;
     }
 
     @Override
     protected void updateBean(Aluno bean) {
+        Endereco e = new Endereco();
+        e.setLogradouro("Rua da Casa do Rafael");
+        e.setNumero((short) 24);
+        
         bean.setNome("Rafael Gouveia Viana");
+        bean.setEndereco(e);
     }
 
 }

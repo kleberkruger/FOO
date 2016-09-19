@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -84,4 +86,18 @@ public class EscolaDAO extends UsuarioDAO<Escola> {
         return "SELECT * FROM desafio.usuario u JOIN desafio.escola e ON e.codigo = u.codigo";
     }       
 
+    protected List<Escola> findByProfessor(Connection conn, Long codigo) throws SQLException {
+        final String sql = "SELECT * FROM desafio.usuario u JOIN desafio.escola e ON u.codigo = e.codigo "
+                + "JOIN desafio.escola_professor ep ON e.codigo = ep.codigo_escola WHERE ep.codigo_professor = ?";
+        List<Escola> beans = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, codigo);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    beans.add(resultSetToBean(conn, rs));
+                }
+            }
+        }
+        return beans;
+    }
 }

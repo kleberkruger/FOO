@@ -17,9 +17,13 @@
 package br.ufms.desafio.model.dao;
 
 import br.ufms.desafio.model.bean.Aluno;
+import br.ufms.desafio.model.bean.Escola;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -32,28 +36,62 @@ public class AlunoDAO extends JogadorDAO<Aluno> {
     }
 
     @Override
-    protected void insertAbst(Connection conn, Aluno bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void insertAbst(Connection conn, Aluno bean) throws SQLException {
+        final String sql = "INSERT INTO desafio.aluno (codigo, codigo_escola, data_inicio) VALUES (?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final Escola escola = bean.getEscola();
+            final LocalDate ingresso = bean.getIngresso();
+            ps.setLong(1, bean.getCodigo());
+            ps.setObject(2, escola != null ? escola.getCodigo() : null);
+            ps.setDate(3, ingresso != null ? Date.valueOf(bean.getIngresso()) : null);
+            ps.executeUpdate();
+        }
     }
 
     @Override
-    protected void updateAbst(Connection conn, Aluno bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void updateAbst(Connection conn, Aluno bean) throws SQLException {
+                final String sql = "UPDATE desafio.aluno SET codigo_escola = ?, data_inicio = ? "
+                        + "WHERE codigo = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            final Escola escola = bean.getEscola();
+            final LocalDate ingresso = bean.getIngresso();
+            ps.setObject(1, escola != null ? escola.getCodigo() : null);
+            ps.setDate(2, ingresso != null ? Date.valueOf(bean.getIngresso()) : null);
+            ps.setLong(3, bean.getCodigo());
+            ps.executeUpdate();
+        }
     }
 
     @Override
-    protected String sqlToGet(Long codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    protected Aluno populateBean(Aluno aluno, Connection conn, ResultSet rs) throws SQLException {
+        // Popula os atributos comum a todos os jogadores
+        super.populateBean(aluno, conn, rs);
 
-    @Override
-    protected String sqlToGetAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        // Popula apenas os atributos do aluno
+//        aluno.setSerie(rs.getShort("serie"));
+//        aluno.setNivel(NivelEnsino.valueOf(rs.getString("nivel")));
+        aluno.setEscola(getDAOFactory().getEscolaDAO().get(rs.getLong("codigo_escola")));
+//        aluno.setIngresso(rs.getDate("data_ingresso").toLocalDate());
+        return aluno;
     }
 
     @Override
     protected Aluno resultSetToBean(Connection conn, ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return populateBean(new Aluno(), conn, rs);
     }
-    
+
+    @Override
+    protected String sqlToGet(Long codigo) {
+        return "SELECT * FROM desafio.usuario u, desafio.jogador j, desafio.aluno a WHERE "
+                + "u.codigo = " + codigo;
+    }
+
+    @Override
+    protected String sqlToGetAll() {
+        return "SELECT * FROM desafio.usuario u INNER JOIN desafio.jogador j INNER JOIN "
+                + "desafio.aluno a ON a.codigo = j.codigo = u.codigo";
+    }
+
 }

@@ -61,6 +61,14 @@ public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
             ps.executeUpdate();
         }
     }
+    
+    protected void saveJogador(Connection conn, B bean) throws SQLException {
+        if (bean.getCodigo() == null) {
+            insertJogador(conn, bean);
+        } else {
+            updateJogador(conn, bean);
+        }
+    }
 
     @Override
     protected void insert(Connection conn, B bean, Serializable... dependencies) throws SQLException {
@@ -114,20 +122,5 @@ public abstract class JogadorDAO<B extends Jogador> extends UsuarioDAO<B> {
 
         return jogador;
     }
-
-    @Override
-    protected abstract void insertAbst(Connection conn, B bean) throws SQLException;
-
-    @Override
-    protected abstract void updateAbst(Connection conn, B bean) throws SQLException;
-    
-    @Override
-    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
-
-    @Override
-    protected abstract String sqlToGet(Long codigo);
-
-    @Override
-    protected abstract String sqlToGetAll();
 
 }
