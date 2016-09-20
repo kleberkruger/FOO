@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/test/br/ufms/desafio/test/AlunoDAOTester.java</file>
-            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/src/br/ufms/desafio/model/dao/UsuarioDAO.java</file>
+            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/src/br/ufms/desafio/model/bean/Jogador.java</file>
+            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/src/br/ufms/desafio/model/dao/SerieDAO.java</file>
+            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/test/br/ufms/desafio/test/Testador.java</file>
+            <file>file:/Users/kleberkruger/Documents/GitHub/FOO/DesafioFX/src/br/ufms/desafio/model/dao/AlunoDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -16,6 +16,16 @@
  */
 package br.ufms.desafio.app;
 
+import br.ufms.desafio.model.bean.Aluno;
+import br.ufms.desafio.model.bean.Escola;
+import br.ufms.desafio.model.bean.enumerate.TipoEscola;
+import br.ufms.desafio.model.dao.DAOFactory;
+import br.ufms.desafio.model.dao.EscolaDAO;
+import br.ufms.desafio.model.dao.MunicipioDAO;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -35,7 +45,28 @@ public class DesafioFXApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        // Exemplo de utilização
+        try {
+            EscolaDAO escolaDAO = DAOFactory.getInstance().getEscolaDAO();
+            System.out.println("Escolas cadastradas: ");
+            for (Escola e : escolaDAO.getAll()) {
+                System.out.println(e.getNome());
+            }
+            Escola escola = new Escola();
+            escola.setNome("Pedro Mendes Fontoura");
+            escola.setUsuario("ee.pmf");
+            escola.setSenha("123");
+            escola.setEmail("pmf@gmail.com");
+            escola.setTipo(TipoEscola.ESTADUAL);
+
+            escolaDAO.save(escola);
+            
+            System.out.println("Escola inserida com sucesso.");
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
 }
