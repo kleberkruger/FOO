@@ -16,60 +16,61 @@
  */
 package br.ufms.bank.model;
 
+import br.ufms.bank.model.enumerate.CategoriaCorrentista;
 import br.ufms.bank.model.enumerate.TipoConta;
 
 /**
  *
  * @author Kleber Kruger
+ * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public class ContaPoupanca extends ContaBancaria {
-    
-    private static final long serialVersionUID = 1L;
-    
-    private static final float TAXA_RENDIMENTO_PADRAO = 0.5f;
+public class ContaPoupanca<C extends Correntista> extends ContaBancaria {
 
-    private float taxaRendimento;
+    private static final long serialVersionUID = 1L;
+
+    private CategoriaCorrentista categoria;
 
     /**
-     * Cria um objeto ContaPoupanca com a taxa de rendimento padrão (0.5% a.m.).
+     * Cria um objeto ContaPoupanca com a categoria do cliente definida como C - taxa de rendimento
+     * padrão (0.5% a.m.).
      *
      * @param correntista
      */
     public ContaPoupanca(Correntista correntista) {
-        this(correntista, TAXA_RENDIMENTO_PADRAO);
+        this(correntista, CategoriaCorrentista.C);
     }
-    
+
     /**
      * Cria um objeto ContaPoupanca.
      *
      * @param correntista
-     * @param taxaRendimento
+     * @param categoria
      */
-    public ContaPoupanca(Correntista correntista, float taxaRendimento) {
+    public ContaPoupanca(Correntista correntista, CategoriaCorrentista categoria) {
         super(correntista);
-        setTaxaRendimento(taxaRendimento);
-        
+        setCategoria(categoria);
+
         final ContaPoupanca cp = this;
         correntista.registrarConta(cp);
     }
 
     /**
-     * @return the taxaRendimento
+     * @return the categoria
      */
-    public final Float getTaxaRendimento() {
-        return taxaRendimento;
+    public final CategoriaCorrentista getCategoria() {
+        return categoria;
     }
 
     /**
-     * @param taxaRendimento the taxaRendimento to set
+     * @param categoria the categoria to set
      */
-    public final void setTaxaRendimento(float taxaRendimento) {
-        if (taxaRendimento < 0) {
-            throw new IllegalArgumentException("A porcentagem da taxa de rendimento não pode ser negativa");
-        }
-        this.taxaRendimento = taxaRendimento;
+    public final void setCategoria(CategoriaCorrentista categoria) {
+        this.categoria = categoria;
     }
 
+    /**
+     * @return o tipo da conta
+     */
     @Override
     public TipoConta getTipo() {
         return TipoConta.CONTA_POUPANCA;

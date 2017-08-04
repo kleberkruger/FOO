@@ -25,9 +25,9 @@ import br.ufms.bank.model.enumerate.TipoUsuario;
 public class Correntista extends Usuario {
 
     private static final long serialVersionUID = 1L;
-    
-    private ContaCorrente contaCorrente;
-    private ContaPoupanca contaPoupanca;
+
+    private transient ContaCorrente contaCorrente;
+    private transient ContaPoupanca contaPoupanca;
 
     private Telefone telefone;
 
@@ -39,7 +39,7 @@ public class Correntista extends Usuario {
      * @return id
      */
     private static long gerarNovoID() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Implemente este método.");
     }
 
     /**
@@ -48,14 +48,14 @@ public class Correntista extends Usuario {
      * @param usuario
      * @param senha
      */
-    public Correntista(String usuario, String senha) {
+    protected Correntista(String usuario, String senha) {
         super(gerarNovoID(), usuario, senha);
     }
-    
+
     /**
      * Registra a conta corrente para este correntista.
-     * 
-     * @param cc 
+     *
+     * @param cc
      */
     protected void registrarConta(ContaCorrente cc) {
         if (contaCorrente != null) {
@@ -63,11 +63,11 @@ public class Correntista extends Usuario {
         }
         this.contaCorrente = cc;
     }
-    
+
     /**
      * Registra a conta poupança para este correntista.
-     * 
-     * @param cp 
+     *
+     * @param cp
      */
     protected void registrarConta(ContaPoupanca cp) {
         if (contaPoupanca != null) {
@@ -75,7 +75,6 @@ public class Correntista extends Usuario {
         }
         this.contaPoupanca = cp;
     }
-    
 
     /**
      * @return the telefone

@@ -16,8 +16,11 @@
  */
 package br.ufms.bank.view.controller;
 
+import br.ufms.bank.model.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +35,9 @@ import javafx.scene.control.TextField;
  * @author Kleber Kruger
  */
 public class LoginController implements Initializable {
+
+    private static final int TAMANHO_MIN_USUARIO = 3;
+    private static final int TAMANHO_MIN_SENHA = 3;
 
     @FXML
     private TextField usuario;
@@ -53,19 +59,39 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        usuario.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue == true) {
+                usuario.getStyleClass().remove("error");
+//                mensagem.setText("");
+            } else {
+                try {
+                    Usuario.validarUsuario(usuario.getText());
+                } catch (IllegalArgumentException ex) {
+                    usuario.getStyleClass().add("error");
+                    mensagem.setText(ex.getMessage());
+                }
+            }
+        });
+
+        senha.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue == true) {
+                senha.getStyleClass().remove("error");
+//                mensagem.setText("");
+            } else {
+                try {
+                    Usuario.validarSenha(senha.getText());
+                } catch (IllegalArgumentException ex) {
+                    senha.getStyleClass().add("error");
+                    mensagem.setText(ex.getMessage());
+                }
+            }
+        });
     }
 
     @FXML
     public void doLogin(ActionEvent event) {
         if (usuario.getText().trim().isEmpty() || senha.getText().isEmpty()) {
             mensagem.setText("Informe usuário e senha.");
-            if (usuario.getText().trim().isEmpty()) {
-                usuario.setStyle("-fx-border-color: red;");
-            }
-            if (senha.getText().isEmpty()) {
-                senha.setStyle("-fx-border-color: red;");
-            }
         }
     }
 

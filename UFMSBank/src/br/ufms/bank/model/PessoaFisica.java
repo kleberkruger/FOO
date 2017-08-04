@@ -16,33 +16,47 @@
  */
 package br.ufms.bank.model;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Kleber Kruger
  */
-public class PessoaFisica implements Serializable {
+public class PessoaFisica extends Correntista {
 
     private static final long serialVersionUID = 1L;
+    
+    private static final int TAMANHO_MIN_NOME = 4;
 
     private String nome;
     private CPF cpf;
-    private Telefone telefone;
 
     /**
-     * 
-     * 
+     * Cria um objeto PessoaFisica.
+     *
      * @param nome
+     * @param usuario
+     * @param senha
      * @param cpf
-     * @param telefone 
      */
-    public PessoaFisica(String nome, CPF cpf, Telefone telefone) {
+    public PessoaFisica(String nome, String usuario, String senha, CPF cpf) {
+        this(nome, usuario, senha, cpf, null);
+    }
+
+    /**
+     * Cria um objeto PessoaFisica.
+     *
+     * @param nome
+     * @param usuario
+     * @param senha
+     * @param cpf
+     * @param telefone
+     */
+    public PessoaFisica(String nome, String usuario, String senha, CPF cpf, Telefone telefone) {
+        super(usuario, senha);
         setNome(nome);
         setCPF(cpf);
         setTelefone(telefone);
     }
-    
+
     /**
      * @return the nome
      */
@@ -63,6 +77,8 @@ public class PessoaFisica implements Serializable {
 
         if (nome.isEmpty()) {
             throw new IllegalArgumentException("O nome não pode ser vazio");
+        } else if (nome.length() < TAMANHO_MIN_NOME) {
+            throw new IllegalArgumentException("Nome muito curto");
         }
         for (char c : nome.toCharArray()) {
             if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c)) {
@@ -88,20 +104,6 @@ public class PessoaFisica implements Serializable {
             throw new IllegalArgumentException("O CPF não pode ser nulo");
         }
         this.cpf = cpf;
-    }
-
-    /**
-     * @return the telefone
-     */
-    public final Telefone getTelefone() {
-        return telefone;
-    }
-
-    /**
-     * @param telefone the telefone to set
-     */
-    public final void setTelefone(Telefone telefone) {
-        this.telefone = telefone;
     }
 
 }

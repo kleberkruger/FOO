@@ -25,23 +25,33 @@ import br.ufms.bank.model.enumerate.TipoTransacao;
 public class Deposito extends Transacao {
 
     private static final long serialVersionUID = 1L;
-    
+
+    private final String favorecido;
     private final String depositante;
 
     /**
      *
+     * @param favorecido
      * @param valor
      * @param depositante
      */
-    protected Deposito(double valor, String depositante) {
+    protected Deposito(String favorecido, double valor, String depositante) {
         super(valor);
+        this.favorecido = favorecido;
         this.depositante = depositante;
+    }
+
+    /**
+     * @return the favorecido
+     */
+    public final String getFavorecido() {
+        return favorecido;
     }
 
     /**
      * @return the depositante
      */
-    public String getDepositante() {
+    public final String getDepositante() {
         return depositante;
     }
 

@@ -22,14 +22,15 @@ import java.io.Serializable;
 /**
  * Classe abstrata que define um documento com número.
  *
- * @author kleberkruger
- * @param <T>
+ * @author Kleber Kruger
+ * @param <T> o tipo do atributo número
  */
 public abstract class Documento<T extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private T numero;
+    private String numeroFormatado;
 
     /**
      * Cria um documento com número.
@@ -74,7 +75,7 @@ public abstract class Documento<T extends Serializable> implements Serializable 
      * @return the numero formatado
      */
     public final String getNumeroFormatado() {
-        return getNumeroFormatado(numero);
+        return numeroFormatado;
     }
 
     /**
@@ -87,6 +88,7 @@ public abstract class Documento<T extends Serializable> implements Serializable 
             throw new IllegalArgumentException(getMensagemNumeroInvalido());
         }
         this.numero = numero;
+        this.numeroFormatado = getNumeroFormatado(numero);
     }
 
     /**
@@ -95,7 +97,7 @@ public abstract class Documento<T extends Serializable> implements Serializable 
      * @return
      */
     protected String getMensagemNumeroNulo() {
-        return "Número de documento nulo (null)";
+        return "Número de documento nulo (null).";
     }
 
     /**
@@ -104,12 +106,12 @@ public abstract class Documento<T extends Serializable> implements Serializable 
      * @return
      */
     protected String getMensagemNumeroInvalido() {
-        return "Número de documento inválido";
+        return "Número de documento inválido.";
     }
 
     @Override
     public String toString() {
-        return getNumeroFormatado(numero);
+        return getNumeroFormatado();
     }
 
 }

@@ -23,18 +23,18 @@ import java.util.Objects;
  * Classe base para qualquer "bean".
  *
  * @author Kleber Kruger
- * @param <T> tipo da chave identificadora
+ * @param <T> o tipo do atributo id
  */
-public abstract class Bean<T extends Serializable> implements Serializable {
+public class Bean<T extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private T id;
+    protected T id;
 
     /**
      * Cria um novo objeto Bean. O construtor desta classe é protegido porque um objeto Bean só
      * existirá por meio de classes derivadas.
-     * 
+     *
      * @param id
      */
     protected Bean(T id) {
@@ -42,19 +42,27 @@ public abstract class Bean<T extends Serializable> implements Serializable {
     }
 
     /**
-     * @return the id
+     * @return o id
      */
     public T getID() {
         return id;
     }
-    
+
     /**
-     * @param id the id to set
+     * @param id o novo id
      */
     protected void setID(T id) {
         this.id = id;
     }
 
+    /**
+     * Indica quando outro objeto é igual a este. Nesta implementaçao, qualquer objeto derivado de
+     * Bean é igual a este desde que seja exatamente da mesma classe e tenha o mesmo ID. Caso
+     * precise de outra lógica, sobrescreva este método.
+     *
+     * @param obj o objeto a comparar com este
+     * @return {@code true} se este objeto é igual ao do argumento; {@code false} caso contrário.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Bean) {
@@ -64,12 +72,23 @@ public abstract class Bean<T extends Serializable> implements Serializable {
         return super.equals(obj);
     }
 
+    /**
+     * Retorna um valor de hash code para este objeto. Nesta implementação, este valor é gerado por
+     * uma combinação do hash code da classe (getClass().hashCode()) somado ao hash code do atributo
+     * id (id.hashCode()).
+     *
+     * Classes semelhantes terão o mesmo valor base de hash code, que quando somado ao hash code do
+     * id, terá o valor: valorBaseHashCodeClasse + idHashCode. Por exemplo, se o valor base do hash
+     * code da classe {@code Cachorro} é 300 e o objeto {@code Cachorro c1} tem o id = 1, o retorno
+     * deste método será 301.
+     *
+     * @return um valor de hash code para este objeto
+     */
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + Objects.hashCode(getClass().hashCode() + id.hashCode());
         return hash;
     }
 
-//    protected abstract T gerarNovoID();
 }

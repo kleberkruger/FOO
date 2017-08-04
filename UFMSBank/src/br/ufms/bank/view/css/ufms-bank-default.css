@@ -3,5 +3,13 @@
  */
 
 .login {
+    -fx-base: blueviolet;
+}
 
+.button {
+    -fx-background-color: blueviolet;
+}
+
+.form > *.error {
+    -fx-border-color: red;
 }

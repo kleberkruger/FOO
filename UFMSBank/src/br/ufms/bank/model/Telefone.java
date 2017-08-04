@@ -63,6 +63,11 @@ public class Telefone implements Serializable {
         return true;
     }
 
+    public boolean isTelefone(String numero) {
+        return numero.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
+                || numero.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
+    }
+
     /**
      * @return the numero
      */

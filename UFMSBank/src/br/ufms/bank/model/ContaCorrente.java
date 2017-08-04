@@ -21,26 +21,32 @@ import br.ufms.bank.model.enumerate.TipoConta;
 /**
  *
  * @author Kleber Kruger
+ * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public class ContaCorrente extends ContaBancaria {
-    
+public class ContaCorrente<C extends Correntista> extends ContaBancaria<C> {
+
     private static final long serialVersionUID = 1L;
-    
+
     private Double limite;
-    
-    public ContaCorrente(Correntista correntista) {
+
+    /**
+     * Cria um objeto ContaCorrente.
+     *
+     * @param correntista
+     */
+    public ContaCorrente(C correntista) {
         super(correntista);
-        
+
         final ContaCorrente cc = this;
         correntista.registrarConta(cc);
     }
-    
+
     /**
      * Realiza a operação de saque nesta conta.
      *
      * @param valor
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public Saque sacar(double valor) {
@@ -50,20 +56,22 @@ public class ContaCorrente extends ContaBancaria {
             throw new IllegalArgumentException("Saldo insuficiente");
         }
         this.saldo -= valor;
-        return new Saque(getNumero(), valor);
+        return new Saque(this.toString(), valor);
     }
-    
+
     /**
-     * 
-     * @return 
+     * Retorna o valor de limite do cheque especial.
+     *
+     * @return the limite
      */
     public final Double getLimite() {
         return limite;
     }
-    
+
     /**
-     * 
-     * @param valor 
+     * Altera o valor de limite do cheque especial.
+     *
+     * @param valor
      */
     public void setLimite(double valor) {
         if (valor < 0) {
@@ -72,9 +80,12 @@ public class ContaCorrente extends ContaBancaria {
         this.limite = valor;
     }
 
+    /**
+     * @return o tipo da conta
+     */
     @Override
     public TipoConta getTipo() {
         return TipoConta.CONTA_CORRENTE;
     }
-    
+
 }

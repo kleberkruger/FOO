@@ -24,6 +24,7 @@ public class UFMSBankApp extends Application {
                 "br/ufms/bank/view/fxml/Login.fxml"));
         
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("br/ufms/bank/view/css/ufms-bank-default.css");
         
         stage.setScene(scene);
         stage.show();

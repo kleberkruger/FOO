@@ -36,7 +36,7 @@ public abstract class Transacao extends Bean<Long> {
      * @return id
      */
     private static long gerarNovoID() {
-        return 0;
+        throw new UnsupportedOperationException("Implemente este método.");
     }
 
     /**
@@ -44,11 +44,25 @@ public abstract class Transacao extends Bean<Long> {
      *
      * @param valor
      */
-    public Transacao(double valor) {
+    protected Transacao(double valor) {
+        this(valor, LocalDate.now());
+    }
+
+    /**
+     * Cria um novo objeto Transacao.
+     *
+     * @param valor
+     * @param dataHora
+     */
+    protected Transacao(double valor, LocalDate dataHora) {
         super(gerarNovoID());
+
         if (valor < 0) {
-            throw new IllegalArgumentException("O valor da transação não pode ser negativo");
+            throw new IllegalArgumentException("O valor da transação não pode ser negativo.");
         }
+
+        this.valor = valor;
+        this.dataHora = dataHora;
     }
 
     /**

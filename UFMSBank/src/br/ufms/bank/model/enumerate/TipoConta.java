@@ -44,7 +44,7 @@ public enum TipoConta {
      * @return the operacao formatada
      */
     public String getOperacaoFormatada() {
-        return String.valueOf(operacao);
+        return String.format("%3d", operacao);
     }
 
     /**

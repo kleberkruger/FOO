@@ -23,9 +23,9 @@ import br.ufms.bank.model.enumerate.TipoUsuario;
  * @author Kleber Kruger
  */
 public class Bancario extends Usuario {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private static final int TAMANHO_MIN_NOME = 4;
 
     private String nome;
@@ -38,7 +38,7 @@ public class Bancario extends Usuario {
      * @return id
      */
     private static long gerarNovoID() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Implemente este método.");
     }
 
     /**
@@ -66,20 +66,20 @@ public class Bancario extends Usuario {
      */
     public final void setNome(String nome) {
         if (nome == null) {
-            throw new IllegalArgumentException("O nome não pode ser nulo");
+            throw new IllegalArgumentException("O nome não pode ser nulo.");
         }
 
         // Remove os espaços do início e final da String caso exista.
         nome = nome.trim();
 
         if (nome.isEmpty()) {
-            throw new IllegalArgumentException("O nome não pode ser vazio");
-        } else if(nome.length() < TAMANHO_MIN_NOME) {
-            throw new IllegalArgumentException("Nome muito curto");
+            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        } else if (nome.length() < TAMANHO_MIN_NOME) {
+            throw new IllegalArgumentException("Nome muito curto.");
         }
         for (char c : nome.toCharArray()) {
             if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c)) {
-                throw new IllegalArgumentException("Nome inválido");
+                throw new IllegalArgumentException("Nome inválido.");
             }
         }
 

@@ -23,12 +23,13 @@ import java.util.List;
 /**
  *
  * @author Kleber Kruger
+ * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public abstract class ContaBancaria extends Bean<Long> {
+public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
 
     private static final long serialVersionUID = 1L;
 
-    private final Correntista correntista;
+    private final C correntista;
     private final List<Transacao> transacoes;
 
     protected Double saldo; // as operações que modificam o saldo podem ser sobrescritas
@@ -38,7 +39,7 @@ public abstract class ContaBancaria extends Bean<Long> {
      *
      * @param correntista
      */
-    protected ContaBancaria(Correntista correntista) {
+    protected ContaBancaria(C correntista) {
         super(correntista.getID());
 
         this.correntista = correntista;
@@ -70,7 +71,7 @@ public abstract class ContaBancaria extends Bean<Long> {
         }
         this.saldo += valor;
 
-        Deposito deposito = new Deposito(valor, depositante);
+        Deposito deposito = new Deposito(this.toString(), valor, depositante);
         transacoes.add(deposito);
         return deposito;
     }
@@ -90,7 +91,7 @@ public abstract class ContaBancaria extends Bean<Long> {
         }
         this.saldo -= valor;
 
-        Saque saque = new Saque(this.getNumero(), valor);
+        Saque saque = new Saque(this.toString(), valor);
         transacoes.add(saque);
         return saque;
     }
@@ -99,15 +100,15 @@ public abstract class ContaBancaria extends Bean<Long> {
      * Realiza a operação de trasnferência de valores entre contas.
      *
      * @param valor
-     * @param contaDestino
+     * @param destino
      *
      * @return
      */
-    public Transferencia transferir(double valor, ContaCorrente contaDestino) {
+    public Transferencia transferir(double valor, ContaCorrente destino) {
         this.sacar(valor);
-        contaDestino.depositar(valor);
+        destino.depositar(valor);
 
-        Transferencia transferencia = new Transferencia(getNumero(), contaDestino.getNumero(), valor);
+        Transferencia transferencia = new Transferencia(this.toString(), destino.toString(), valor);
         transacoes.add(transferencia);
         return transferencia;
     }
@@ -129,10 +130,31 @@ public abstract class ContaBancaria extends Bean<Long> {
     /**
      * @return the saldo
      */
+    public final String getNumeroFormatado() {
+        return String.format("%05d", this.getNumero());
+    }
+
+    /**
+     * @return the saldo
+     */
     public final Double getSaldo() {
         return saldo;
     }
 
+    /**
+     * @return the tipo
+     */
     public abstract TipoConta getTipo();
+
+    /**
+     * Retorna a representação string deste objeto conforme o exemplo: Operação: 001; Conta: 01234;
+     * Resultado: "001/01234".
+     *
+     * @return operação/numero
+     */
+    @Override
+    public String toString() {
+        return getTipo().getOperacaoFormatada() + '/' + getNumeroFormatado();
+    }
 
 }

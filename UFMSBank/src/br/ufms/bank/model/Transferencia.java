@@ -26,8 +26,8 @@ public class Transferencia extends Transacao {
 
     private static final long serialVersionUID = 1L;
 
-    private final Long origem;
-    private final Long destino;
+    private final String origem;
+    private final String destino;
 
     /**
      * 
@@ -35,7 +35,7 @@ public class Transferencia extends Transacao {
      * @param destino
      * @param valor 
      */
-    protected Transferencia(long origem, long destino, double valor) {
+    protected Transferencia(String origem, String destino, double valor) {
         super(valor);
         this.origem = origem;
         this.destino = destino;
@@ -44,14 +44,14 @@ public class Transferencia extends Transacao {
     /**
      * @return the origem
      */
-    public Long getOrigem() {
+    public final String getOrigem() {
         return origem;
     }
 
     /**
      * @return the destino
      */
-    public Long getDestino() {
+    public final String getDestino() {
         return destino;
     }
     

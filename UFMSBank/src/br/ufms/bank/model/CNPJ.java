@@ -21,7 +21,7 @@ import java.util.InputMismatchException;
 
 /**
  *
- * @author kleberkruger
+ * @author Kleber Kruger
  */
 public class CNPJ extends Documento<String> {
 

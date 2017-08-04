@@ -26,14 +26,14 @@ public class Saque extends Transacao {
 
     private static final long serialVersionUID = 1L;
 
-    private final Long conta;
+    private final String conta;
 
     /**
      *
      * @param conta
      * @param valor
      */
-    protected Saque(Long conta, double valor) {
+    protected Saque(String conta, double valor) {
         super(valor);
         this.conta = conta;
     }
@@ -41,7 +41,7 @@ public class Saque extends Transacao {
     /**
      * @return the conta
      */
-    public Long getConta() {
+    public final String getConta() {
         return conta;
     }
 

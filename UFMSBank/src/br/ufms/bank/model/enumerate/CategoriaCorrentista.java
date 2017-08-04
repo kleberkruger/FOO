@@ -14,27 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model;
+package br.ufms.bank.model.enumerate;
 
 /**
  *
  * @author Kleber Kruger
  */
-public class _Main {
+public enum CategoriaCorrentista {
+
+    A(0.75f), B(0.6f), C(0.5f);
+
+    private final float taxaRendimento;
+
+    private CategoriaCorrentista(Float taxaRendimento) {
+        this.taxaRendimento = taxaRendimento;
+    }
 
     /**
-     * @param args the command line arguments
+     * @return the taxaRendimento
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Bancario b1 = new Bancario("  Kleber Kruger", " kleberkruger  ", "123");
-        System.out.println(b1.hashCode() + " " + b1.getID());
-        
-        Bancario b2 = new Bancario("  Kleber Kruger", " kleberkruger  ", "123");
-        System.out.println(b2.hashCode());
-        
-        Correntista c1 = new Correntista("kleberkruger", "123");
-        System.out.println(c1.hashCode());     
+    public final float getTaxaRendimento() {
+        return taxaRendimento;
     }
-    
+
 }

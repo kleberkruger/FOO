@@ -20,7 +20,7 @@ package br.ufms.bank.model;
  *
  * @author Kleber Kruger
  */
-public class CorrentistaJuridico extends Correntista {
+public class PessoaJuridica extends Correntista {
 
     private static final long serialVersionUID = 1L;
     private static final int TAMANHO_MIN_NOME = 2;
@@ -29,7 +29,7 @@ public class CorrentistaJuridico extends Correntista {
     private String razaoSocial;
     private CNPJ cnpj;
 
-    public CorrentistaJuridico(String nomeFantasia, String razaoSocial, 
+    public PessoaJuridica(String nomeFantasia, String razaoSocial, 
             String usuario, String senha, CNPJ cnpj) {
         
         super(usuario, senha);
