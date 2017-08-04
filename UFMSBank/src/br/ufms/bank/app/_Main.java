@@ -14,7 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model;
+package br.ufms.bank.app;
+
+import br.ufms.bank.model.Bancario;
+import br.ufms.bank.model.CPF;
+import br.ufms.bank.model.ContaCorrente;
+import br.ufms.bank.model.Correntista;
+import br.ufms.bank.model.PessoaFisica;
+import br.ufms.bank.model.Telefone;
 
 /**
  *
@@ -28,13 +35,15 @@ public class _Main {
     public static void main(String[] args) {
         // TODO code application logic here
         Bancario b1 = new Bancario("  Kleber Kruger", " kleberkruger  ", "123");
-        System.out.println(b1.hashCode() + " " + b1.getID());
-        
+        System.out.println(b1.hashCode());
+
         Bancario b2 = new Bancario("  Kleber Kruger", " kleberkruger  ", "123");
         System.out.println(b2.hashCode());
-        
-        Correntista c1 = new Correntista("kleberkruger", "123");
-        System.out.println(c1.hashCode());     
+
+        PessoaFisica pf = new PessoaFisica("Kleber Kruger", "kleberkruger", "123", new CPF("02135730165"));
+        System.out.println(pf.hashCode());
+
+        ContaCorrente<PessoaFisica> cc = new ContaCorrente<>(pf);
     }
-    
+
 }

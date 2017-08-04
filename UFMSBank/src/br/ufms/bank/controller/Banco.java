@@ -17,7 +17,6 @@
 package br.ufms.bank.controller;
 
 import br.ufms.bank.model.ContaBancaria;
-import br.ufms.bank.model.ContaCorrente;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
  * @author Kleber Kruger
  */
 public class Banco {
-    
+
     private final List<ContaBancaria> contas;
 
     public Banco() {
@@ -36,7 +35,7 @@ public class Banco {
     public Banco(List<ContaBancaria> contas) {
         this.contas = contas;
     }
-    
+
     public List<ContaBancaria> login(String usuario, String senha) {
         List<ContaBancaria> lista = new ArrayList<>();
         for (ContaBancaria conta : contas) {
@@ -46,13 +45,12 @@ public class Banco {
         }
         return lista;
     }
-    
+
     public void criarConta() {
-        
-        
+
     }
-    
+
     public void excluirConta() {
-        
+
     }
 }

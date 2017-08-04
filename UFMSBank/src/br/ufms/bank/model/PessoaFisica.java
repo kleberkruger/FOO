@@ -16,6 +16,8 @@
  */
 package br.ufms.bank.model;
 
+import br.ufms.bank.util.Validador;
+
 /**
  *
  * @author Kleber Kruger
@@ -23,8 +25,6 @@ package br.ufms.bank.model;
 public class PessoaFisica extends Correntista {
 
     private static final long serialVersionUID = 1L;
-    
-    private static final int TAMANHO_MIN_NOME = 4;
 
     private String nome;
     private CPF cpf;
@@ -68,24 +68,7 @@ public class PessoaFisica extends Correntista {
      * @param nome the nome to set
      */
     public final void setNome(String nome) {
-        if (nome == null) {
-            throw new IllegalArgumentException("O nome não pode ser nulo");
-        }
-
-        // Remove os espaços do início e final da String caso exista.
-        nome = nome.trim();
-
-        if (nome.isEmpty()) {
-            throw new IllegalArgumentException("O nome não pode ser vazio");
-        } else if (nome.length() < TAMANHO_MIN_NOME) {
-            throw new IllegalArgumentException("Nome muito curto");
-        }
-        for (char c : nome.toCharArray()) {
-            if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c)) {
-                throw new IllegalArgumentException("Nome inválido");
-            }
-        }
-
+        Validador.validarNome(nome);
         this.nome = nome;
     }
 

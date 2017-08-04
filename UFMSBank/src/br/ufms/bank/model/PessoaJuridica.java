@@ -16,6 +16,8 @@
  */
 package br.ufms.bank.model;
 
+import br.ufms.bank.util.Validador;
+
 /**
  *
  * @author Kleber Kruger
@@ -23,7 +25,6 @@ package br.ufms.bank.model;
 public class PessoaJuridica extends Correntista {
 
     private static final long serialVersionUID = 1L;
-    private static final int TAMANHO_MIN_NOME = 2;
 
     private String nomeFantasia;
     private String razaoSocial;
@@ -49,24 +50,7 @@ public class PessoaJuridica extends Correntista {
      * @param nomeFantasia the nomeFantasia to set
      */
     public final void setNomeFantasia(String nomeFantasia) {
-        if (nomeFantasia == null) {
-            throw new IllegalArgumentException("O nome não pode ser nulo");
-        }
-
-        // Remove os espaços do início e final da String caso exista.
-        nomeFantasia = nomeFantasia.trim();
-
-        if (nomeFantasia.isEmpty()) {
-            throw new IllegalArgumentException("O nome não pode ser vazio");
-        } else if (nomeFantasia.length() < TAMANHO_MIN_NOME) {
-            throw new IllegalArgumentException("Nome muito curto");
-        }
-//        for (char c : nomeFantasia.toCharArray()) {
-//            if (!Character.isAlphabetic(c) && !Character.isDigit(c) && !Character.isSpaceChar(c)) {
-//                throw new IllegalArgumentException("Nome inválido");
-//            }
-//        }
-
+        Validador.validarNomeFantasia(nomeFantasia);
         this.nomeFantasia = nomeFantasia;
     }
     
@@ -81,24 +65,7 @@ public class PessoaJuridica extends Correntista {
      * @param razaoSocial the razaoSocial to set
      */
     public final void setRazaoSocial(String razaoSocial) {
-        if (razaoSocial == null) {
-            throw new IllegalArgumentException("O nome não pode ser nulo");
-        }
-
-        // Remove os espaços do início e final da String caso exista.
-        razaoSocial = razaoSocial.trim();
-
-        if (razaoSocial.isEmpty()) {
-            throw new IllegalArgumentException("O nome não pode ser vazio");
-        } else if (razaoSocial.length() < TAMANHO_MIN_NOME) {
-            throw new IllegalArgumentException("Nome muito curto");
-        }
-//        for (char c : razaoSocial.toCharArray()) {
-//            if (!Character.isAlphabetic(c) && !Character.isDigit(c) && !Character.isSpaceChar(c)) {
-//                throw new IllegalArgumentException("Nome inválido");
-//            }
-//        }
-
+        Validador.validarRazaoSocial(razaoSocial);
         this.razaoSocial = razaoSocial;
     }
 

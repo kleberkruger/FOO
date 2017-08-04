@@ -17,6 +17,7 @@
 package br.ufms.bank.model;
 
 import br.ufms.bank.model.enumerate.TipoUsuario;
+import br.ufms.bank.util.Validador;
 
 /**
  *
@@ -25,9 +26,6 @@ import br.ufms.bank.model.enumerate.TipoUsuario;
 public abstract class Usuario extends Bean<Long> {
 
     private static final long serialVersionUID = 1L;
-
-    public static final int TAMANHO_MIN_USUARIO = 3;
-    public static final int TAMANHO_MIN_SENHA = 3;
 
     private String usuario;
     private String senha;
@@ -57,7 +55,7 @@ public abstract class Usuario extends Bean<Long> {
      * @param usuario the usuario to set
      */
     public final void setUsuario(String usuario) {
-        validarUsuario(usuario);
+        Validador.validarUsuario(usuario);
         this.usuario = usuario;
     }
 
@@ -72,7 +70,7 @@ public abstract class Usuario extends Bean<Long> {
      * @param senha the senha to set
      */
     public final void setSenha(String senha) {
-        validarSenha(senha);
+        Validador.validarSenha(senha);
         this.senha = senha;
     }
 
@@ -80,35 +78,5 @@ public abstract class Usuario extends Bean<Long> {
      * @return the tipo
      */
     public abstract TipoUsuario getTipo();
-
-    public static void validarUsuario(String usuario) throws IllegalArgumentException {
-        if (usuario == null) {
-            throw new IllegalArgumentException("O nome de usuário não pode ser nulo.");
-        }
-
-        // Remove os espaços do início e final da String caso exista.
-        usuario = usuario.trim();
-
-        if (usuario.isEmpty()) {
-            throw new IllegalArgumentException("O nome de usuário não pode ser vazio.");
-        } else if (usuario.length() < TAMANHO_MIN_USUARIO) {
-            throw new IllegalArgumentException("Nome de usuário muito curto.");
-        }
-        for (char c : usuario.toCharArray()) {
-            if (!Character.isAlphabetic(c) && !Character.isDigit(c)) {
-                throw new IllegalArgumentException("Nome de usuário inválido.");
-            }
-        }
-    }
-
-    public static void validarSenha(String senha) throws IllegalArgumentException {
-        if (senha == null) {
-            throw new IllegalArgumentException("A senha não pode ser nula.");
-        } else if (senha.isEmpty()) {
-            throw new IllegalArgumentException("A senha não pode ser vazia.");
-        } else if (senha.length() < TAMANHO_MIN_SENHA) {
-            throw new IllegalArgumentException("Senha muito curta.");
-        }
-    }
 
 }

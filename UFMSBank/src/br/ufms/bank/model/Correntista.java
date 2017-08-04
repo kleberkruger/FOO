@@ -39,7 +39,8 @@ public class Correntista extends Usuario {
      * @return id
      */
     private static long gerarNovoID() {
-        throw new UnsupportedOperationException("Implemente este método.");
+        return 0;
+//        throw new UnsupportedOperationException("Implemente este método.");
     }
 
     /**

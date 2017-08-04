@@ -16,10 +16,10 @@
  */
 package br.ufms.bank.view.controller;
 
-import br.ufms.bank.model.Usuario;
+import br.ufms.bank.util.Validador;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +27,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -51,6 +52,9 @@ public class LoginController implements Initializable {
     @FXML
     private Label mensagem;
 
+    @FXML
+    private Label capsLockOn;
+
     /**
      * Initializes the controller class.
      *
@@ -59,14 +63,18 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        usuario.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+        usuario.textProperty().addListener((observable, oldValue, newValue) -> {
+            usuario.setText(newValue.replaceAll("[^A-Za-z0-9]", "").toLowerCase());
+        });
+
+        usuario.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == true) {
                 usuario.getStyleClass().remove("error");
                 usuarioError.setVisible(false);
                 mensagem.setText("");
             } else {
                 try {
-                    Usuario.validarUsuario(usuario.getText());
+                    Validador.validarUsuario(usuario.getText(), null);
                 } catch (IllegalArgumentException ex) {
                     usuario.getStyleClass().add("error");
                     usuarioError.setVisible(true);
@@ -75,14 +83,18 @@ public class LoginController implements Initializable {
             }
         });
 
-        senha.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+        senha.setOnKeyPressed((KeyEvent event) -> {
+            capsLockOn.setVisible(Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK));
+        });
+
+        senha.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == true) {
                 senha.getStyleClass().remove("error");
                 senhaError.setVisible(false);
                 mensagem.setText("");
             } else {
                 try {
-                    Usuario.validarSenha(senha.getText());
+                    Validador.validarSenha(senha.getText());
                 } catch (IllegalArgumentException ex) {
                     senha.getStyleClass().add("error");
                     senhaError.setVisible(true);
@@ -95,8 +107,8 @@ public class LoginController implements Initializable {
     @FXML
     public void doLogin(ActionEvent event) {
         try {
-            Usuario.validarUsuario(usuario.getText());
-            Usuario.validarSenha(senha.getText());
+            Validador.validarUsuario(usuario.getText());
+            Validador.validarSenha(senha.getText());
         } catch (IllegalArgumentException ex) {
             mensagem.setText(ex.getMessage());
         }

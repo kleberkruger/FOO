@@ -27,6 +27,7 @@ public class UFMSBankApp extends Application {
         scene.getStylesheets().add("br/ufms/bank/view/css/ufms-bank-default.css");
         
         stage.setScene(scene);
+        stage.setTitle("UFMS-Banking");
         stage.show();
     }
 
