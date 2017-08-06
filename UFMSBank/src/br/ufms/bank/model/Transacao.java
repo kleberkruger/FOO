@@ -25,8 +25,9 @@ import java.time.LocalDate;
  */
 public abstract class Transacao extends Bean<Long> {
 
-    private Double valor;
-    private LocalDate dataHora;
+    private final String responsavel;
+    private final Double valor;
+    private final LocalDate dataHora;
 
     /**
      * Método responsável por gerar novos IDs para transações. Este método deve ser capaz de
@@ -43,9 +44,10 @@ public abstract class Transacao extends Bean<Long> {
      * Cria um novo objeto Transacao.
      *
      * @param valor
+     * @param responsavel
      */
-    protected Transacao(double valor) {
-        this(valor, LocalDate.now());
+    protected Transacao(double valor, String responsavel) {
+        this(valor, responsavel, LocalDate.now());
     }
 
     /**
@@ -53,8 +55,9 @@ public abstract class Transacao extends Bean<Long> {
      *
      * @param valor
      * @param dataHora
+     * @param responsavel
      */
-    protected Transacao(double valor, LocalDate dataHora) {
+    protected Transacao(double valor, String responsavel, LocalDate dataHora) {
         super(gerarNovoID());
 
         if (valor < 0) {
@@ -63,6 +66,14 @@ public abstract class Transacao extends Bean<Long> {
 
         this.valor = valor;
         this.dataHora = dataHora;
+        this.responsavel = responsavel;
+    }
+    
+    /**
+     * @return the dataHora
+     */
+    public String getResponsavel() {
+        return responsavel;
     }
 
     /**

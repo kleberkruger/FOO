@@ -1,14 +1,306 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.bank.view.controller.MenuBancarioController">
-    <stylesheets>
-        <URL value="@/br/ufms/bank/view/css/ufms-bank-default.css"/>
-    </stylesheets>
-</AnchorPane>
+<SplitPane dividerPositions="0.3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+        <VBox maxWidth="500.0" minWidth="200.0" prefWidth="350.0" SplitPane.resizableWithParent="false">
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="CONTAS CADASTRADAS">
+                            <font>
+                                <Font name="Candara Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField promptText="Pesquisar por número/nome" />
+                        <FlowPane hgap="10.0" vgap="10.0">
+                            <children>
+                                <ComboBox prefWidth="150.0" promptText="Tipo da Conta" />
+                                <ComboBox prefWidth="150.0" promptText="Tipo do Correntista" />
+                            </children>
+                        </FlowPane>
+                        <TableView tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Número" />
+                                <TableColumn prefWidth="150.0" text="Correntista" />
+                        <TableColumn prefWidth="50.0" text="Tipo" />
+                            </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                        </TableView>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
+        <SplitPane prefHeight="200.0" prefWidth="200.0">
+            <items>
+                <SplitPane dividerPositions="0.7" prefHeight="200.0" prefWidth="200.0">
+                    <items>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label text="AÇÕES GERENCIAIS">
+                                    <font>
+                                        <Font name="Candara Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <HBox>
+                                    <children>
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Adicionar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Editar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Excluir" />
+                                    </children>
+                                </HBox>
+                                <Label text="DADOS DO CORRENTISTA">
+                                    <font>
+                                        <Font name="Candara Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="SOMETIMES" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <TextField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Nome Completo" GridPane.columnIndex="0" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="1">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <TextField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="CPF" GridPane.columnIndex="2" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="3">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <TextField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Telefone Principal" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <TextField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Telefone Secundário" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <TextField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Usuário" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="1">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <PasswordField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Senha" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="3">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <PasswordField maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Confirme a senha" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="3">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <HBox alignment="CENTER_RIGHT" spacing="6.0" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label text="Força da Senha">
+                                                    <font>
+                                                        <Font name="Candara Bold" size="12.0" />
+                                                    </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" maxHeight="10.0" maxWidth="150.0" HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <Pane style="-fx-background-color: red;" HBox.hgrow="ALWAYS" />
+                                                        <Pane style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS" />
+                                                        <Pane style="-fx-background-color: green;" HBox.hgrow="ALWAYS" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <Label text="DADOS DA CONTA">
+                                    <font>
+                                        <Font name="Candara Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="SOMETIMES" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Conta Corrente" />
+                                                <TextField alignment="CENTER" editable="false" maxWidth="500.0" minWidth="150.0" prefWidth="500.0" text="25701-2">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="1">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                        <VBox fillWidth="false" spacing="10.0" GridPane.columnIndex="2">
+                                            <children>
+                                                <Label text="Limite de Cheque Especial" wrapText="true" />
+                                                <TextField alignment="CENTER" maxWidth="500.0" minWidth="150.0" prefWidth="500.0" promptText="Valor">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </TextField>
+                                                <Slider blockIncrement="100.0" majorTickUnit="900.0" max="1200.0" maxWidth="500.0" min="300.0" minWidth="150.0" prefWidth="500.0" showTickLabels="true" value="300.0" />
+                                            </children>
+                                        </VBox>
+                                        <Label contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="3">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="/br/ufms/bank/view/image/error.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip />
+                                            </tooltip>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <HBox>
+                                    <children>
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Cancelar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Salvar" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="30.0" />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox maxWidth="200.0" minWidth="150.0" prefWidth="200.0" SplitPane.resizableWithParent="false" />
+                    </items>
+                </SplitPane>
+            </items>
+        </SplitPane>
+    </items>
+</SplitPane>

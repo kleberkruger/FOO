@@ -16,6 +16,7 @@
  */
 package br.ufms.bank.util;
 
+import br.ufms.bank.exception.ValidacaoException;
 import java.util.Collection;
 import java.util.InputMismatchException;
 
@@ -52,6 +53,39 @@ public class Validador {
         for (char c : nome.toCharArray()) {
             if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c)) {
                 throw new IllegalArgumentException("Nome inválido.");
+            }
+        }
+    }
+
+    /**
+     * Valida o nome de uma pessoa física.
+     *
+     * @param nome nome da pessoa física
+     * @param min quantidade mínima de caractéres
+     * @param max quantidade máxima de caractéres
+     * 
+     * @throws br.ufms.bank.exception.ValidacaoException
+     */
+    public static void validarNomePessoaFisica(String nome, int min, int max) 
+            throws ValidacaoException {
+        
+        if (nome == null) {
+            throw new ValidacaoException("O nome não pode ser nulo.");
+        }
+
+        // Remove os espaços do início e final da String caso exista.
+        nome = nome.trim();
+
+        if (nome.isEmpty()) {
+            throw new ValidacaoException("O nome não pode ser vazio.");
+        } else if (nome.length() < min) {
+            throw new ValidacaoException("Nome muito curto.");
+        } else if (nome.length() > max) {
+            throw new ValidacaoException("Nome muito extenso.");
+        }
+        for (char c : nome.toCharArray()) {
+            if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c)) {
+                throw new ValidacaoException("Nome inválido.");
             }
         }
     }

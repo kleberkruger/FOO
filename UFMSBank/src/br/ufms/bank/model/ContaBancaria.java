@@ -116,7 +116,7 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
     /**
      * @return the correntista
      */
-    public final Correntista getCorrentista() {
+    public final C getCorrentista() {
         return correntista;
     }
 

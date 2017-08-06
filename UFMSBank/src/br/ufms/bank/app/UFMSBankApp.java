@@ -1,7 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2017 Kleber Kruger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package br.ufms.bank.app;
 
@@ -9,6 +20,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
 /**
@@ -16,16 +28,17 @@ import javafx.stage.Stage;
  * @author Kleber Kruger
  */
 public class UFMSBankApp extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
+
         FXMLLoader loader = new FXMLLoader();
         Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
                 "br/ufms/bank/view/fxml/Login.fxml"));
-        
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add("br/ufms/bank/view/css/ufms-bank-default.css");
-        
+
         stage.setScene(scene);
         stage.setTitle("UFMS-Banking");
         stage.show();
@@ -37,5 +50,5 @@ public class UFMSBankApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

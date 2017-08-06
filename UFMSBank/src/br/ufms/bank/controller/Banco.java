@@ -17,6 +17,7 @@
 package br.ufms.bank.controller;
 
 import br.ufms.bank.model.ContaBancaria;
+import br.ufms.bank.model.PessoaFisica;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,13 @@ public class Banco {
 
     public List<ContaBancaria> login(String usuario, String senha) {
         List<ContaBancaria> lista = new ArrayList<>();
-        for (ContaBancaria conta : contas) {
-            if (conta.getCorrentista().getUsuario().equalsIgnoreCase(usuario)) {
-                lista.add(conta);
-            }
-        }
+        contas.stream().filter((conta) -> (conta.getCorrentista().getUsuario().equalsIgnoreCase(usuario))).forEachOrdered((conta) -> {
+            lista.add(conta);
+        });
         return lista;
     }
 
-    public void criarConta() {
+    public void criarConta(PessoaFisica correntista) {
 
     }
 

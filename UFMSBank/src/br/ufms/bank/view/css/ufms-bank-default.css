@@ -6,10 +6,11 @@
     -fx-base: blueviolet;
 }
 
-.button {
+.login .button {
     -fx-background-color: blueviolet;
 }
 
 .form > *.error {
     -fx-border-color: red;
 }
+

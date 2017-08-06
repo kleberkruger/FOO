@@ -14,43 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model;
-
-import br.ufms.bank.model.enumerate.TipoTransacao;
+package br.ufms.bank.exception;
 
 /**
  *
  * @author Kleber Kruger
  */
-public class Saque extends Transacao {
+public class ValidacaoException extends Exception {
 
-    private static final long serialVersionUID = 1L;
-
-    private final String conta;
+    private static final String MENSAGEM_PADRAO = "Erro de validação";
 
     /**
+     * Cria uma exceção de validação.
+     */
+    public ValidacaoException() {
+        this(MENSAGEM_PADRAO);
+    }
+
+    /**
+     * Cria uma exceção de validação com a mensagem recebida por parâmetro.
      *
-     * @param conta
-     * @param valor
+     * @param mensagem
      */
-    protected Saque(String conta, double valor) {
-        super(valor, null);
-        this.conta = conta;
-    }
-
-    /**
-     * @return the conta
-     */
-    public final String getConta() {
-        return conta;
-    }
-
-    /**
-     * @return the tipo da transação
-     */
-    @Override
-    public final TipoTransacao getTipoTransacao() {
-        return TipoTransacao.SAQUE;
+    public ValidacaoException(String mensagem) {
+        super(mensagem);
     }
 
 }

@@ -36,7 +36,7 @@ public class Transferencia extends Transacao {
      * @param valor 
      */
     protected Transferencia(String origem, String destino, double valor) {
-        super(valor);
+        super(valor, null);
         this.origem = origem;
         this.destino = destino;
     }

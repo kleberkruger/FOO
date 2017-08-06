@@ -36,7 +36,7 @@ public class Deposito extends Transacao {
      * @param depositante
      */
     protected Deposito(String favorecido, double valor, String depositante) {
-        super(valor);
+        super(valor, null);
         this.favorecido = favorecido;
         this.depositante = depositante;
     }
