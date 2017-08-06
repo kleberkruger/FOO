@@ -54,7 +54,7 @@ public class PessoaFisica extends Correntista {
         super(usuario, senha);
         setNome(nome);
         setCPF(cpf);
-        setTelefone(telefone);
+        setTelefonePrincipal(telefone);
     }
 
     /**

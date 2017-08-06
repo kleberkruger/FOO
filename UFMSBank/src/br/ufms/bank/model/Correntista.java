@@ -29,7 +29,8 @@ public class Correntista extends Usuario {
     private transient ContaCorrente contaCorrente;
     private transient ContaPoupanca contaPoupanca;
 
-    private Telefone telefone;
+    private Telefone telefonePrincipal;
+    private Telefone telefoneSecundario;
 
     /**
      * Método responsável por gerar novos IDs para Pessoas (físicas ou juridicas). Este método deve
@@ -79,15 +80,29 @@ public class Correntista extends Usuario {
     /**
      * @return the telefone
      */
-    public final Telefone getTelefone() {
-        return telefone;
+    public final Telefone getTelefonePrincipal() {
+        return telefonePrincipal;
     }
 
     /**
      * @param telefone the telefone to set
      */
-    public final void setTelefone(Telefone telefone) {
-        this.telefone = telefone;
+    public final void setTelefonePrincipal(Telefone telefone) {
+        this.telefonePrincipal = telefone;
+    }
+    
+    /**
+     * @return the telefone
+     */
+    public final Telefone getTelefoneSecundario() {
+        return telefonePrincipal;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public final void setTelefoneSecundario(Telefone telefone) {
+        this.telefonePrincipal = telefone;
     }
 
     @Override

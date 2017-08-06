@@ -59,9 +59,9 @@
                                 </Label>
                                 <HBox>
                                     <children>
-                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Adicionar" />
-                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Editar" />
-                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Excluir" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" styleClass="left-pill" text="Adicionar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" styleClass="center-pill" text="Editar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" styleClass="right-pill" text="Excluir" />
                                     </children>
                                 </HBox>
                                 <Label text="DADOS DO CORRENTISTA">
@@ -285,8 +285,8 @@
                                 </GridPane>
                                 <HBox>
                                     <children>
-                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Cancelar" />
-                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Salvar" />
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Cancelar" styleClass="left-pill"/>
+                                        <Button mnemonicParsing="false" prefWidth="90.0" text="Salvar" styleClass="right-pill"/>
                                     </children>
                                     <VBox.margin>
                                         <Insets top="30.0" />
