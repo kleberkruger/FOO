@@ -16,26 +16,16 @@
  */
 package br.ufms.bank.view.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
  *
  * @author Kleber Kruger
  */
-public class MenuBancarioController implements Initializable {
-
-    @FXML
-    private StackPane conteudo;
+public class FormularioContaController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -45,17 +35,7 @@ public class MenuBancarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent formulario = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/bank/view/fxml/FormularioConta.fxml"));
-
-            conteudo.getChildren().add(formulario);
-
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
+        // TODO
     }
 
 }
