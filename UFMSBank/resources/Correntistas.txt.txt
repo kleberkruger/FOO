@@ -1,0 +1,2 @@
+PessoaFisica|ID|Nome|CPF|Telefone1|Telefone2|Usuario|Senha
+PessoaJuridica|ID|NomeFantasia|RazaoSocial|Telefone1|Telefone2|Usuario|Senha

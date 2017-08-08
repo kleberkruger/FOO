@@ -46,11 +46,19 @@ public class Correntista extends Usuario {
     /**
      * Cria um novo objeto Pessoa.
      *
+     * @param id
      * @param usuario
      * @param senha
+     * @param telefonePrincipal
+     * @param telefoneSecundario
      */
-    protected Correntista(String usuario, String senha) {
-        super(gerarNovoID(), usuario, senha);
+    protected Correntista(Long id, String usuario, String senha, Telefone telefonePrincipal,
+            Telefone telefoneSecundario) {
+
+        super(id == null ? gerarNovoID() : id, usuario, senha);
+
+        this.telefonePrincipal = telefonePrincipal;
+        this.telefoneSecundario = telefoneSecundario;
     }
 
     /**
@@ -90,19 +98,19 @@ public class Correntista extends Usuario {
     public final void setTelefonePrincipal(Telefone telefone) {
         this.telefonePrincipal = telefone;
     }
-    
+
     /**
      * @return the telefone
      */
     public final Telefone getTelefoneSecundario() {
-        return telefonePrincipal;
+        return telefoneSecundario;
     }
 
     /**
      * @param telefone the telefone to set
      */
     public final void setTelefoneSecundario(Telefone telefone) {
-        this.telefonePrincipal = telefone;
+        this.telefoneSecundario = telefone;
     }
 
     @Override

@@ -18,6 +18,7 @@ package br.ufms.bank.model;
 
 import br.ufms.bank.model.enumerate.TipoUsuario;
 import br.ufms.bank.util.Validador;
+import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  *

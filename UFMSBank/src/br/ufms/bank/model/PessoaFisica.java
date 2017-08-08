@@ -16,8 +16,6 @@
  */
 package br.ufms.bank.model;
 
-import br.ufms.bank.util.Validador;
-
 /**
  *
  * @author Kleber Kruger
@@ -51,10 +49,43 @@ public class PessoaFisica extends Correntista {
      * @param telefone
      */
     public PessoaFisica(String nome, String usuario, String senha, CPF cpf, Telefone telefone) {
-        super(usuario, senha);
+        this(nome, usuario, senha, cpf, telefone, null);
+    }
+
+    /**
+     * Cria um objeto PessoaFisica.
+     *
+     * @param nome
+     * @param usuario
+     * @param senha
+     * @param cpf
+     * @param telefonePrincipal
+     * @param telefoneSecundario
+     */
+    public PessoaFisica(String nome, String usuario, String senha, CPF cpf,
+            Telefone telefonePrincipal, Telefone telefoneSecundario) {
+
+        this(null, nome, usuario, senha, cpf, telefonePrincipal, telefoneSecundario);
+    }
+
+    /**
+     * Cria um objeto PessoaFisica.
+     *
+     * @param id
+     * @param nome
+     * @param usuario
+     * @param senha
+     * @param cpf
+     * @param telefonePrincipal
+     * @param telefoneSecundario
+     */
+    protected PessoaFisica(Long id, String nome, String usuario, String senha, CPF cpf,
+            Telefone telefonePrincipal, Telefone telefoneSecundario) {
+
+        super(id, usuario, senha, telefonePrincipal, telefoneSecundario);
+
         setNome(nome);
         setCPF(cpf);
-        setTelefonePrincipal(telefone);
     }
 
     /**
@@ -68,7 +99,7 @@ public class PessoaFisica extends Correntista {
      * @param nome the nome to set
      */
     public final void setNome(String nome) {
-        Validador.validarNome(nome);
+//        Validador.validarNome(nome);
         this.nome = nome;
     }
 

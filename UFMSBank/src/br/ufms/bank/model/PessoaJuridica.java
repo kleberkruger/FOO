@@ -30,10 +30,71 @@ public class PessoaJuridica extends Correntista {
     private String razaoSocial;
     private CNPJ cnpj;
 
-    public PessoaJuridica(String nomeFantasia, String razaoSocial, 
+    /**
+     * Cria um objeto PessoaJuridica.
+     *
+     * @param nomeFantasia
+     * @param razaoSocial
+     * @param usuario
+     * @param senha
+     * @param cnpj
+     */
+    public PessoaJuridica(String nomeFantasia, String razaoSocial,
             String usuario, String senha, CNPJ cnpj) {
-        
-        super(usuario, senha);
+
+        this(nomeFantasia, razaoSocial, usuario, senha, cnpj, null);
+    }
+
+    /**
+     * Cria um objeto PessoaJuridica.
+     *
+     * @param nomeFantasia
+     * @param razaoSocial
+     * @param usuario
+     * @param senha
+     * @param cnpj
+     * @param telefonePrincipal
+     */
+    public PessoaJuridica(String nomeFantasia, String razaoSocial,
+            String usuario, String senha, CNPJ cnpj, Telefone telefonePrincipal) {
+
+        this(nomeFantasia, razaoSocial, usuario, senha, cnpj, telefonePrincipal, null);
+    }
+
+    /**
+     * Cria um objeto PessoaJuridica.
+     *
+     * @param nomeFantasia
+     * @param razaoSocial
+     * @param usuario
+     * @param senha
+     * @param cnpj
+     * @param telefonePrincipal
+     * @param telefoneSecundario
+     */
+    public PessoaJuridica(String nomeFantasia, String razaoSocial, String usuario, String senha,
+            CNPJ cnpj, Telefone telefonePrincipal, Telefone telefoneSecundario) {
+
+        this(null, nomeFantasia, razaoSocial, usuario, senha, cnpj, telefonePrincipal, telefoneSecundario);
+    }
+
+    /**
+     * Cria um objeto PessoaJuridica.
+     *
+     * @param id
+     * @param nomeFantasia
+     * @param razaoSocial
+     * @param usuario
+     * @param senha
+     * @param cnpj
+     * @param telefonePrincipal
+     * @param telefoneSecundario
+     */
+    public PessoaJuridica(Long id, String nomeFantasia, String razaoSocial, String usuario, String senha,
+            CNPJ cnpj, Telefone telefonePrincipal, Telefone telefoneSecundario) {
+
+        super(id, usuario, senha, telefonePrincipal, telefoneSecundario);
+
         setNomeFantasia(nomeFantasia);
         setRazaoSocial(razaoSocial);
         setCNPJ(cnpj);
@@ -53,7 +114,7 @@ public class PessoaJuridica extends Correntista {
         Validador.validarNomeFantasia(nomeFantasia);
         this.nomeFantasia = nomeFantasia;
     }
-    
+
     /**
      * @return the razaoSocial
      */

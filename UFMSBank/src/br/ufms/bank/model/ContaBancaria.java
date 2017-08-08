@@ -29,7 +29,7 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
 
     private static final long serialVersionUID = 1L;
 
-    private final C correntista;
+    private final C correntista;    
     private final List<Transacao> transacoes;
 
     protected Double saldo; // as operações que modificam o saldo podem ser sobrescritas
