@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" spacing="10.0" styleClass="login" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.banking.view.controller.LoginController">
+    <children>
+        <VBox alignment="CENTER" spacing="10.0">
+            <children>
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="/br/ufms/banking/view/image/logo.png" />
+                    </image>
+                </ImageView>
+                <Label text="UFMS-BANKing" textFill="#343a3f">
+                    <font>
+                        <Font name="Candara Bold" size="24.0" />
+                    </font>
+                    <effect>
+                        <DropShadow color="BLUEVIOLET" />
+                    </effect>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="40.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </VBox>
+        <GridPane styleClass="form">
+            <columnConstraints>
+                <ColumnConstraints fillWidth="false" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints minHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label fx:id="usuarioError" contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="/br/ufms/banking/view/image/error.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip />
+                    </tooltip>
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="usuario" minWidth="0.0" prefWidth="200.0" promptText="Nome de usuário" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets bottom="3.0" right="10.0" top="3.0" />
+                    </GridPane.margin>
+                </TextField>
+                <Label fx:id="senhaError" contentDisplay="GRAPHIC_ONLY" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="/br/ufms/banking/view/image/error.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip />
+                    </tooltip>
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                </Label>
+                <PasswordField fx:id="senha" prefWidth="200.0" promptText="Senha" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets bottom="3.0" right="10.0" top="3.0" />
+                    </GridPane.margin>
+                </PasswordField>
+                <CheckBox fx:id="lembrarUsuario" mnemonicParsing="false" text="LEMBRAR USUÁRIO" textFill="#343a3f" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="9.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="3.0" right="10.0" top="3.0" />
+                    </GridPane.margin>
+                </CheckBox>
+                <Label fx:id="mensagem" alignment="CENTER" prefWidth="200.0" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Button fx:id="acessar" defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefWidth="200.0" text="ACESSAR" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="Candara Bold" size="12.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Button>
+                <Label fx:id="capsLockOn" text="Caps Lock ativada" textFill="#343a3f" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets bottom="3.0" right="10.0" />
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Candara Bold" size="11.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+    </padding>
+</VBox>

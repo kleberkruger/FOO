@@ -1,2 +1,0 @@
-ContaCorrente|CorrentistaID|Numero|Saldo|Limite
-ContaPoupanca|CorrentistaID|Numero|Saldo|Categoria

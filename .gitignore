@@ -12,3 +12,6 @@
 hs_err_pid*
 /UFMSBank/dist/
 /UFMSBank/build/
+/UFMS Banking/nbproject/private/
+/UFMS Banking/build/
+/UFMS Banking/dist/
