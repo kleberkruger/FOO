@@ -37,7 +37,8 @@ public class Bancario extends Usuario {
      * @return id
      */
     private static long gerarNovoID() {
-        throw new UnsupportedOperationException("Implemente este método.");
+        return 1;
+//        throw new UnsupportedOperationException("Implemente este método.");
     }
 
     /**

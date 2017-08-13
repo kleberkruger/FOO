@@ -126,6 +126,16 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.centerOnScreen();
+            } else if (usuario.getText().equalsIgnoreCase("kleberkruger")
+                    && senha.getText().equalsIgnoreCase("123")) {
+
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
+                        "br/ufms/banking/view/fxml/MenuCorrentista.fxml"));
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.centerOnScreen();
             }
 
         } catch (IllegalArgumentException ex) {

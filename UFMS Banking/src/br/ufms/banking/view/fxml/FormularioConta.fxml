@@ -75,13 +75,18 @@
                                                         <Font name="Candara Bold" size="12.0" />
                                                     </font>
                                                 </CheckBox>
-                                                <Label text="Limite de Cheque Especial" textAlignment="CENTER" wrapText="true" />
-                                                <TextField alignment="CENTER" promptText="Valor" VBox.vgrow="ALWAYS">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </TextField>
-                                                <Slider blockIncrement="100.0" majorTickUnit="900.0" max="1200.0" min="300.0" showTickLabels="true" value="300.0" VBox.vgrow="ALWAYS" />
+                                                <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <Label text="Limite de Cheque Especial" textAlignment="CENTER" wrapText="true" />
+                                                        <TextField alignment="CENTER" promptText="Valor" VBox.vgrow="ALWAYS">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <Slider blockIncrement="100.0" majorTickUnit="900.0" max="1200.0" min="300.0" showTickLabels="true" value="300.0" VBox.vgrow="ALWAYS" />
+                                                    </children>
+                                                </VBox>
+                                                <Button mnemonicParsing="false" prefWidth="90.0" text="Excluir" />
                                             </children>
                                             <GridPane.margin>
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -109,28 +114,23 @@
                                                         <Font name="Candara Bold" size="12.0" />
                                                     </font>
                                                 </CheckBox>
-                                                <Label text="Categoria de Rendimento" textAlignment="CENTER" wrapText="true" />
-                                                <VBox spacing="10.0">
+                                                <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <RadioButton mnemonicParsing="false" text="A (0,75%)">
-                                                            <toggleGroup>
-                                                                <ToggleGroup fx:id="grupoCategoria" />
-                                                            </toggleGroup>
-                                                        </RadioButton>
-                                                        <RadioButton mnemonicParsing="false" text="B (0,6%)" toggleGroup="$grupoCategoria" />
-                                                        <RadioButton mnemonicParsing="false" selected="true" text="C (0,5%)" toggleGroup="$grupoCategoria" />
+                                                        <Label text="Categoria de Rendimento" textAlignment="CENTER" wrapText="true" />
+                                                        <VBox spacing="10.0">
+                                                            <children>
+                                                                <RadioButton mnemonicParsing="false" text="A (0,75%)">
+                                                                    <toggleGroup>
+                                                                        <ToggleGroup fx:id="grupoCategoria" />
+                                                                    </toggleGroup>
+                                                                </RadioButton>
+                                                                <RadioButton mnemonicParsing="false" text="B (0,6%)" toggleGroup="$grupoCategoria" />
+                                                                <RadioButton mnemonicParsing="false" selected="true" text="C (0,5%)" toggleGroup="$grupoCategoria" />
+                                                            </children>
+                                                        </VBox>
                                                     </children>
                                                 </VBox>
-                                                <!--<ComboBox maxWidth="1.7976931348623157E308" minWidth="150.0" promptText="Categoria" visibleRowCount="6" VBox.vgrow="ALWAYS">
-                                                    <items>
-                                                        <FXCollections fx:factory="observableArrayList">
-                                                            <Label text="A" />
-                                                            <String fx:value="A" />
-                                                            <String fx:value="B" />
-                                                            <String fx:value="C" />
-                                                        </FXCollections>
-                                                    </items>
-                                                </ComboBox>-->
+                                                <Button mnemonicParsing="false" prefWidth="90.0" text="Excluir" />
                                             </children>
                                             <GridPane.margin>
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

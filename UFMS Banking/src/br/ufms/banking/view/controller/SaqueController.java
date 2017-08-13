@@ -14,23 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.kruger.util.persistence.database;
+package br.ufms.banking.view.controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
+ * FXML Controller class
  *
  * @author Kleber Kruger
  */
-public interface DatabaseManager {
+public class SaqueController implements Initializable {
 
     /**
-     * Estabelece uma conexão com o banco de dados.
+     * Initializes the controller class.
      *
-     * @return a conexão com o banco de dados.
-     *
-     * @throws SQLException
+     * @param url
+     * @param rb
      */
-    public Connection getConnection() throws SQLException;
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
+
 }

@@ -90,7 +90,7 @@ public class PessoaJuridica extends Correntista {
      * @param telefonePrincipal
      * @param telefoneSecundario
      */
-    public PessoaJuridica(Long id, String nomeFantasia, String razaoSocial, String usuario, String senha,
+    protected PessoaJuridica(Long id, String nomeFantasia, String razaoSocial, String usuario, String senha,
             CNPJ cnpj, Telefone telefonePrincipal, Telefone telefoneSecundario) {
 
         super(id, usuario, senha, telefonePrincipal, telefoneSecundario);

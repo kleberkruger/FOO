@@ -30,10 +30,10 @@ public class Transferencia extends Transacao {
     private final String destino;
 
     /**
-     * 
+     *
      * @param origem
      * @param destino
-     * @param valor 
+     * @param valor
      */
     protected Transferencia(String origem, String destino, double valor) {
         super(valor, null);
@@ -54,7 +54,7 @@ public class Transferencia extends Transacao {
     public final String getDestino() {
         return destino;
     }
-    
+
     @Override
     public final TipoTransacao getTipoTransacao() {
         return TipoTransacao.TRANSFERENCIA;

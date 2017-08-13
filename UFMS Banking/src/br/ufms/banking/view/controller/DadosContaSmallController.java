@@ -14,21 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.kruger.util.persistence;
+package br.ufms.banking.view.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
+ * FXML Controller class
  *
  * @author Kleber Kruger
  */
-public class PersistenceException extends Exception {
+public class DadosContaSmallController implements Initializable {
 
     /**
-     * Creates a PersistenceException.
+     * Initializes the controller class.
      *
-     * @param ex
+     * @param url
+     * @param rb
      */
-    public PersistenceException(Exception ex) {
-        super(ex.getMessage(), ex.getCause());
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
 
 }

@@ -19,24 +19,28 @@ package br.ufms.banking.view.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TitledPane;
 
 /**
  * FXML Controller class
  *
  * @author Kleber Kruger
  */
-public class MenuBancarioController implements Initializable {
+public class MenuCorrentistaController implements Initializable {
 
     @FXML
-    private StackPane conteudo;
+    private TitledPane deposito;
     @FXML
-    private StackPane conteudoDireita;
-
+    private TitledPane saque;
+    @FXML
+    private TitledPane transferencia;
+    
     /**
      * Initializes the controller class.
      *
@@ -47,20 +51,23 @@ public class MenuBancarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent formulario = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/banking/view/fxml/FormularioConta.fxml"));
+            FXMLLoader loader1 = new FXMLLoader();
+            Parent form1 = (Parent) loader1.load(getClass().getClassLoader().getResourceAsStream(
+                    "br/ufms/banking/view/fxml/Deposito.fxml"));
+            deposito.setContent(form1);
 
-            conteudo.getChildren().add(formulario);
-            
             FXMLLoader loader2 = new FXMLLoader();
-            Parent dadosConta = (Parent) loader2.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/banking/view/fxml/DadosContaSmall.fxml"));
-
-            conteudoDireita.getChildren().add(dadosConta);
-
+            Parent form2 = (Parent) loader2.load(getClass().getClassLoader().getResourceAsStream(
+                    "br/ufms/banking/view/fxml/Saque.fxml"));
+            saque.setContent(form2);
+            
+            FXMLLoader loader3 = new FXMLLoader();
+            Parent form3 = (Parent) loader3.load(getClass().getClassLoader().getResourceAsStream(
+                    "br/ufms/banking/view/fxml/Transferencia.fxml"));
+            transferencia.setContent(form3);
+            
         } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+            Logger.getLogger(MenuCorrentistaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

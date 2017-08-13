@@ -19,7 +19,7 @@
                     <children>
                         <VBox spacing="10">
                             <children>
-                                <Label text="CONTAS CADASTRADAS">
+                                <Label text="CORRENTISTAS">
                                     <font>
                                         <Font name="Candara Bold" size="18.0" />
                                     </font>
@@ -50,12 +50,12 @@
                 </VBox>
             </children>
         </VBox>
-        <SplitPane prefHeight="200.0" prefWidth="200.0">
+        <SplitPane>
             <items>
-                <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+                <SplitPane dividerPositions="0.5">
                     <items>
                         <StackPane fx:id="conteudo" />
-                        <VBox maxWidth="200.0" minWidth="150.0" prefWidth="200.0" SplitPane.resizableWithParent="false" />
+                        <StackPane fx:id="conteudoDireita" alignment="TOP_CENTER" />
                     </items>
                 </SplitPane>
             </items>

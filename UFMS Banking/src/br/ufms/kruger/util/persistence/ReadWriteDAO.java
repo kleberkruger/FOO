@@ -16,7 +16,6 @@
  */
 package br.ufms.kruger.util.persistence;
 
-import br.ufms.kruger.util.persistence.database.DatabaseManager;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;

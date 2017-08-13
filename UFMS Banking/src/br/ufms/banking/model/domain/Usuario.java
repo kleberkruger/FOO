@@ -18,6 +18,7 @@ package br.ufms.banking.model.domain;
 
 import br.ufms.bank.model.enumerate.TipoUsuario;
 import br.ufms.banking.util.Validador;
+import br.ufms.kruger.util.persistence.Bean;
 
 /**
  *

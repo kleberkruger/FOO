@@ -16,19 +16,21 @@
  */
 package br.ufms.kruger.util.persistence;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  *
  * @author Kleber Kruger
  */
-public class PersistenceException extends Exception {
+public interface DatabaseManager {
 
     /**
-     * Creates a PersistenceException.
+     * Estabelece uma conexão com o banco de dados.
      *
-     * @param ex
+     * @return a conexão com o banco de dados.
+     *
+     * @throws SQLException
      */
-    public PersistenceException(Exception ex) {
-        super(ex.getMessage(), ex.getCause());
-    }
-
+    public Connection getConnection() throws SQLException;
 }

@@ -17,6 +17,7 @@
 package br.ufms.banking.model.domain;
 
 import br.ufms.bank.model.enumerate.TipoConta;
+import br.ufms.kruger.util.persistence.Bean;
 import java.util.ArrayList;
 import java.util.List;
 

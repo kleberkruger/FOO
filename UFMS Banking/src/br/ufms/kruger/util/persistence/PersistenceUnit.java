@@ -28,15 +28,57 @@ import java.util.Collection;
  */
 public abstract class PersistenceUnit<B extends Bean<T>, T extends Serializable> {
 
-    public abstract B get(T id);
+    /**
+     * Sets the bean ID.
+     *
+     * @param bean
+     * @param id
+     */
+    protected void setBeanID(B bean, T id) {
+        bean.setID(id);
+    }
 
-    public abstract Collection<B> getAll();
+    /**
+     * Saves the bean object.
+     *
+     * @param bean
+     * @throws br.ufms.kruger.util.persistence.PersistenceException
+     */
+    public abstract void save(B bean) throws PersistenceException;
 
-    public abstract void save(B bean);
-
-    public void delete(B bean) {
+    /**
+     * Deletes the bean object.
+     *
+     * @param bean
+     * @throws br.ufms.kruger.util.persistence.PersistenceException
+     */
+    public void delete(B bean) throws PersistenceException {
         delete(bean.getID());
     }
 
-    public abstract void delete(T id);
+    /**
+     * Deletes the bean object.
+     *
+     * @param id
+     * @throws br.ufms.kruger.util.persistence.PersistenceException
+     */
+    public abstract void delete(T id) throws PersistenceException;
+
+    /**
+     * Gets the bean object.
+     *
+     * @param id
+     * @return
+     * @throws br.ufms.kruger.util.persistence.PersistenceException
+     */
+    public abstract B get(T id) throws PersistenceException;
+
+    /**
+     * Gets all bean objects.
+     *
+     * @return
+     * @throws br.ufms.kruger.util.persistence.PersistenceException
+     */
+    public abstract Collection<B> getAll() throws PersistenceException;
+
 }
