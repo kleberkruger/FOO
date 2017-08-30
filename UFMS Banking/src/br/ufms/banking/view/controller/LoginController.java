@@ -123,9 +123,13 @@ public class LoginController implements Initializable {
                 Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
                         "br/ufms/banking/view/fxml/MenuBancario.fxml"));
 
+                Scene scene = new Scene(root);
+//                scene.getStylesheets().add("br/ufms/banking/view/css/jmetro/JMetroLightTheme.css");
+
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.centerOnScreen();
+
             } else if (usuario.getText().equalsIgnoreCase("kleberkruger")
                     && senha.getText().equalsIgnoreCase("123")) {
 
@@ -133,8 +137,11 @@ public class LoginController implements Initializable {
                 Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
                         "br/ufms/banking/view/fxml/MenuCorrentista.fxml"));
 
+                Scene scene = new Scene(root);
+//                scene.getStylesheets().add("br/ufms/banking/view/css/jmetro/JMetroLightTheme.css");
+
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.centerOnScreen();
             }
 

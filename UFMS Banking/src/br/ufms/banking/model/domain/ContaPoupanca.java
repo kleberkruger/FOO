@@ -16,15 +16,14 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.CategoriaCorrentista;
-import br.ufms.bank.model.enumerate.TipoConta;
+import br.ufms.banking.model.enumerate.CategoriaCorrentista;
+import br.ufms.banking.model.enumerate.TipoConta;
 
 /**
  *
  * @author Kleber Kruger
- * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public class ContaPoupanca<C extends Correntista> extends ContaBancaria {
+public class ContaPoupanca extends ContaBancaria {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,23 +34,22 @@ public class ContaPoupanca<C extends Correntista> extends ContaBancaria {
      * padrão (0.5% a.m.).
      *
      * @param correntista
+     * @param agencia
      */
-    public ContaPoupanca(Correntista correntista) {
-        this(correntista, CategoriaCorrentista.C);
+    public ContaPoupanca(Correntista correntista, NumeroBancario agencia) {
+        this(correntista, agencia, CategoriaCorrentista.C);
     }
 
     /**
      * Cria um objeto ContaPoupanca.
      *
      * @param correntista
+     * @param agencia
      * @param categoria
      */
-    public ContaPoupanca(Correntista correntista, CategoriaCorrentista categoria) {
-        super(correntista);
+    public ContaPoupanca(Correntista correntista, NumeroBancario agencia, CategoriaCorrentista categoria) {
+        super(correntista, agencia);
         setCategoria(categoria);
-
-        final ContaPoupanca cp = this;
-        correntista.registrarConta(cp);
     }
 
     /**

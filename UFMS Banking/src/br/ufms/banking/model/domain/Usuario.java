@@ -16,7 +16,7 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoUsuario;
+import br.ufms.banking.model.enumerate.TipoUsuario;
 import br.ufms.banking.util.Validador;
 import br.ufms.kruger.util.persistence.Bean;
 
@@ -32,15 +32,12 @@ public abstract class Usuario extends Bean<Long> {
     private String senha;
 
     /**
-     * Cria um usuário.
+     * Cria um objeto Usuario.
      *
-     * @param id
      * @param usuario
      * @param senha
      */
-    public Usuario(Long id, String usuario, String senha) {
-        super(id);
-
+    protected Usuario(String usuario, String senha) {
         setUsuario(usuario);
         setSenha(senha);
     }
@@ -78,6 +75,6 @@ public abstract class Usuario extends Bean<Long> {
     /**
      * @return the tipo
      */
-    public abstract TipoUsuario getTipo();
+    public abstract TipoUsuario getTipoUsuario();
 
 }

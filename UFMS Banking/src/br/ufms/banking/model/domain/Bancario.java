@@ -16,7 +16,7 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoUsuario;
+import br.ufms.banking.model.enumerate.TipoUsuario;
 import br.ufms.banking.util.Validador;
 
 /**
@@ -28,30 +28,24 @@ public class Bancario extends Usuario {
     private static final long serialVersionUID = 1L;
 
     private String nome;
-
-    /**
-     * Método responsável por gerar novos IDs para Bancários. Este método deve ser capaz de
-     * identificar o último ID gerado e gerar automaticamente novos IDs. Números gerados jamais se
-     * repetirão.
-     *
-     * @return id
-     */
-    private static long gerarNovoID() {
-        return 1;
-//        throw new UnsupportedOperationException("Implemente este método.");
-    }
-
-    /**
+    private CPF cpf;
+    private Agencia agencia;
+    
+     /**
      * Cria um novo objeto Bancario.
      *
      * @param nome
      * @param usuario
      * @param senha
+     * @param cpf
+     * @param agencia
      */
-    public Bancario(String nome, String usuario, String senha) {
-        super(gerarNovoID(), usuario, senha);
+    public Bancario(String nome, String usuario, String senha, CPF cpf, Agencia agencia) {
+        super(usuario, senha);
 
         setNome(nome);
+        setCPF(cpf);
+        setAgencia(agencia);
     }
 
     /**
@@ -69,8 +63,42 @@ public class Bancario extends Usuario {
         this.nome = nome;
     }
 
+    /**
+     * @return the cpf
+     */
+    public final CPF getCPF() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public final void setCPF(CPF cpf) {
+        if (cpf == null) {
+            throw new IllegalArgumentException("O CPF não pode ser nulo.");
+        }
+        this.cpf = cpf;
+    }
+    
+    /**
+     * @return the agencia
+     */
+    public final Agencia getAgencia() {
+        return agencia;
+    }
+
+    /**
+     * @param agencia the agencia to set
+     */
+    public final void setAgencia(Agencia agencia) {
+        if (agencia == null) {
+            throw new IllegalArgumentException("A agência não pode ser nula.");
+        }
+        this.agencia = agencia;
+    }
+
     @Override
-    public TipoUsuario getTipo() {
+    public TipoUsuario getTipoUsuario() {
         return TipoUsuario.BANCARIO;
     }
 

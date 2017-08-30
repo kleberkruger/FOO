@@ -173,7 +173,7 @@
             </children>
         </StackPane>
     </content>
-    <stylesheets>
+<!--    <stylesheets>
         <URL value="@/br/ufms/banking/view/css/default-style.css" />
-    </stylesheets>
+    </stylesheets>-->
 </ScrollPane>

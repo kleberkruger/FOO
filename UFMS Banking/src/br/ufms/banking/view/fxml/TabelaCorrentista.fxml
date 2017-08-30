@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox maxWidth="500.0" minWidth="200.0" prefWidth="350.0" spacing="20.0" SplitPane.resizableWithParent="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.banking.view.controller.TabelaCorrentistaController">
+    <children>
+        <VBox spacing="10">
+            <children>
+                <Label text="CORRENTISTAS">
+                    <font>
+                        <Font name="Candara Bold" size="18.0" />
+                    </font>
+                </Label>
+                <TextField promptText="Pesquisar por número/nome" />
+                <Separator />
+                <FlowPane hgap="10.0" vgap="10.0">
+                    <children>
+                        <CheckBox mnemonicParsing="false" selected="true" text="Pessoa Física" />
+                        <CheckBox mnemonicParsing="false" selected="true" text="Pessoa Jurídica" />
+                    </children>
+                </FlowPane>
+            </children>
+        </VBox>
+        <TableView fx:id="correntistasTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colunaNumero" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Número" />
+                <TableColumn fx:id="colunaCorrentista" minWidth="100.0" prefWidth="200.0" text="Correntista" />
+            <TableColumn fx:id="colunaTipo" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Tipo" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <stylesheets>
+        <URL value="@/br/ufms/banking/view/css/default-style.css" />
+    </stylesheets>
+</VBox>

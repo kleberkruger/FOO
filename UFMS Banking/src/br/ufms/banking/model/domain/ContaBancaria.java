@@ -16,35 +16,47 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoConta;
+import br.ufms.banking.model.enumerate.TipoConta;
 import br.ufms.kruger.util.persistence.Bean;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  *
  * @author Kleber Kruger
- * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
+public abstract class ContaBancaria extends Bean<NumeroBancario> {
 
     private static final long serialVersionUID = 1L;
 
-    private final C correntista;    
-    private final List<Transacao> transacoes;
-
     protected Double saldo; // as operações que modificam o saldo podem ser sobrescritas
+
+    private final Correntista correntista;
+    private NumeroBancario agencia;
+    private final Collection<Transacao> transacoes;
+
+    /**
+     *
+     * @param numeroAgencia
+     * @param numeroConta
+     * @return
+     */
+    private static short gerarDigito(short numeroAgencia, int numeroConta) {
+        return (short) ((numeroAgencia + numeroConta) % 10);
+    }
 
     /**
      * Cria um objeto ContaBancaria.
      *
      * @param correntista
+     * @param agencia
      */
-    protected ContaBancaria(C correntista) {
-        super(correntista.getID());
+    protected ContaBancaria(Correntista correntista, NumeroBancario agencia) {
+        super(correntista.getNumeroConta());
 
         this.correntista = correntista;
-        this.transacoes = new ArrayList<>();
+        this.agencia = agencia;
+        this.transacoes = new HashSet<>();
     }
 
     /**
@@ -68,7 +80,7 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
      */
     public Deposito depositar(double valor, String depositante) {
         if (valor < 0) {
-            throw new IllegalArgumentException("O valor do depósito não pode ser negativo");
+            throw new IllegalArgumentException("O valor do depósito não pode ser negativo.");
         }
         this.saldo += valor;
 
@@ -86,9 +98,9 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
      */
     public Saque sacar(double valor) {
         if (valor < 0) {
-            throw new IllegalArgumentException("O valor do saque não pode ser negativo");
+            throw new IllegalArgumentException("O valor do saque não pode ser negativo.");
         } else if (valor > saldo) {
-            throw new IllegalArgumentException("Saldo insuficiente");
+            throw new IllegalArgumentException("Saldo insuficiente.");
         }
         this.saldo -= valor;
 
@@ -105,7 +117,7 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
      *
      * @return
      */
-    public Transferencia transferir(double valor, ContaCorrente destino) {
+    public Transferencia transferir(double valor, ContaBancaria destino) {
         this.sacar(valor);
         destino.depositar(valor);
 
@@ -115,24 +127,62 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
     }
 
     /**
-     * @return the correntista
+     * Transferência Eletrônica (TED) para contas de outros bancos.
+     *
+     * @TODO: Implementar este método!
+     *
+     * @param valor
+     * @param banco
+     * @param destino
+     *
+     * @return
      */
-    public final C getCorrentista() {
-        return correntista;
+    public Transferencia transferirEntreBancos(double valor, Banco banco, ContaCorrente destino) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
-     * @return the saldo
+     * @param <C>
+     * @return the correntista
      */
-    public final Long getNumero() {
-        return super.getID();
+    public final <C extends Correntista> C getCorrentista() {
+        return (C) correntista;
     }
+
+    /**
+     * @return the agencia
+     */
+    public NumeroBancario getAgencia() {
+        return agencia;
+    }
+
+    /**
+     * @param agencia the agencia to set
+     */
+    public void setAgencia(NumeroBancario agencia) {
+        this.agencia = agencia;
+    }
+
+    /**
+     * @return the numero
+     */
+    public final Integer getNumero() {
+        return super.getID().getNumero();
+    }
+    
+    /**
+     * @return the digito
+     */
+    public final Integer getDigito() {
+        return super.getID().getDigito();
+    }
+
 
     /**
      * @return the saldo
      */
     public final String getNumeroFormatado() {
-        return String.format("%05d", this.getNumero());
+        return String.format("%08d-%d", this.getNumero(), this.getDigito());
     }
 
     /**
@@ -140,6 +190,13 @@ public abstract class ContaBancaria<C extends Correntista> extends Bean<Long> {
      */
     public final Double getSaldo() {
         return saldo;
+    }
+
+    /**
+     * @return the transacoes
+     */
+    public final Collection<Transacao> getTransacoes() {
+        return transacoes;
     }
 
     /**

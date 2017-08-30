@@ -19,7 +19,7 @@ package br.ufms.kruger.util.persistence;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 /**
  *
@@ -44,8 +44,6 @@ public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
         this.beanClass = clazz;
     }
 
-    protected abstract Class<? extends ReadOnlyDAO<B, T>> getDAOClass();
-
     /**
      * Retorna o objeto gerenciador do banco de dados.
      *
@@ -65,19 +63,19 @@ public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
     /**
      * Carrega do banco de dados as informações do objeto Bean.
      *
-     * @param codigo
+     * @param id
      * @return
      * @throws SQLException
      */
-    public B get(T codigo) throws SQLException {
+    public B get(T id) throws SQLException {
         B bean;
         try (Connection conn = db.getConnection()) {
-            bean = get(conn, codigo);
+            bean = get(conn, id);
         }
         return bean;
     }
 
-    protected abstract B get(Connection conn, T codigo) throws SQLException;
+    protected abstract B get(Connection conn, T id) throws SQLException;
 
     /**
      * Carrega do banco de dados a lista de todos os obhetos do tipo Bean.
@@ -85,15 +83,16 @@ public abstract class ReadOnlyDAO<B extends Bean<T>, T extends Serializable> {
      * @return
      * @throws SQLException
      */
-    public List<B> getAll() throws SQLException {
-        List<B> beans;
+    public Collection<B> getAll() throws SQLException {
+        Collection<B> beans;
         try (Connection conn = db.getConnection()) {
             beans = getAll(conn);
         }
         return beans;
     }
 
-    protected abstract List<B> getAll(Connection conn) throws SQLException;
+    protected abstract Collection<B> getAll(Connection conn) throws SQLException;
 
 //    protected abstract B resultSetToBean(Connection conn, ResultSet rs) throws SQLException;
+//    protected abstract Class<? extends ReadOnlyDAO<B, T>> getDAOClass();
 }

@@ -16,6 +16,9 @@
  */
 package br.ufms.banking.model.domain;
 
+import br.ufms.banking.model.enumerate.TipoCorrentista;
+import br.ufms.banking.util.Validador;
+
 /**
  *
  * @author Kleber Kruger
@@ -30,60 +33,29 @@ public class PessoaFisica extends Correntista {
     /**
      * Cria um objeto PessoaFisica.
      *
+     * @param agencia
      * @param nome
      * @param usuario
      * @param senha
      * @param cpf
      */
-    public PessoaFisica(String nome, String usuario, String senha, CPF cpf) {
-        this(nome, usuario, senha, cpf, null);
+    public PessoaFisica(Agencia agencia, String nome, String usuario, String senha, CPF cpf) {
+        this(agencia, nome, usuario, senha, cpf, null);
     }
 
     /**
      * Cria um objeto PessoaFisica.
      *
+     * @param agencia
      * @param nome
      * @param usuario
      * @param senha
      * @param cpf
      * @param telefone
      */
-    public PessoaFisica(String nome, String usuario, String senha, CPF cpf, Telefone telefone) {
-        this(nome, usuario, senha, cpf, telefone, null);
-    }
-
-    /**
-     * Cria um objeto PessoaFisica.
-     *
-     * @param nome
-     * @param usuario
-     * @param senha
-     * @param cpf
-     * @param telefonePrincipal
-     * @param telefoneSecundario
-     */
-    public PessoaFisica(String nome, String usuario, String senha, CPF cpf,
-            Telefone telefonePrincipal, Telefone telefoneSecundario) {
-
-        this(null, nome, usuario, senha, cpf, telefonePrincipal, telefoneSecundario);
-    }
-
-    /**
-     * Cria um objeto PessoaFisica.
-     *
-     * @param id
-     * @param nome
-     * @param usuario
-     * @param senha
-     * @param cpf
-     * @param telefonePrincipal
-     * @param telefoneSecundario
-     */
-    protected PessoaFisica(Long id, String nome, String usuario, String senha, CPF cpf,
-            Telefone telefonePrincipal, Telefone telefoneSecundario) {
-
-        super(id, usuario, senha, telefonePrincipal, telefoneSecundario);
-
+    public PessoaFisica(Agencia agencia, String nome, String usuario, String senha, CPF cpf, Telefone telefone) {
+        super(agencia, usuario, senha, telefone);
+        
         setNome(nome);
         setCPF(cpf);
     }
@@ -99,7 +71,7 @@ public class PessoaFisica extends Correntista {
      * @param nome the nome to set
      */
     public final void setNome(String nome) {
-//        Validador.validarNome(nome);
+        Validador.validarNome(nome);
         this.nome = nome;
     }
 
@@ -115,9 +87,14 @@ public class PessoaFisica extends Correntista {
      */
     public final void setCPF(CPF cpf) {
         if (cpf == null) {
-            throw new IllegalArgumentException("O CPF não pode ser nulo");
+            throw new IllegalArgumentException("O CPF não pode ser nulo.");
         }
         this.cpf = cpf;
+    }
+
+    @Override
+    public TipoCorrentista getTipoCorrentista() {
+        return TipoCorrentista.PESSOA_FISICA;
     }
 
 }

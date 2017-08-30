@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model.enumerate;
+package br.ufms.banking.model.enumerate;
 
 /**
  *
@@ -22,12 +22,19 @@ package br.ufms.bank.model.enumerate;
  */
 public enum CategoriaCorrentista {
 
-    A(0.75f), B(0.6f), C(0.5f);
+    A(0.75f, 10.0f), B(0.6f, 12.0f), C(0.5f, 14.0f);
 
     private final float taxaRendimento;
+    private final float taxaJuros;
 
-    private CategoriaCorrentista(Float taxaRendimento) {
+    /**
+     *
+     * @param taxaRendimento
+     * @param taxaJuros
+     */
+    private CategoriaCorrentista(float taxaRendimento, float taxaJuros) {
         this.taxaRendimento = taxaRendimento;
+        this.taxaJuros = taxaJuros;
     }
 
     /**
@@ -35,6 +42,13 @@ public enum CategoriaCorrentista {
      */
     public final float getTaxaRendimento() {
         return taxaRendimento;
+    }
+
+    /**
+     * @return the taxaJuros
+     */
+    public final float getTaxaJuros() {
+        return taxaJuros;
     }
 
 }

@@ -16,106 +16,109 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoUsuario;
+import br.ufms.banking.model.enumerate.TipoCorrentista;
+import br.ufms.banking.model.enumerate.TipoUsuario;
+import br.ufms.banking.util.Validador;
 
 /**
  *
  * @author Kleber Kruger
  */
-public class Correntista extends Usuario {
+public abstract class Correntista extends Usuario {
 
     private static final long serialVersionUID = 1L;
+    
+    // O número da conta é gerado no momento da inserção na base de dados.
+    private NumeroBancario numeroConta;
 
-    private transient ContaCorrente contaCorrente;
-    private transient ContaPoupanca contaPoupanca;
-
-    private Telefone telefonePrincipal;
-    private Telefone telefoneSecundario;
-
-    /**
-     * Método responsável por gerar novos IDs para Pessoas (físicas ou juridicas). Este método deve
-     * ser capaz de identificar o último ID gerado e gerar automaticamente novos IDs. Números
-     * gerados jamais se repetirão.
-     *
-     * @return id
-     */
-    private static long gerarNovoID() {
-        throw new UnsupportedOperationException("Implemente este método.");
-    }
+    private Telefone telefone;
+    private Agencia agencia;
+    private ContaCorrente contaCorrente;
+    private ContaPoupanca contaPoupanca;
 
     /**
      * Cria um novo objeto Pessoa.
      *
-     * @param id
      * @param usuario
      * @param senha
-     * @param telefonePrincipal
-     * @param telefoneSecundario
+     * @param telefone
+     * @param agencia
      */
-    protected Correntista(Long id, String usuario, String senha, Telefone telefonePrincipal,
-            Telefone telefoneSecundario) {
+    public Correntista(Agencia agencia, String usuario, String senha, Telefone telefone) {
+        super(usuario, senha);
 
-        super(id == null ? gerarNovoID() : id, usuario, senha);
-
-        this.telefonePrincipal = telefonePrincipal;
-        this.telefoneSecundario = telefoneSecundario;
+        setAgencia(agencia);
+        setTelefone(telefone);
+        this.numeroConta = null;
+    }
+    
+    /**
+     * @return the telefone
+     */
+    public final Telefone getTelefone() {
+        return telefone;
     }
 
     /**
-     * Registra a conta corrente para este correntista.
-     *
-     * @param cc
+     * @param telefone the telefone to set
      */
-    protected void registrarConta(ContaCorrente cc) {
+    public final void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return the numeroConta
+     */
+    public final NumeroBancario getNumeroConta() {
+        return numeroConta;
+    }
+
+    /**
+     * @return the agencia
+     */
+    public final Agencia getAgencia() {
+        return agencia;
+    }
+
+    /**
+     * @param agencia the agencia to set
+     */
+    public final void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+
         if (contaCorrente != null) {
-            throw new RuntimeException("");
+            contaCorrente.setAgencia(numeroConta);
         }
-        this.contaCorrente = cc;
-    }
-
-    /**
-     * Registra a conta poupança para este correntista.
-     *
-     * @param cp
-     */
-    protected void registrarConta(ContaPoupanca cp) {
         if (contaPoupanca != null) {
-            throw new RuntimeException("");
+            contaPoupanca.setAgencia(numeroConta);
         }
-        this.contaPoupanca = cp;
     }
 
     /**
-     * @return the telefone
+     * Registra o número de uma conta para um correntista. Caso o correntista já esteja associado a
+     * uma conta, este método lança uma exceção.
+     *
+     * @param correntista
+     * @param numeroConta
+     *
+     * @throws java.lang.IllegalStateException
      */
-    public final Telefone getTelefonePrincipal() {
-        return telefonePrincipal;
-    }
+    public static void registrarNumeroConta(Correntista correntista,
+            NumeroBancario numeroConta) throws IllegalStateException {
 
-    /**
-     * @param telefone the telefone to set
-     */
-    public final void setTelefonePrincipal(Telefone telefone) {
-        this.telefonePrincipal = telefone;
-    }
+        Validador.validarNumeroConta(numeroConta.getNumero());
 
-    /**
-     * @return the telefone
-     */
-    public final Telefone getTelefoneSecundario() {
-        return telefoneSecundario;
-    }
-
-    /**
-     * @param telefone the telefone to set
-     */
-    public final void setTelefoneSecundario(Telefone telefone) {
-        this.telefoneSecundario = telefone;
+        if (correntista.numeroConta != null && correntista.numeroConta != numeroConta) {
+            throw new IllegalStateException("Este correntista já está associado a um outro número de conta.");
+        }
+        correntista.numeroConta = numeroConta;
     }
 
     @Override
-    public TipoUsuario getTipo() {
+    public TipoUsuario getTipoUsuario() {
         return TipoUsuario.CORRENTISTA;
     }
+
+    public abstract TipoCorrentista getTipoCorrentista();
 
 }

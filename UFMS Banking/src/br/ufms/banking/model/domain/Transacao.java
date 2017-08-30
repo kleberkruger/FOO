@@ -16,7 +16,7 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoTransacao;
+import br.ufms.banking.model.enumerate.TipoTransacao;
 import br.ufms.kruger.util.persistence.Bean;
 import java.time.LocalDate;
 

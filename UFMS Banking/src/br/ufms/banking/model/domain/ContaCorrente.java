@@ -16,14 +16,13 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoConta;
+import br.ufms.banking.model.enumerate.TipoConta;
 
 /**
  *
  * @author Kleber Kruger
- * @param <C> o tipo do Correntista (PessoaFísica ou PessoaJurídica)
  */
-public class ContaCorrente<C extends Correntista> extends ContaBancaria<C> {
+public class ContaCorrente extends ContaBancaria {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,12 +32,10 @@ public class ContaCorrente<C extends Correntista> extends ContaBancaria<C> {
      * Cria um objeto ContaCorrente.
      *
      * @param correntista
+     * @param agencia
      */
-    public ContaCorrente(C correntista) {
-        super(correntista);
-
-        final ContaCorrente cc = this;
-        correntista.registrarConta(cc);
+    public ContaCorrente(Correntista correntista, NumeroBancario agencia) {
+        super(correntista, agencia);
     }
 
     /**

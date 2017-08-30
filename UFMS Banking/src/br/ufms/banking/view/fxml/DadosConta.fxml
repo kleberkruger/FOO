@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.banking.view.controller.DadosContaController">
+    <children>
+        <VBox spacing="10.0">
+            <children>
+                <Label text="INFORMAÇÕES">
+                    <font>
+                        <Font name="Candara Bold" size="18.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <AnchorPane maxHeight="50.0" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: blueviolet;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label layoutX="25.0" layoutY="24.0" text="SALDO" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="3.0">
+                                    <font>
+                                        <Font name="System Bold" size="10.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER_RIGHT" layoutX="158.0" layoutY="169.0" text="R$ 0,00" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="50.0" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: blueviolet;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label layoutX="25.0" layoutY="24.0" text="LIMITE" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="3.0">
+                                    <font>
+                                        <Font name="System Bold" size="10.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER_RIGHT" layoutX="158.0" layoutY="169.0" text="R$ 0,00" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="50.0" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: blueviolet;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label layoutX="25.0" layoutY="24.0" text="DISPONÍVEL" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="3.0">
+                                    <font>
+                                        <Font name="System Bold" size="10.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER_RIGHT" layoutX="158.0" layoutY="169.0" text="R$ 0,00" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </AnchorPane>
+                    </children>
+                </HBox>
+                <Separator />
+            </children>
+        </VBox>
+        <VBox spacing="10.0">
+            <children>
+                <Label text="EXTRATO">
+                    <font>
+                        <Font name="Candara Bold" size="18.0" />
+                    </font>
+                </Label>
+                <HBox spacing="10.0">
+                    <children>
+                        <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                        <DatePicker maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Desde o dia" HBox.hgrow="ALWAYS" />
+                        <DatePicker maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="até o dia" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <TabPane side="BOTTOM" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab closable="false" text="Extrato">
+                    <content>
+                        <VBox>
+                            <children>
+                                <FlowPane alignment="CENTER" hgap="10.0" vgap="10.0">
+                                    <children>
+                                        <CheckBox mnemonicParsing="false" selected="true" text="Saques" />
+                                        <CheckBox mnemonicParsing="false" selected="true" text="Depósitos" />
+                                        <CheckBox mnemonicParsing="false" selected="true" text="Transferências" />
+                                    </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                                </FlowPane>
+                                <TreeTableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TreeTableColumn text="Data" />
+                                        <TreeTableColumn text="Tipo" />
+                                        <TreeTableColumn text="Histórico" />
+                                        <TreeTableColumn maxWidth="30.0" minWidth="30.0" prefWidth="30.0" text="C/D" />
+                                        <TreeTableColumn text="Valor" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TreeTableView>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab closable="false" text="Gráfico">
+                    <content>
+                        <LineChart>
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </LineChart>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <stylesheets>
+        <URL value="@/br/ufms/banking/view/css/default-style.css" />
+    </stylesheets>
+</VBox>

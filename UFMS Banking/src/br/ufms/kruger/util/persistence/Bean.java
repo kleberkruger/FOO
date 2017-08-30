@@ -34,6 +34,14 @@ public class Bean<T extends Serializable> implements Serializable {
     /**
      * Cria um novo objeto Bean. O construtor desta classe é protegido porque um objeto Bean só
      * existirá por meio de classes derivadas.
+     */
+    protected Bean() {
+        this.id = null;
+    }
+
+    /**
+     * Cria um novo objeto Bean. O construtor desta classe é protegido porque um objeto Bean só
+     * existirá por meio de classes derivadas.
      *
      * @param id
      */
@@ -65,7 +73,7 @@ public class Bean<T extends Serializable> implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Bean) {
+        if (id != null && obj instanceof Bean) {
             Bean x = (Bean) obj;
             return getClass() == x.getClass() && id.equals(x.id);
         }
@@ -86,9 +94,12 @@ public class Bean<T extends Serializable> implements Serializable {
      */
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(getClass().hashCode() + id.hashCode());
-        return hash;
+        if (id != null) {
+            int hash = 7;
+            hash = 43 * hash + Objects.hashCode(getClass().hashCode() + id.hashCode());
+            return hash;
+        }
+        return super.hashCode();
     }
 
 }

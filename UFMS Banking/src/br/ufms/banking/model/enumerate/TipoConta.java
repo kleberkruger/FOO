@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model.enumerate;
+package br.ufms.banking.model.enumerate;
 
 /**
  *
@@ -25,10 +25,10 @@ public enum TipoConta {
     CONTA_CORRENTE(001, "Conta Corrente"),
     CONTA_POUPANCA(013, "Conta Poupança");
 
-    private final Integer operacao;
+    private final int operacao;
     private final String descricao;
 
-    private TipoConta(Integer operacao, String descricao) {
+    private TipoConta(int operacao, String descricao) {
         this.operacao = operacao;
         this.descricao = descricao;
     }
@@ -36,7 +36,7 @@ public enum TipoConta {
     /**
      * @return the operacao
      */
-    public Integer getOperacao() {
+    public int getOperacao() {
         return operacao;
     }
     

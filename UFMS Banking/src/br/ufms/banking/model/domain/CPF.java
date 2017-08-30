@@ -16,7 +16,7 @@
  */
 package br.ufms.banking.model.domain;
 
-import br.ufms.bank.model.enumerate.TipoDocumento;
+import br.ufms.banking.model.enumerate.TipoDocumento;
 import java.util.InputMismatchException;
 
 /**

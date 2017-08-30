@@ -16,7 +16,7 @@
  */
 package examples;
 
-import br.ufms.banking.model.dao.BancarioDAO;
+import br.ufms.banking.model.dao.file.BancarioDAO;
 import br.ufms.banking.model.domain.Bancario;
 import br.ufms.kruger.util.persistence.PersistenceException;
 
@@ -30,33 +30,7 @@ public class MainTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        try {
-            Bancario bancario = new Bancario("Kleber Kr", "kleberkruger", "123");
-            new BancarioDAO().save(bancario);
-            
-            bancario = new BancarioDAO().get(1L);
-            System.out.println(bancario.getNome());
-            
-            bancario.setNome("Kleber Kruger");
-            new BancarioDAO().save(bancario);
-            
-            for (Bancario b : new BancarioDAO().getAll()) {
-                System.out.println(b.getNome());
-            }
-            
-            BancarioDAO dao = new BancarioDAO();
-            dao.delete(bancario);
-            
-            System.out.println("Bancarios: ");
-            for (Bancario b : dao.getAll()) {
-                System.out.println(b.getNome());
-            }
-            System.out.println("---");
-            
-        } catch (PersistenceException ex) {
-            System.err.println(ex.getMessage());
-        }
+
     }
-    
+
 }

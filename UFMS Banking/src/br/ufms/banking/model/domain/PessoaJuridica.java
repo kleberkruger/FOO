@@ -16,6 +16,7 @@
  */
 package br.ufms.banking.model.domain;
 
+import br.ufms.banking.model.enumerate.TipoCorrentista;
 import br.ufms.banking.util.Validador;
 
 /**
@@ -33,67 +34,34 @@ public class PessoaJuridica extends Correntista {
     /**
      * Cria um objeto PessoaJuridica.
      *
+     * @param agencia
      * @param nomeFantasia
      * @param razaoSocial
      * @param usuario
      * @param senha
      * @param cnpj
      */
-    public PessoaJuridica(String nomeFantasia, String razaoSocial,
+    public PessoaJuridica(Agencia agencia, String nomeFantasia, String razaoSocial, 
             String usuario, String senha, CNPJ cnpj) {
 
-        this(nomeFantasia, razaoSocial, usuario, senha, cnpj, null);
+        this(agencia, nomeFantasia, razaoSocial, usuario, senha, cnpj, null);
     }
 
     /**
      * Cria um objeto PessoaJuridica.
      *
+     * @param agencia
      * @param nomeFantasia
      * @param razaoSocial
      * @param usuario
      * @param senha
      * @param cnpj
-     * @param telefonePrincipal
+     * @param telefone
      */
-    public PessoaJuridica(String nomeFantasia, String razaoSocial,
-            String usuario, String senha, CNPJ cnpj, Telefone telefonePrincipal) {
+    public PessoaJuridica(Agencia agencia, String nomeFantasia, String razaoSocial, 
+            String usuario, String senha, CNPJ cnpj, Telefone telefone) {
 
-        this(nomeFantasia, razaoSocial, usuario, senha, cnpj, telefonePrincipal, null);
-    }
-
-    /**
-     * Cria um objeto PessoaJuridica.
-     *
-     * @param nomeFantasia
-     * @param razaoSocial
-     * @param usuario
-     * @param senha
-     * @param cnpj
-     * @param telefonePrincipal
-     * @param telefoneSecundario
-     */
-    public PessoaJuridica(String nomeFantasia, String razaoSocial, String usuario, String senha,
-            CNPJ cnpj, Telefone telefonePrincipal, Telefone telefoneSecundario) {
-
-        this(null, nomeFantasia, razaoSocial, usuario, senha, cnpj, telefonePrincipal, telefoneSecundario);
-    }
-
-    /**
-     * Cria um objeto PessoaJuridica.
-     *
-     * @param id
-     * @param nomeFantasia
-     * @param razaoSocial
-     * @param usuario
-     * @param senha
-     * @param cnpj
-     * @param telefonePrincipal
-     * @param telefoneSecundario
-     */
-    protected PessoaJuridica(Long id, String nomeFantasia, String razaoSocial, String usuario, String senha,
-            CNPJ cnpj, Telefone telefonePrincipal, Telefone telefoneSecundario) {
-
-        super(id, usuario, senha, telefonePrincipal, telefoneSecundario);
+        super(agencia, usuario, senha, telefone);
 
         setNomeFantasia(nomeFantasia);
         setRazaoSocial(razaoSocial);
@@ -141,7 +109,15 @@ public class PessoaJuridica extends Correntista {
      * @param cnpj the cnpj to set
      */
     public final void setCNPJ(CNPJ cnpj) {
+        if (cnpj == null) {
+            throw new IllegalArgumentException("O CNPJ não pode ser nulo.");
+        }
         this.cnpj = cnpj;
+    }
+
+    @Override
+    public TipoCorrentista getTipoCorrentista() {
+        return TipoCorrentista.PESSOA_JURIDICA;
     }
 
 }

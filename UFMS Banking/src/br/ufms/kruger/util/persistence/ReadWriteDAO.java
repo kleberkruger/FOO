@@ -133,12 +133,12 @@ public abstract class ReadWriteDAO<B extends Bean<T>, T extends Serializable> ex
     /**
      * Deleta o objeto Bean do banco de dados.
      *
-     * @param codigo
+     * @param id
      * @throws SQLException
      */
-    public void delete(T codigo) throws SQLException {
+    public void delete(T id) throws SQLException {
         try (Connection conn = db.getConnection()) {
-            delete(conn, codigo);
+            delete(conn, id);
         }
     }
 
@@ -150,9 +150,9 @@ public abstract class ReadWriteDAO<B extends Bean<T>, T extends Serializable> ex
      * Deleta o objeto Bean do banco de dados.
      *
      * @param conn
-     * @param codigo
+     * @param id
      * @throws SQLException
      */
-    protected abstract void delete(Connection conn, T codigo) throws SQLException;
+    protected abstract void delete(Connection conn, T id) throws SQLException;
 
 }

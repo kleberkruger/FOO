@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -40,5 +41,6 @@
                 <HBox minWidth="200.0" prefHeight="100.0" style="-fx-background-color: blueviolet;" />
             </children>
         </FlowPane>
+      <JFXTreeTableView />
     </children>
 </VBox>

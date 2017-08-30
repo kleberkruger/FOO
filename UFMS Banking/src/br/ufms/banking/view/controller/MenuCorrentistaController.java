@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
@@ -34,6 +35,8 @@ import javafx.scene.control.TitledPane;
  */
 public class MenuCorrentistaController implements Initializable {
 
+    @FXML
+    private StackPane dadosConta;
     @FXML
     private TitledPane deposito;
     @FXML
@@ -51,19 +54,24 @@ public class MenuCorrentistaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
+            FXMLLoader loader0 = new FXMLLoader();
+            Parent form0 = (Parent) loader0.load(getClass().getClassLoader().getResourceAsStream(
+                    "br/ufms/banking/view/fxml/DadosConta.fxml"));
+            dadosConta.getChildren().add(form0);
+            
             FXMLLoader loader1 = new FXMLLoader();
             Parent form1 = (Parent) loader1.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/banking/view/fxml/Deposito.fxml"));
+                    "br/ufms/banking/view/fxml/FormDeposito.fxml"));
             deposito.setContent(form1);
 
             FXMLLoader loader2 = new FXMLLoader();
             Parent form2 = (Parent) loader2.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/banking/view/fxml/Saque.fxml"));
+                    "br/ufms/banking/view/fxml/FormSaque.fxml"));
             saque.setContent(form2);
             
             FXMLLoader loader3 = new FXMLLoader();
             Parent form3 = (Parent) loader3.load(getClass().getClassLoader().getResourceAsStream(
-                    "br/ufms/banking/view/fxml/Transferencia.fxml"));
+                    "br/ufms/banking/view/fxml/FormTransferencia.fxml"));
             transferencia.setContent(form3);
             
         } catch (IOException ex) {

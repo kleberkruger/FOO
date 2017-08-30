@@ -335,4 +335,24 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param numeroConta
+     */
+    public static void validarNumeroConta(int numeroConta) {
+        if (numeroConta < 1) {
+            throw new IllegalArgumentException("Número de conta inválido.");
+        }
+    }
+    
+    /**
+     *
+     * @param numeroConta
+     * @param digito
+     * @return
+     */
+    public static boolean validarNumeroConta(int numeroConta, short digito) {
+        return true;
+    }
+
 }

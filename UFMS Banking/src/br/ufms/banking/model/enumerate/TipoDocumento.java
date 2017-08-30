@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.ufms.bank.model.enumerate;
+package br.ufms.banking.model.enumerate;
 
 /**
  *
@@ -22,10 +22,19 @@ package br.ufms.bank.model.enumerate;
  */
 public enum TipoDocumento {
 
-    CNAE, CNPJ, CPF, IE, IM, RG;
-
-    @Override
-    public String toString() {
+    CNPJ, CPF, IE, RG;
+    
+    public String getNomeExtenso() {
+        switch (this) {
+            case CNPJ:
+                return "Cadastro Nacional de Pessoa Jurídica";
+            case CPF:
+                return "Cadastro de Pessoa Física";
+            case IE:
+                return "Inscrição Estadual";
+            case RG:
+                return "Registro Geral";
+        }
         return super.toString();
     }
 
