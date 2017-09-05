@@ -20,6 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : Kleber Kruger
 */
 
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 .login {
     -fx-base: blueviolet;
 }
@@ -31,4 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .form > *.error {
     -fx-border-color: red;
 }
-

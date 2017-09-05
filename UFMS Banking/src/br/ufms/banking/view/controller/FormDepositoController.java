@@ -18,7 +18,10 @@ package br.ufms.banking.view.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -27,12 +30,32 @@ import javafx.fxml.Initializable;
  */
 public class FormDepositoController implements Initializable {
 
+    @FXML
+    private TextField nomeDepositanteText;
+    @FXML
+    private TextField foneDepositanteText;
+    @FXML
+    private TextField operacaoText;
+    @FXML
+    private TextField numeroContaText;
+    @FXML
+    private TextField nomeFavorecidoText;
+    @FXML
+    private TextField valorText;
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    @FXML
+    private void depositar(ActionEvent event) {
+//        conta.depositar(Double.parseDouble(valorText.getText()), nomeDepositanteText.getText());
+    }
 }

@@ -32,11 +32,10 @@ public class BankingApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
-                "br/ufms/banking/view/fxml/TabelaCorrentista.fxml"));
+                "br/ufms/banking/view/fxml/Login.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("br/ufms/banking/view/css/default-style.css");
-//        scene.getStylesheets().add("br/ufms/banking/view/css/jmetro/JMetroLightTheme.css");
 
         stage.setScene(scene);
         stage.setTitle("UFMS-Banking");
