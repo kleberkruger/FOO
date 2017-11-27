@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Jogo da Velha.jnlp">
+  <information>
+    <title>Jogo da Velha</title>
+    <vendor>Universidade Federal de Mato Grosso do Sul</vendor>
+    <description></description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="JogoDaVelha.jar" size="10824" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Jogo da Velha" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="br.ufms.app.JogoDaVelhaApp"  name="Jogo da Velha" />
+  <update check="always"/>
+</jnlp>

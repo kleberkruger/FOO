@@ -1,0 +1,46 @@
+/*
+ * Copyright (C) 2017 Universidade Federal de Mato Grosso do Sul
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* 
+    Created on : 27/11/2017, 05:29:58
+    Author     : Kleber Kruger
+*/
+
+.mapa-velha {
+    -fx-background-color: white;
+}
+.mapa-velha .separator *.line { 
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+}
+.mapa-velha .button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-font-size: 96px;
+}
+.mapa-velha .button:disabled {
+    -fx-opacity: 1.0;
+}
+.mapa-velha .button.jogador-x {
+    -fx-text-fill: blue;
+}
+.mapa-velha .button.jogador-o {
+    -fx-text-fill: orange;
+}
+
