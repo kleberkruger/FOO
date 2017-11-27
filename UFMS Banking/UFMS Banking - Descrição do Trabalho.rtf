@@ -1,0 +1,43 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20280\viewh13060\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf0 UFMS Banking\
+\
+Seu programa deve possibilitar o cadastramento de v\'e1rios bancos a fim de facilitar as opera\'e7\'f5es de transfer\'eancias entre bancos. \
+* Um banco \'e9 composto por c\'f3digo e nome. Nessa tabela, o banco UFMS Banking deve possuir o c\'f3digo 100.\
+\
+Um banco \'e9 composto por N ag\'eancias. Cada ag\'eancia possui um n\'famero de 4 d\'edgitos (zero fill), e caso queira, um d\'edgito verificador. Al\'e9m do n\'famero, as ag\'eancias possuem: telefone, cidade, estado.\
+\
+Seu programa deve permitir a cria\'e7\'e3o de dois tipos de contas:\
+* Conta-corrente (opera\'e7\'e3o 001) (n\'famero da conta (+ d\'edgito verificador), ag\'eancia, saldo, limite)\
+* Conta-poupan\'e7a (opera\'e7\'e3o 013) (n\'famero da conta (+ d\'edgito verificador), ag\'eancia, saldo, categoria)\
+	* A categoria cont\'e9m a taxa de rendimento do cliente: clientes da categoria A receber\'e3o rendimentos de juros de 0,75% a.m. Da categoria B 0,6% a.m. e da categoria C 0,5% a.m.\
+\
+Existem dois tipos de usu\'e1rios:\
+* Banc\'e1rio (nome, CPF, ag\'eancia em que trabalha, usu\'e1rio e senha)\
+* Correntista (pessoa f\'edsica ou jur\'eddica)\
+	* Pessoa F\'edsica (nome, CPF, telefone, usu\'e1rio, senha)\
+	* Pessoa Jur\'eddica (nome fantasia, raz\'e3o social, CNPJ, telefone)\
+	* Cada correntista est\'e1 associado a um n\'famero de conta. Portanto, a conta corrente e a conta poupan\'e7a possuem o mesmo n\'famero, diferenciando-se apenas pelo c\'f3digo da opera\'e7\'e3o.\
+\
+Seu programa deve possibilitar as seguintes opera\'e7\'f5es:\
+* Saque\
+* Dep\'f3sito\
+* Transfer\'eancia\
+* TED (transfer\'eancia para outro banco)\
+\
+Toda movimenta\'e7\'e3o deve ser armazenada no banco de dados, podendo o cliente:\
+* saber qual o tipo da movimenta\'e7\'e3o (saque, dep\'f3sito, transfer\'eancia, etc)\
+* conferir a data e a hora da movimenta\'e7\'e3o\
+* o valor da movimenta\'e7\'e3o\
+* em caso de transfer\'eancia, saber qual foi a conta de destino\
+* em caso de dep\'f3sito, saber qual o n\'famero do envelope (auto-increment), nome e telefone do depositante.\
+\
+Escolha corretamente a cardinalidade dos relacionamentos e mapeie de forma eficiente as entidades em seu programa.\
+\
+Use e abuse da orienta\'e7\'e3o a objetos :-))\
+}
