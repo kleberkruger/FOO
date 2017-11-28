@@ -53,7 +53,7 @@
     -fx-text-fill: steelblue;
 }
 .mapa-velha .button.jogador-o {
-    -fx-text-fill: tomato;
+    -fx-text-fill: coral;
 }
 .mapa-velha .button.ganhou {
     -fx-text-fill: red;
