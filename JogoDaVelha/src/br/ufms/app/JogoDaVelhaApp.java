@@ -38,6 +38,7 @@ public class JogoDaVelhaApp extends Application {
         scene.getStylesheets().add("br/ufms/view/css/style.css");
 
         stage.setTitle("Jogo da Velha");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

@@ -64,6 +64,7 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
     private final Button[] botoes;
 
     public JogoDaVelhaController() {
+        super(true);
         this.botoes = new Button[9];
     }
 
