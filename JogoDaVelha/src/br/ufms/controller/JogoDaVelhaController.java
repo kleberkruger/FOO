@@ -26,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -41,6 +42,9 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
     private TextField placarX;
     @FXML
     private TextField placarO;
+    
+    @FXML
+    private Label lblMsg;
 
     @FXML
     private Button btn1;
@@ -118,6 +122,7 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
         sleeper.setOnSucceeded((WorkerStateEvent event) -> {
             super.reiniciar();
             for (Button btn : botoes) {
+                lblMsg.setText(null);
                 btn.disableProperty().bind(btn.textProperty().isNotNull().and(btn.textProperty().isNotEmpty()));
             }
         });
@@ -126,11 +131,18 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
 
     @Override
     public void jogadorGanhou(String jogador) {
+        if (jogador.equalsIgnoreCase("o")) {
+            lblMsg.setText("Você perdeu, mané!");
+        } else {
+            lblMsg.setText("Parabéns, você ganhou!");
+        }
+        
         reiniciarPartida();
     }
 
     @Override
     public void terminouEmVelha() {
+        lblMsg.setText("Deu velha!");
         reiniciarPartida();
     }
 

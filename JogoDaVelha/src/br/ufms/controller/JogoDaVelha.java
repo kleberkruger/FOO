@@ -172,14 +172,6 @@ public abstract class JogoDaVelha {
         jogadorAtual.set(jogadorAtual.get().equalsIgnoreCase("x") ? "o" : "x");
     }
 
-//    private void processarJogada(String simbolo) {
-//        if (ganhou(simbolo)) {
-//            jogadorGanhou(simbolo);
-//            pontuar(simbolo);
-//        } else if (deuVelha()) {
-//            terminouEmVelha();
-//        }
-//    }
     private boolean deuVelha() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

@@ -19,6 +19,14 @@
     Created on : 27/11/2017, 05:29:58
     Author     : Kleber Kruger
 */
+.label.mensagem {
+    -fx-background-color: white;
+    -fx-padding: 10 20 0 20;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: red;
+    -fx-opacity: 0.8;
+}
 
 .mapa-velha {
     -fx-background-color: white;
