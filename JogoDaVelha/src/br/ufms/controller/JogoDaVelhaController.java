@@ -152,7 +152,11 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
 
     @Override
     public void terminouEmVelha() {
-        lblMsg.setText("Deu velha!");
+        
+        for (Button btn : botoes) {
+            btn.getStyleClass().setAll("button");
+        }
+        
         reiniciarPartida();
     }
 
