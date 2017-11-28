@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Point2D;
 
 /**
  *
@@ -136,11 +137,11 @@ public abstract class JogoDaVelha {
             }
 
             int pos = jogadorVirtual.jogar();
-            
+
             for (StringProperty property : campos) {
                 property.addListener(processarJogada);
             }
-            
+
             if (pos != -1) {
                 int l = pos / 3;
                 int c = pos % 3;
@@ -158,8 +159,9 @@ public abstract class JogoDaVelha {
         }
 
         private void processarJogada(String simbolo) {
-            if (ganhou(simbolo)) {
-                jogadorGanhou(simbolo);
+            Point2D[] pontos = ganhou2(simbolo);
+            if (pontos != null) {
+                jogadorGanhou(simbolo, pontos);
                 pontuar(simbolo);
             } else if (deuVelha()) {
                 terminouEmVelha();
@@ -195,21 +197,79 @@ public abstract class JogoDaVelha {
         return matriz[lin][col].getValueSafe().equalsIgnoreCase(simbolo);
     }
 
-    private boolean ganhouLinha(String simbolo) {
-        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(0, 1, simbolo) && equalsMatriz(0, 2, simbolo))
-                || (equalsMatriz(1, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(1, 2, simbolo))
-                || (equalsMatriz(2, 0, simbolo) && equalsMatriz(2, 1, simbolo) && equalsMatriz(2, 2, simbolo));
+//    private boolean ganhouLinha(String simbolo) {
+//        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(0, 1, simbolo) && equalsMatriz(0, 2, simbolo))
+//                || (equalsMatriz(1, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(1, 2, simbolo))
+//                || (equalsMatriz(2, 0, simbolo) && equalsMatriz(2, 1, simbolo) && equalsMatriz(2, 2, simbolo));
+//    }
+//
+//    private boolean ganhouColuna(String simbolo) {
+//        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 0, simbolo) && equalsMatriz(2, 0, simbolo))
+//                || (equalsMatriz(0, 1, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 1, simbolo))
+//                || (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 2, simbolo) && equalsMatriz(2, 2, simbolo));
+//    }
+//
+//    private boolean ganhouDiagonal(String simbolo) {
+//        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 2, simbolo))
+//                || (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 0, simbolo));
+//    }
+//
+//    /**
+//     * Verifica se alguém ganhou o jogo.
+//     *
+//     * @param simbolo pode ser 'X' ou 'O'.
+//     * @return verdadeiro se letra ganhou o jogo, senão falso.
+//     */
+//    private boolean ganhou(String simbolo) {
+//        return ganhouLinha(simbolo) || ganhouColuna(simbolo) || ganhouDiagonal(simbolo);
+//    }
+    private Point2D[] ganhouLinha2(String simbolo) {
+        if (equalsMatriz(0, 0, simbolo) && equalsMatriz(0, 1, simbolo) && equalsMatriz(0, 2, simbolo)) {
+            return new Point2D[]{new Point2D(0, 0), new Point2D(0, 1), new Point2D(0, 2)};
+        } else if (equalsMatriz(1, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(1, 2, simbolo)) {
+            return new Point2D[]{new Point2D(1, 0), new Point2D(1, 1), new Point2D(1, 2)};
+        } else if (equalsMatriz(2, 0, simbolo) && equalsMatriz(2, 1, simbolo) && equalsMatriz(2, 2, simbolo)) {
+            return new Point2D[]{new Point2D(2, 0), new Point2D(2, 1), new Point2D(2, 2)};
+        }
+        return null;
     }
 
-    private boolean ganhouColuna(String simbolo) {
-        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 0, simbolo) && equalsMatriz(2, 0, simbolo))
-                || (equalsMatriz(0, 1, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 1, simbolo))
-                || (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 2, simbolo) && equalsMatriz(2, 2, simbolo));
+    private Point2D[] ganhouColuna2(String simbolo) {
+        if (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 0, simbolo) && equalsMatriz(2, 0, simbolo)) {
+            return new Point2D[]{new Point2D(0, 0), new Point2D(1, 0), new Point2D(2, 0)};
+        } else if (equalsMatriz(0, 1, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 1, simbolo)) {
+            return new Point2D[]{new Point2D(0, 1), new Point2D(1, 1), new Point2D(2, 1)};
+        } else if (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 2, simbolo) && equalsMatriz(2, 2, simbolo)) {
+            return new Point2D[]{new Point2D(0, 2), new Point2D(1, 2), new Point2D(2, 2)};
+        }
+        return null;
     }
 
-    private boolean ganhouDiagonal(String simbolo) {
-        return (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 2, simbolo))
-                || (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 0, simbolo));
+    private Point2D[] ganhouDiagonal2(String simbolo) {
+        if (equalsMatriz(0, 0, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 2, simbolo)) {
+            return new Point2D[]{new Point2D(0, 0), new Point2D(1, 1), new Point2D(2, 2)};
+        } else if (equalsMatriz(0, 2, simbolo) && equalsMatriz(1, 1, simbolo) && equalsMatriz(2, 0, simbolo)) {
+            return new Point2D[]{new Point2D(0, 2), new Point2D(1, 1), new Point2D(2, 0)};
+        }
+        return null;
+    }
+
+    /**
+     * Verifica se alguém ganhou o jogo.
+     *
+     * @param simbolo pode ser 'X' ou 'O'.
+     * @return
+     */
+    private Point2D[] ganhou2(String simbolo) {
+        Point2D[] resultado = ganhouLinha2(simbolo);
+        if (resultado != null) {
+            return resultado;
+        }
+        resultado = ganhouColuna2(simbolo);
+        if (resultado != null) {
+            return resultado;
+        }
+        return ganhouDiagonal2(simbolo);
     }
 
     /**
@@ -219,43 +279,7 @@ public abstract class JogoDaVelha {
      * @return verdadeiro se letra ganhou o jogo, senão falso.
      */
     private boolean ganhou(String simbolo) {
-        return ganhouLinha(simbolo) || ganhouColuna(simbolo) || ganhouDiagonal(simbolo);
-    }
-
-    /**
-     * Verifica se alguém ganhou o jogo.
-     *
-     * @param simbolo pode ser 'X' ou 'O'.
-     * @return verdadeiro se letra ganhou o jogo, senão falso.
-     */
-    private boolean ganhou(String matriz[][], String simbolo) {
-        return // linhas
-                (matriz[0][0] != null && matriz[0][0].equalsIgnoreCase(simbolo)
-                && matriz[0][1] != null && matriz[0][1].equalsIgnoreCase(simbolo)
-                && matriz[0][2] != null && matriz[0][2].equalsIgnoreCase(simbolo))
-                || (matriz[1][0] != null && matriz[1][0].equalsIgnoreCase(simbolo)
-                && matriz[1][1] != null && matriz[1][1].equalsIgnoreCase(simbolo)
-                && matriz[1][2] != null && matriz[1][2].equalsIgnoreCase(simbolo))
-                || (matriz[2][0] != null && matriz[2][0].equalsIgnoreCase(simbolo)
-                && matriz[2][1] != null && matriz[2][1].equalsIgnoreCase(simbolo)
-                && matriz[2][2] != null && matriz[2][2].equalsIgnoreCase(simbolo))
-                || // colunas 
-                (matriz[0][0] != null && matriz[0][0].equalsIgnoreCase(simbolo)
-                && matriz[1][0] != null && matriz[1][0].equalsIgnoreCase(simbolo)
-                && matriz[2][0] != null && matriz[2][0].equalsIgnoreCase(simbolo))
-                || (matriz[0][1] != null && matriz[0][1].equalsIgnoreCase(simbolo)
-                && matriz[1][1] != null && matriz[1][1].equalsIgnoreCase(simbolo)
-                && matriz[2][1] != null && matriz[2][1].equalsIgnoreCase(simbolo))
-                || (matriz[0][2] != null && matriz[0][2].equalsIgnoreCase(simbolo)
-                && matriz[1][2] != null && matriz[1][2].equalsIgnoreCase(simbolo)
-                && matriz[2][2] != null && matriz[2][2].equalsIgnoreCase(simbolo))
-                || // diagonais     
-                (matriz[0][0] != null && matriz[0][0].equalsIgnoreCase(simbolo)
-                && matriz[1][1] != null && matriz[1][1].equalsIgnoreCase(simbolo)
-                && matriz[2][2] != null && matriz[2][2].equalsIgnoreCase(simbolo))
-                || (matriz[0][2] != null && matriz[0][2].equalsIgnoreCase(simbolo)
-                && matriz[1][1] != null && matriz[1][1].equalsIgnoreCase(simbolo)
-                && matriz[2][0] != null && matriz[2][0].equalsIgnoreCase(simbolo));
+        return ganhou2(simbolo) != null;
     }
 
     /**
@@ -342,7 +366,7 @@ public abstract class JogoDaVelha {
         return campos;
     }
 
-    public abstract void jogadorGanhou(String jogador);
+    public abstract void jogadorGanhou(String jogador, Point2D[] pontos);
 
     public abstract void terminouEmVelha();
 
@@ -351,86 +375,11 @@ public abstract class JogoDaVelha {
         private final String simbolo;
         private final String outroSimbolo;
 
-        private final String matrizCopia[][] = new String[3][3];
-
         public JogadorVirtual(String simbolo) {
             this.simbolo = simbolo;
             this.outroSimbolo = simbolo.equalsIgnoreCase("x") ? "o" : "x";
         }
 
-//        private void copiarMatriz(StringProperty matriz[][]) {
-//            for (int i = 0; i < 3; i++) {
-//                for (int j = 0; j < 3; j++) {
-//                    matrizCopia[i][j] = matriz[i][j].getValueSafe();
-//                }
-//            }
-//        }
-//
-//        public int jogar() {
-//            int maxLin = 0, maxCol = 0, max = -2;
-//            
-//            copiarMatriz(matriz);
-//
-//            for (int lin = 0; lin < 3; lin++) {
-//                for (int col = 0; col < 3; col++) {
-//                    if (!isOcupado(matrizCopia, lin, col)) {
-//                        matrizCopia[lin][col] = simbolo;
-//                        int valor = minimax(false); // vez do usuario
-//                        matrizCopia[lin][col] = "";
-//                        if (valor > max) {
-//                            max = valor;
-//                            maxLin = lin;
-//                            maxCol = col;
-//                        }
-//                    }
-//                }
-//            }
-//            if (max == -2) {
-//                return -1;
-//            } else {
-//                return 3 * maxLin + maxCol;
-//            }
-//        }
-//
-//        /**
-//         * Calcula o valor de uma jogada
-//         *
-//         * @param vezComputador é true na jogada do Computador.
-//         * @return o valor maximo da jogada na vez do Computador e o valor mínimo na vez do Usuário.
-//         */
-//        private int minimax(boolean vezComputador) {
-//            int valor, max = -2, min = 2;
-//            if (ganhou(matrizCopia, simbolo)) {
-//                return 1;   // máximo para o computador
-//            }
-//            if (ganhou(matrizCopia, simbolo)) {
-//                return -1;  // minimo para o usuário
-//            }
-//            for (int lin = 0; lin < 3; lin++) {
-//                for (int col = 0; col < 3; col++) {
-//                    if (!isOcupado(matrizCopia, lin, col)) {
-//                        matrizCopia[lin][col] = vezComputador ? simbolo : outroSimbolo;
-//                        valor = minimax(!vezComputador);
-//                        matrizCopia[lin][col] = null;
-//                        if (valor > max) {
-//                            max = valor;
-//                        }
-//                        if (valor < min) {
-//                            min = valor;
-//                        }
-//                    }
-//                }
-//            }
-//            // significa que todas posicoes estão ocupadas e max não foi atualizado
-//            // no if dentro dos laços for
-//            if (max == -2) {
-//                return 0;
-//            }
-//            if (vezComputador) {
-//                return max;
-//            } else {
-//                return min;
-//            }
         public int jogar() {
 
             int maxLin = 0, maxCol = 0, valor, max = -2;
@@ -451,7 +400,6 @@ public abstract class JogoDaVelha {
             if (max == -2) {
                 return -1;
             } else {
-//                matriz[maxLin][maxCol].set(simbolo);
                 return 3 * maxLin + maxCol;
             }
         }

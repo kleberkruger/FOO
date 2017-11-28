@@ -39,16 +39,23 @@
 .mapa-velha .button {
     -fx-background-color: transparent;
     -fx-background-radius: 0;
+    -fx-text-fill: grey;
     -fx-padding: 0;
     -fx-font-size: 96px;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 }
 .mapa-velha .button:disabled {
     -fx-opacity: 1.0;
 }
 .mapa-velha .button.jogador-x {
-    -fx-text-fill: blue;
+    -fx-text-fill: steelblue;
 }
 .mapa-velha .button.jogador-o {
-    -fx-text-fill: orange;
+    -fx-text-fill: tomato;
+}
+.mapa-velha .button.ganhou {
+    -fx-text-fill: red;
 }
 

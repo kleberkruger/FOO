@@ -24,6 +24,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -130,7 +131,16 @@ public class JogoDaVelhaController extends JogoDaVelha implements Initializable 
     }
 
     @Override
-    public void jogadorGanhou(String jogador) {
+    public void jogadorGanhou(String jogador, Point2D[] pontos) {
+        
+        for (Button btn : botoes) {
+            btn.getStyleClass().setAll("button");
+        }
+        for (Point2D p : pontos) {
+            int index = 3 * (int) p.getX() + (int) p.getY();
+            botoes[index].getStyleClass().setAll("button", "ganhou");
+        }
+        
         if (jogador.equalsIgnoreCase("o")) {
             lblMsg.setText("Você perdeu, mané!");
         } else {
